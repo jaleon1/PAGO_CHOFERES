@@ -1,0 +1,241 @@
+/* GENERAL */
+.container{
+    width: 100%;
+}
+/* HEADER */
+    header{
+        background-color:#222222;
+        padding-top: 25px;
+    }
+/* CONTENT */
+    h1{
+        color: #B8B8B8;
+    }
+    #main{
+        background-color: #2C2C2C;
+        color: #B8B8B8;
+    }
+    /* Botones */
+    .btn{
+        width: 100%;
+        height: 40px;
+    }
+    /* Inputs*/
+        .input-format{
+            margin-left: 0px;
+            margin-top: 0px;
+            padding-top: 0px;
+            width: 95%;
+            height: 25px;
+            font-family: 'Lato', Calibri, Arial, sans-serif;
+            font-size: 15px;
+            background: white;
+            border: 2px solid #fff;
+        }
+    /* Labels*/
+        .lbl-style{
+            font-size: 14px;
+            font-weight: bold;
+        }
+    /* Imagenes*/
+        .whiteiconcolor{color:#ffffff;}
+
+    /* Menu*/
+        .menu-bar{
+            background-color: #ffbc01;
+            margin-top: 0px;
+        }
+            .menu-bar a{
+                color: #2a1000;
+                font-size: 16px;
+                font-weight: 500;
+            }
+            .menu-bar a:hover{
+                text-decoration: none;
+                color:#fff;
+            }
+        .menu-list{
+            padding: 0px 0;
+            margin-bottom: 0;
+        }
+            .menu-list > li:not(:last-child){
+                margin-right: 40px;
+            }
+    /* Divs Mantenimiento*/
+        #div-mant{
+            height: 700px;
+        }
+            #div-mant-titulo{
+                width: 100%;
+                height: 60px;
+                float: left;
+                text-align: center;
+                padding-top: 5px;
+                margin-top: 20px;
+            }
+            /* Tabla chofer*/
+                #div-mant-tblchofer{
+                    width: 100%;
+                    height: 100%;
+                    float: left;
+                    padding-top: 55px;
+                    color: #2C2C2C;
+                }
+                #tblchofer{
+                    width:70%
+                }
+                #div-mant-ingresos{
+                    width: 49%;
+                    float: left;
+                }
+                #div-mant-gastos{
+                    width: 49%;
+                    float: right;
+                }
+                #div-mant-inputs{
+                    height: 200px;
+                }
+
+    /* Divs Formulario*/
+        #div-form{
+            font-size: 12px;
+            height: 700px;
+            margin-top: 20px;
+        }
+            #div-form-titulo{
+                width: 100%;
+                height: 60px;
+                float: left;
+                text-align: center;
+                padding-top: 5px;
+            }
+            #div-form-fecha{
+                width: 50%;
+                height: 60px;
+                float: left;
+                padding-top: 5px;
+            }
+            #div-form-chofer{
+                width: 50%;
+                height: 60px;
+                float: left;
+                padding-top: 5px;
+                
+            }
+            #div-form-hora-salida{
+                width: 50%;
+                height: 60px;
+                float: left;
+                padding-top: 5px;
+                
+            }
+            #div-form-contenedor{
+                width: 50%;
+                height: 60px;
+                float: left;
+                padding-top: 5px;
+                
+            }
+            #div-form-placa{
+                width: 50%;
+                height: 60px;
+                float: left;
+                padding-top: 5px;
+            }
+            #div-form-finca{
+                width: 50%;
+                height: 60px;
+                float: left;
+                padding-top: 5px;
+                
+            }
+            #div-form-naviera{
+                width: 50%;
+                height: 60px;
+                float: left;
+                padding-top: 5px;
+                
+            }
+            #div-form-valor-viaje{
+                width: 50%;
+                height: 60px;
+                float: left;
+                padding-top: 5px;
+                
+            }
+            #div-form-conversion{
+                width: 50%;
+                height: 60px;
+                float: left;
+                padding-top: 36px;
+            }
+            #div-form-ingresos{
+                width: 49%;
+                height: 200px;
+                float: left;
+                padding-top: 5px;
+            }
+            #div-form-gastos{
+                width: 49%;
+                height: 200px;
+                float: right;
+                padding-top: 5px;
+                
+            }
+            #div-form-total-pago{
+                width: 100%;
+                height: 30px;
+                float: left;
+                padding-top: 5px;
+            }
+                #inp-total-pago{
+                    width: 100px;
+                }
+            #div-mant-titulo{
+                height: 60px;
+                float: left;
+            }
+            .div-80{
+                width: 70%;
+                float: left;
+            }
+            .div-20{
+                width: 30%;
+                float: left;
+            }
+            .div-20-80{
+                height: 70%;
+                float: left;
+            }
+            .div-20-20{
+                height: 30%;
+                float: left;
+            }
+            .div-80-50{
+                width: 50%;
+                float: left;
+            }
+        /* Tables */
+        .tbl{
+            color: #222222;
+        }
+        .text-area{
+            width: 95%;
+            float: left;
+            margin-left: 0px;
+        }
+        #btnguardar{
+            float: right;
+            width: 50%;
+        }
+        /*Imagenes*/
+        .borrar{
+            width: 17px;
+            height: 17px;
+        }
+    /* FOOTER */
+    footer{
+        margin-top: 0px;
+        background-color:#222222;
+        height: 100px;
+    }
