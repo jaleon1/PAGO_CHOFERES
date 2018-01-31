@@ -17,8 +17,8 @@
     }
     /* Botones */
     .btn{
-        width: 100%;
-        height: 40px;
+        width: 95%;
+        height: 60%;
     }
     /* Inputs*/
         .input-format{
@@ -64,12 +64,15 @@
     /* Divs Mantenimiento*/
         #div-mant{
             float: left;
-            height: 700px;
-            width: 40%;
+            height: 650px;
+            width: 100%;
             margin-top: 20px;
         }
             #div-mants{
                 float: left;
+                width: 100%;
+                height: 340px;
+                background-color: yellow;
             }
             #div-mant-titulo{
                 width: 100%;
@@ -77,6 +80,7 @@
                 float: left;
                 text-align: center;
                 padding-top: 5px;
+                background-color: green;
             }
             /* Tabla chofer*/
                 #div-mant-tblchofer{
@@ -99,15 +103,15 @@
                 }
                 #div-mant-inputs{
                     float: left;
-                    height: 200px;
+                    height: 180px;
+                    width: 100%;
+                    background-color: red;
                 }
 
     /* Divs Formulario*/
         #div-form{
             float: left;
-            width: 40%;
             font-size: 12px;
-            height: 700px;
             margin-top: 20px;
         }
             .principal-row{
@@ -128,19 +132,25 @@
                 background-color: blueviolet;
             }
             .prin-margen{
-                width: 10%;
+                width: 5%;
+                float: left;
+                height: 100%;
+                background-color: gray;
+            }
+            .prin-margen-center{
+                width: 2.5%;
                 float: left;
                 height: 100%;
                 background-color: gray;
             }
             .contenido-form{
-                width: 90%;
+                width: 92.5%;
                 float: left;
                 height: 100%;
                 background-color: yellowgreen;
             }
             .contenido-mant{
-                width: 90%;
+                width: 92.5%;
                 float: left;
                 height: 100%;
                 background-color:brown;
@@ -278,6 +288,44 @@
             width: 17px;
             height: 17px;
         }
+
+        /*CHOFER*/
+        #input-chofer{
+            width: 100%;
+            height: 100%;
+            float: left;
+        }
+        #input-finca{
+            width: 100%;
+            height: 100%;
+            float: left;            
+        }
+        .caja-media{
+            width: 50%;
+            height: 100%;
+            float: left;
+        }
+        .caja-cuarto{
+            width: 25%;
+            height: 100%;
+            float: left;
+            background-color: rosybrown;
+        }
+        .contenido-input{
+            width: 100%;
+            height: 33.33%;
+            float: left;
+        }
+        #boton{
+            background-color: black;
+        }
+        #btnguardarchofer{
+            margin-right: 5%;
+        }
+        #xxx{
+            background-color: blue;
+        }
+
     /* FOOTER */
     footer{
         margin-top: 0px;
