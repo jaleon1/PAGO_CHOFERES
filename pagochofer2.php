@@ -107,7 +107,7 @@ if (!isset($_SESSION))
                             <div class=caja-media>
                                 <div class=contenido-input>
                                     <label for="lbl-nombre-finca" class="lbl-style">Nombre</label>
-                                    <linput type="text" id="inp-nombre-finca" name="inp-nombre-finca" class="input-format" value="" required/>
+                                    <input type="text" id="inp-nombre-finca" name="inp-nombre-finca" class="input-format" value="" required/>
                                 </div>
                                 <div class=contenido-input>
 
@@ -119,7 +119,7 @@ if (!isset($_SESSION))
                             <div class=caja-cuarto>
                                 <div class=contenido-input>
                                     <label for="lbl-ubicacion-finca" class="lbl-style">Ubicación</label>
-                                    <linput type="text" id="inp-ubicacion-finca" name="inp-ubicacion-finca" class="input-format" value="" required/>
+                                    <input type="text" id="inp-ubicacion-finca" name="inp-ubicacion-finca" class="input-format" value="" required/>
                                 </div>
                                 <div id=xxx class=contenido-input>
 
@@ -131,13 +131,13 @@ if (!isset($_SESSION))
                             <div class=caja-cuarto>
                                 <div class=contenido-input>
                                     <label for="lbl-tel-finca" class="lbl-style">Telefono</label>
-                                    <linput type="text" id="inp-tel-finca" name="inp-tel-finca" class="input-format" value="" required/>                        
+                                    <input type="text" id="inp-tel-finca" name="inp-tel-finca" class="input-format" value="" required/>                        
                                 </div>
                                 <div class=contenido-input>
-
+                                    <input type="button" id="btnguardarfinca" class="btn" value="Guardar">        
                                 </div>
                                 <div id=boton class=contenido-input>
-                                    <linput type="button" id="btnguardarfinca" class="btn" value="Guardar">
+                                    
                                 </div>
                             </div>
                         </div>                        

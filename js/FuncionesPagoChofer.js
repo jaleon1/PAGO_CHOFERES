@@ -10,7 +10,6 @@ $(document).ready( function () {
     //document.getElementById('form-date-crtl').value = getDate(); 
     Fecha();
     ingresosgastosformulario();
-    $('#input-chofer').html(""); 
     $('#div-finca').hide();
 });
 
