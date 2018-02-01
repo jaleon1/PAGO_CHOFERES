@@ -16,7 +16,7 @@ $(document).ready( function () {
 $(document).on('click', '#menu-finca', function (event) {    
     finca();
     $('#div-finca').show();
-    //mantenimientofinca();
+    mantenimientofinca();
 });
 
 $(document).on('click', '#inp-finca', function (event) {    
@@ -43,12 +43,16 @@ function finca(){
 
     $('#tblfinca').DataTable({
         "order": [[ 1, "asc" ]],
-        "paging":   false
+        "paging":   false,
+        "scrollY": "180px",
+        "scrollCollapse": true,
+        "bInfo" : false
     });
 }
 
 $(document).on('click', '#menu-naviera', function (event) {    
     naviera();
+    mantenimientonaviera();
 });
 
 $(document).on('click', '#inp-naviera', function (event) {    
@@ -75,12 +79,19 @@ function naviera(){
 
     $('#tblnaviera').DataTable({
         "order": [[ 1, "asc" ]],
-        "paging":   false
+        "paging":   false,
+        "scrollY": "180px",
+        "scrollCollapse": true,
+        "bInfo" : false
     });
 }
 
 $(document).on('click', '#menu-calculokm', function (event) {    
+    $("#div-mants").css("height", "260px");
+    $("#div-mant-inputs").css("height", "260px");
     calculokm();
+    mantenimientoviajes();
+    muestrafincanaviera();
 });
 
 function calculokm(){
@@ -97,7 +108,51 @@ function calculokm(){
 
     $('#tblcalculokm').DataTable({
         "order": [[ 1, "asc" ]],
-        "paging":   false
+        "paging":   false,
+        "scrollY": "180px",
+        "scrollCollapse": true,
+        "bInfo" : false
+    });
+}
+
+function muestrafincanaviera(){
+    
+    $('#tablefinca').append("<table id='tblfincamant'class='tbl'>");
+    var col="<thead><tr><th>NOMBRE</th></tr></thead><tbody id='tableBody-finca'></tbody>";
+    $('#tblfincamant').append(col);
+    var row1="<tr><td>Banderas</td></tr>";
+    var row2="<tr><td>Arcoiris</td></tr>";
+    var row3="<tr><td>Maquenco</td></tr>";
+    var row4="<tr><td>Ostional</td></tr>";
+    var row5="<tr><td>La Irma</td></tr>";
+    $('#tableBody-finca').append(row1+row2+row3+row4+row5);  
+
+    $('#tblfincamant').DataTable({
+        "order": [[ 0, "asc" ]],
+        "paging":   false,
+        "scrollY": "125px",
+        "scrollCollapse": true,
+        "bInfo" : false,
+        "searching": false
+    });
+
+    $('#tablenaviera').append("<table id='tblnavieramant'class='tbl'>");
+    var col="<thead><tr><th>NOMBRE</th></tr></thead><tbody id='tableBody-naviera'></tbody>";
+    $('#tblnavieramant').append(col);
+    var row1="<tr><td>Banderas</td></tr>";
+    var row2="<tr><td>Arcoiris</td></tr>";
+    var row3="<tr><td>Maquenco</td></tr>";
+    var row4="<tr><td>Ostional</td></tr>";
+    var row5="<tr><td>La Irma</td></tr>";
+    $('#tableBody-naviera').append(row1+row2+row3+row4+row5);  
+
+    $('#tblnavieramant').DataTable({
+        "order": [[ 0, "asc" ]],
+        "paging":   false,
+        "scrollY": "125px",
+        "scrollCollapse": true,
+        "bInfo" : false,
+        "searching": false
     });
 }
 
@@ -251,11 +306,15 @@ $(document).on('click','#tblchofer tr', function(){
 });
 
 $(document).on('click', '#inp-chofer', function (event) {    
+    $("#div-mants").css("height", "340px");
+    $("#div-mant-inputs").css("height", "180px");
     chofer();
     mantenimientochofer();
 });
 
 $(document).on('click', '#menu-chofer', function (event) {    
+    $("#div-mants").css("height", "340px");
+    $("#div-mant-inputs").css("height", "180px");
     chofer();
     mantenimientochofer();
 });
@@ -326,41 +385,108 @@ function mantenimientochofer(){
 
 function mantenimientofinca(){
     $('#div-mant-inputs').html(""); 
-    var inputs = '<div class=div-80>'+
-    
-    '<div class=div-80>'+
-        '<label for="lbl-nombre-finca" class="lbl-style">Nombre</label>'+
-        '<linput type="text" id="inp-nombre-finca" name="inp-nombre-finca" class="input-format" value="" required/>'+
-    '</div>'+
-
-    '<div class=div-80-50>'+
-    '</div>'+
-
-    '<div class=div-80>'+
-        '<div class=div-80-50>'+
-            '<label for="lbl-ubicacion-finca" class="lbl-style">Ubicación</label>'+
-            '<linput type="text" id="inp-ubicacion-finca" name="inp-ubicacion-finca" class="input-format" value="" required/>'+
+    var inputs = '<div id=input-finca>'+
+        '<div class=caja-media>'+
+            '<div class=contenido-input>'+
+                '<label for="lbl-nombre-finca" class="lbl-style">Nombre</label>'+
+                '<input type="text" id="inp-nombre-finca" name="inp-nombre-finca" class="input-format" value="" required/>'+
+            '</div>'+
+            '<div class=contenido-input>'+
+            '</div>'+
+            '<div class=contenido-input>'+
+            '</div>'+
         '</div>'+
-
-        '<div class=div-80-50>'+
-            '<label for="lbl-tel-finca" class="lbl-style">Telefono</label>'+
-            '<linput type="text" id="inp-tel-finca" name="inp-tel-finca" class="input-format" value="" required/>'+
+        '<div class=caja-cuarto>'+
+            '<div class=contenido-input>'+
+                '<label for="lbl-ubicacion-finca" class="lbl-style">Ubicación</label>'+
+                '<input type="text" id="inp-ubicacion-finca" name="inp-ubicacion-finca" class="input-format" value="" required/>'+
+            '</div>'+
+            '<div class=contenido-input>'+
+            '</div>'+
+            '<div class=contenido-input>'+
+            '</div>'+
         '</div>'+
-    '</div>'+
-
-    '<div class=div-80-50>'+
-    '</div>'+
-    
-    '</div>'+
-        '<div class=div-20>'+
-                '<div class=div-20-80>'+
-                '</div>'+
-                '<div class=div-20-20>'+
-                    '<linput type="button" id="btnguardarfinca" class="btn" value="Guardar">'+
-                    '<linput type="button" id="btnmodificarfinca" class="btn" value="Modificar">'+                                                                  
-                '</div>'+
-        '</div>';
+        '<div class=caja-cuarto>'+
+            '<div class=contenido-input>'+
+                '<label for="lbl-tel-finca" class="lbl-style">Telefono</label>'+
+                '<input type="text" id="inp-tel-finca" name="inp-tel-finca" class="input-format" value="" required/>'+                        
+            '</div>'+
+            '<div class=contenido-input>'+
+                '<input type="button" id="btnguardarfinca" class="btn" value="Guardar">'+        
+            '</div>'+
+            '<div id=boton class=contenido-input>'+
+            '</div>'+
+        '</div>'+
+    '</div>';
     $('#div-mant-inputs').append(inputs);
+}
+
+function mantenimientonaviera(){
+    $('#div-mant-inputs').html(""); 
+    var inputs = '<div id=input-naviera>'+
+        '<div class=caja-media>'+
+            '<div class=contenido-input>'+
+                '<label for="lbl-nombre-naviera" class="lbl-style">Nombre</label>'+
+                '<input type="text" id="inp-nombre-naviera" name="inp-nombre-naviera" class="input-format" value="" required/>'+
+            '</div>'+
+            '<div class=contenido-input>'+
+            '</div>'+
+            '<div class=contenido-input>'+
+            '</div>'+
+        '</div>'+
+        '<div class=caja-cuarto>'+
+            '<div class=contenido-input>'+
+                '<label for="lbl-ubicacion-naviera" class="lbl-style">Ubicación</label>'+
+                '<input type="text" id="inp-ubicacion-naviera" name="inp-ubicacion-naviera" class="input-format" value="" required/>'+
+            '</div>'+
+            '<div id=xxx class=contenido-input>'+
+            '</div>'+
+            '<div class=contenido-input>'+
+            '</div>'+
+        '</div>'+
+        '<div class=caja-cuarto>'+
+            '<div class=contenido-input>'+
+                '<label for="lbl-tel-naviera" class="lbl-style">Telefono</label>'+
+                '<input type="text" id="inp-tel-naviera" name="inp-tel-naviera" class="input-format" value="" required/>'+                        
+            '</div>'+
+            '<div class=contenido-input>'+
+                '<input type="button" id="btnguardarnaviera" class="btn" value="Guardar">'+        
+            '</div>'+
+            '<div id=boton class=contenido-input>'+
+            '</div>'+
+        '</div>'+
+    '</div>';
+
+    $('#div-mant-inputs').append(inputs);
+}
+
+function mantenimientoviajes(){
+    $('#div-mant-inputs').html(""); 
+    var inputs ='<div id=input-viajes>'+
+        '<div class=caja-media>'+
+            '<div id=tablefinca class=contenido-table>'+
+                '<label for="lbl-nombre-finca" class="lbl-style">FINCA</label>'+
+            '</div>'+
+            '<div class=contenido-extra>'+
+            '</div>'+
+        '</div>'+
+        '<div class=caja-media>'+
+            '<div id=tablenaviera class=contenido-table>'+
+                '<label for="lbl-nombre-finca" class="lbl-style">NAVIERA</label>'+
+            '</div>'+
+            '<div class=contenido-extra>'+
+                '<div class=caja-media>'+ 
+                    '<label for="lbl-kms-viaje" class="lbl-style">Kms</label>'+
+                    '<input type="text" id="inp-kms-viaje" name="inp-kms-viaje" class="input-format" value="" required/>'+                          
+                '</div>'+
+                '<div class=caja-media>'+
+                    '<input type="button" id="btnguardarviaje" class="btn" value="Guardar">'+  
+                '</div>'+    
+            '</div>'+
+        '</div>'+
+    '</div>';
+
+$('#div-mant-inputs').append(inputs);
 }
 
 function LimpiaTitulo()

@@ -14,7 +14,6 @@ if (!isset($_SESSION))
     <script src="js/datatables.js" type="text/javascript" charset="utf8"></script>
     <script src="js/FuncionesPagoChofer.js" languaje="javascript" type="text/javascript"></script> 
     <link rel="stylesheet" href="css/dropdownmenu.css" type="text/css"/>
-    <script type="text/javascript" src="js/cssrefresh.js"></script>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -103,44 +102,7 @@ if (!isset($_SESSION))
                     <div id="div-mant-titulo"></div>
                     <div id="div-mants"></div>
                     <div id="div-mant-inputs">
-                        <div id=input-finca>
-                            <div class=caja-media>
-                                <div class=contenido-input>
-                                    <label for="lbl-nombre-finca" class="lbl-style">Nombre</label>
-                                    <input type="text" id="inp-nombre-finca" name="inp-nombre-finca" class="input-format" value="" required/>
-                                </div>
-                                <div class=contenido-input>
-
-                                </div>
-                                <div class=contenido-input>
-
-                                </div>
-                            </div>
-                            <div class=caja-cuarto>
-                                <div class=contenido-input>
-                                    <label for="lbl-ubicacion-finca" class="lbl-style">Ubicación</label>
-                                    <input type="text" id="inp-ubicacion-finca" name="inp-ubicacion-finca" class="input-format" value="" required/>
-                                </div>
-                                <div id=xxx class=contenido-input>
-
-                                </div>
-                                <div class=contenido-input>
-                                    
-                                </div>
-                            </div>
-                            <div class=caja-cuarto>
-                                <div class=contenido-input>
-                                    <label for="lbl-tel-finca" class="lbl-style">Telefono</label>
-                                    <input type="text" id="inp-tel-finca" name="inp-tel-finca" class="input-format" value="" required/>                        
-                                </div>
-                                <div class=contenido-input>
-                                    <input type="button" id="btnguardarfinca" class="btn" value="Guardar">        
-                                </div>
-                                <div id=boton class=contenido-input>
-                                    
-                                </div>
-                            </div>
-                        </div>                        
+                                                                   
                     </div>
                 </div>                
 
