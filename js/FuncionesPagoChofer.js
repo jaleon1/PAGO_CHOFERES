@@ -10,8 +10,24 @@ $(document).ready( function () {
     //document.getElementById('form-date-crtl').value = getDate(); 
     Fecha();
     ingresosgastosformulario();
-    $('#div-finca').hide();
+    //$('#div-finca').hide();
+    seleccionfila();
 });
+
+//Selección DataTable
+function seleccionfila(){
+    var table = $('#tblfincamant').DataTable();
+
+    $('#tblfincamant tableBody-finca').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    } );
+}
 
 $(document).on('click', '#menu-finca', function (event) {    
     finca();
@@ -20,7 +36,11 @@ $(document).on('click', '#menu-finca', function (event) {
 });
 
 $(document).on('click', '#inp-finca', function (event) {    
+    $("#div-mants").css("height", "260px");
+    $("#div-mant-inputs").css("height", "260px");
     calculokm();
+    mantenimientoviajes();
+    muestrafincanaviera();
 });
 
 $(document).on('click','#tblfinca tr', function(){        
@@ -56,7 +76,11 @@ $(document).on('click', '#menu-naviera', function (event) {
 });
 
 $(document).on('click', '#inp-naviera', function (event) {    
+    $("#div-mants").css("height", "260px");
+    $("#div-mant-inputs").css("height", "260px");
     calculokm();
+    mantenimientoviajes();
+    muestrafincanaviera();
 });
 
 $(document).on('click','#tblnaviera tr', function(){        
@@ -158,6 +182,7 @@ function muestrafincanaviera(){
 
 $(document).on('click', '#menu-ingresos-gastos', function (event) {    
     ingresosgastos();
+    mantenimientoingresogasto();
 });
 
 $(document).on('click','#tblcalculokm tr', function(){        
@@ -177,19 +202,19 @@ function ingresosgastos(){
     $('#div-mants').append("<div id='div-mant-ingresos'></div><div id='div-mant-gastos'></div>");
     
     $('#div-mant-ingresos').append("<table id='tblingresos'class='tbl'>");
-    var col="<thead><tr><th>INGRESOS</th></tr></thead><tbody id='tblbodyingresos'></tbody>";
+    var col="<thead><tr><th>INGRESOS</th><th>Monto</th><th>%</th></tr></thead><tbody id='tblbodyingresos'></tbody>";
     $('#tblingresos').append(col);
-    var row1="<tr><td>Alquiler de Cureña</td></tr>";
-    var row2="<tr><td>Combustible</td></tr>";
-    var row3="<tr><td>Herramientas</td></tr>";
+    var row1="<tr><td>Alquiler de Cureña</td><td></td><td>15</td></tr>";
+    var row2="<tr><td>Combustible</td><td>150000</td><td>10</td></tr>";
+    var row3="<tr><td>Herramientas</td><td>15000</td><td></td></tr>";
     $('#tblbodyingresos').append(row1+row2+row3);  
 
     $('#div-mant-gastos').append("<table id='tblgastos'class='tbl'>");
-    var col="<thead><tr><th>GASTOS</th></tr></thead><tbody id='tableBody'></tbody>";
+    var col="<thead><tr><th>GASTOS</th><th>Monto</th></tr></thead><tbody id='tableBody'></tbody>";
     $('#tblgastos').append(col);
-    var row1="<tr><td>Viaticos</td></tr>";
-    var row2="<tr><td>Seguro</td></tr>";
-    var row3="<tr><td>Otros</td></tr>";
+    var row1="<tr><td>Viaticos</td><td>70000</td></tr>";
+    var row2="<tr><td>Seguro</td><td>50000</td></tr>";
+    var row3="<tr><td>Otros</td><td>5000</td></tr>";
     $('#tableBody').append(row1+row2+row3);  
 
     $('#tblingresos').DataTable({
@@ -486,7 +511,43 @@ function mantenimientoviajes(){
         '</div>'+
     '</div>';
 
-$('#div-mant-inputs').append(inputs);
+    $('#div-mant-inputs').append(inputs);
+}
+
+function mantenimientoingresogasto(){
+    $('#div-mant-inputs').html(""); 
+    var inputs= '<div id=input-ingresosgastos>'+                                           
+        '<div class=caja-cuarto>'+
+            '<div class=contenido-input>'+
+                '<label for="lbl-nombre-inggas" class="lbl-style">Nombre</label>'+
+                '<input type="text" id="inp-nombre-inggas" name="inp-nombre-inggas" class="input-format" value="" required/>'+
+            '</div>'+
+            '<div class=contenido-input>'+
+                '<input type="radio" name="radio-ingreso" value="ingreso"> Ingreso'+
+            '</div>'+
+        '</div>'+
+        '<div class=caja-cuarto>'+
+            '<div class=contenido-input>'+
+                '<label for="lbl-monto-inggas" class="lbl-style">Monto</label>'+
+                '<input type="text" id="inp-monto-inggas" name="inp-monto-inggas" class="input-format" value="" required/>'+
+            '</div>'+
+            '<div class=contenido-input>'+
+                '<input type="radio" name="radio-gasto" value="gasto"> Gasto'+
+            '</div>'+
+        '</div>'+
+        '<div class=caja-cuarto>'+
+            '<div class=contenido-input>'+
+                '<label for="lbl-porc-inggas" class="lbl-style">Porcentaje</label>'+
+                '<input type="text" id="inp-porc-inggas" name="inp-porc-inggas" class="input-format" value="" required/>'+
+            '</div>'+
+        '</div>'+
+        '<div class=caja-cuarto>'+
+            '<div class=contenido-input>'+
+                '<input type="button" id="btnguardaringgas" class="btn" value="Guardar">'+
+            '</div>'+
+        '</div>'+    
+    '</div>';
+    $('#div-mant-inputs').append(inputs);
 }
 
 function LimpiaTitulo()

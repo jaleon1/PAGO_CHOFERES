@@ -72,14 +72,12 @@ if (!isset($_SESSION))
                             <li class="list-inline-item">
                                 <div class="btn-group">
                                     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                                        Reportes
+                                        Procesos
                                         <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                                            <li><a id="menu-diario" tabindex="-1" href="#">Diario</a></li>
-                                            <li><a id="menu-semanal" tabindex="-1" href="#">Semanal</a></li>
-                                            <li><a id="menu-Mensual" tabindex="-1" href="#">Mensual</a></li>
-                                            <li><a id="menu-choferes" tabindex="-1" href="#">Choferes</a></li>
+                                            <li><a id="menu-formulario-pago" tabindex="-1" href="#">Formulario Pago</a></li>
+                                            <li><a id="menu-reporte" tabindex="-1" href="#">Reportes</a></li>
                                         </ul>
                                 </div>
                             </li>
@@ -102,7 +100,7 @@ if (!isset($_SESSION))
                     <div id="div-mant-titulo"></div>
                     <div id="div-mants"></div>
                     <div id="div-mant-inputs">
-                                                                   
+
                     </div>
                 </div>                
 
