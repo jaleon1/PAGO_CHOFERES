@@ -72,14 +72,12 @@ if (!isset($_SESSION))
                             <li class="list-inline-item">
                                 <div class="btn-group">
                                     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                                        Reportes
+                                        Procesos
                                         <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                                            <li><a id="menu-diario" tabindex="-1" href="#">Diario</a></li>
-                                            <li><a id="menu-semanal" tabindex="-1" href="#">Semanal</a></li>
-                                            <li><a id="menu-Mensual" tabindex="-1" href="#">Mensual</a></li>
-                                            <li><a id="menu-choferes" tabindex="-1" href="#">Choferes</a></li>
+                                            <li><a id="menu-formulario-pago" tabindex="-1" href="#">Formulario Pago</a></li>
+                                            <li><a id="menu-reporte" tabindex="-1" href="#">Reportes</a></li>
                                         </ul>
                                 </div>
                             </li>
@@ -102,7 +100,7 @@ if (!isset($_SESSION))
                     <div id="div-mant-titulo"></div>
                     <div id="div-mants"></div>
                     <div id="div-mant-inputs">
-                                                                   
+
                     </div>
                 </div>                
 
@@ -111,63 +109,29 @@ if (!isset($_SESSION))
             </div>
             <div class=prin-formulario>
                 <div class=prin-margen-center></div>
-                <div class=contenido-form>
-
-                    <div id="div-form" class="">
-                        <div id="div-form-titulo">
-                            <h3>FORMULARIO DE PAGO</h3>
-                            <label >COMPROBANTE #</label>
-                            <label id="lbl-comprovante" class="lbl-style">19291108</label>
+                <div id=contenido-form class=contenido-form>
+                    <div id=div-report-titulo>
+                        <h3>REPORTES</h3>
+                    </div>
+                    <div id=div-lista-reporte></div>
+                    <div id=div-opcion-report>
+                        <div class=div-tercio>
+                            <div class=div-opciones></div>
+                            <div class=div-total-botones></div>
                         </div>
-                        <div id="div-form-chofer">
-                            <label for="lbl-chofer" class="lbl-style">Chofer</label>
-                            <input type="text" id="inp-chofer" name="inp-chofer" class="input-format" readonly="readonly" value="" required/> 
+                        <div class=div-tercio>
+                            <div class=div-opciones></div>
+                            <div class=div-total-botones></div>
                         </div>
-                        <div id="div-form-fecha">
-                            <label id="lbl-fecha" for="form-date-crtl" class="lbl-style">Fecha de Carga</label>
-                            <input type="datetime-local" id="form-date-crtl" name="form-date-crtl" class="input-format" required/>
-                        </div>
-                        <div id="div-form-contenedor">
-                            <label for="lbl-contenedor" class="lbl-style">Contenedor</label>
-                            <input type="text" id="inp-contenedor" name="inp-contenedor" class="input-format" value="" required/> 
-                        </div>
-                        <div id="div-form-placa">
-                            <label for="lbl-placa" class="lbl-style">Placa</label>
-                            <input type="text" id="inp-placa" name="inp-placa" class="input-format" value="" required/> 
-                        </div>
-                        <div id="div-form-finca">
-                            <label for="lbl-finca" class="lbl-style">Finca</label>
-                            <input type="text" id="inp-finca" name="inp-finca" class="input-format" readonly="readonly" value="" required/> 
-                        </div>
-                        <div id="div-form-naviera">
-                            <label for="lbl-naviera" class="lbl-style">Naviera</label>
-                            <input type="text" id="inp-naviera" name="inp-naviera" class="input-format" readonly="readonly" value="" required/> 
-                        </div>
-                        <div id="div-form-valor-viaje">
-                            <label for="lbl-valor-viaje" class="lbl-style">VALOR DEL VIAJE</label>
-                            <input type="text" id="inp-valor-viaje" name="inp-valor-viaje" class="input-format" readonly="readonly" value="" required/> 
-                        </div>
-                        <div id="div-form-conversion">
-                            <button id="btncambio">$/</button>
-                        </div>
-                        <div id="div-form-ingresos">
-                            
-                        </div>
-                        <div id="div-form-gastos">
-
-                        </div>
-                        <div id="div-form-total-pago">
-                            <label for="lbl-total-pago" class="lbl-style">TOTAL A PAGAR</label>
-                            <input type="text" id="inp-total-pago" name="inp-total-pago" class="input-format" readonly="readonly" value="" required/> 
-                            <input type="button" id="btnguardar" class="" value="Guardar">  
+                        <div class=div-tercio>
+                            <div class=div-opciones></div>
+                            <div class=div-total-botones></div>
                         </div>
                     </div>
                 </div>   
                 <div class=prin-margen></div>            
             </div>
         </div>
-
     </div>
-
   </body>
 </html>
