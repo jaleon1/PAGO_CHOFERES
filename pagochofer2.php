@@ -96,38 +96,18 @@ if (!isset($_SESSION))
             <div class=prin-mantenimiento>
                 <div class=prin-margen></div>
                 <div class=contenido-mant>
-                <div id="div-mant" class="">
-                    <div id="div-mant-titulo"></div>
-                    <div id="div-mants"></div>
-                    <div id="div-mant-inputs">
-
-                    </div>
-                </div>                
-
+                    <div id="div-mant">
+                        <div id="div-mant-titulo"></div>
+                        <div id="div-mants"></div>
+                        <div id="div-mant-inputs"></div>
+                    </div>                
                 </div>
                 <div class=prin-margen-center></div>
             </div>
             <div class=prin-formulario>
                 <div class=prin-margen-center></div>
                 <div id=contenido-form class=contenido-form>
-                    <div id=div-report-titulo>
-                        <h3>REPORTES</h3>
-                    </div>
-                    <div id=div-lista-reporte></div>
-                    <div id=div-opcion-report>
-                        <div class=div-tercio>
-                            <div class=div-opciones></div>
-                            <div class=div-total-botones></div>
-                        </div>
-                        <div class=div-tercio>
-                            <div class=div-opciones></div>
-                            <div class=div-total-botones></div>
-                        </div>
-                        <div class=div-tercio>
-                            <div class=div-opciones></div>
-                            <div class=div-total-botones></div>
-                        </div>
-                    </div>
+                    
                 </div>   
                 <div class=prin-margen></div>            
             </div>

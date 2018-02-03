@@ -15,6 +15,10 @@
         background-color: #2C2C2C;
         color: #B8B8B8;
     }
+    #principal{
+        background-color: #2C2C2C;
+        color: #B8B8B8;
+    }
     th { 
         font-size: 12px; 
     }
@@ -75,7 +79,6 @@
                 float: left;
                 width: 100%;
                 height: 340px;
-                background-color: yellow;
             }
             #div-mant-titulo{
                 width: 100%;
@@ -83,7 +86,7 @@
                 float: left;
                 text-align: center;
                 padding-top: 5px;
-                background-color: green;
+                
             }
             /* Tabla chofer*/
                 #div-mant-tblchofer{
@@ -108,7 +111,7 @@
                     float: left;
                     height: 180px;
                     width: 100%;
-                    background-color: red;
+                    
                 }
 
     /* Divs Formulario*/
@@ -117,7 +120,15 @@
             font-size: 12px;
             margin-top: 20px;
         }
+        #div-repo{
+            float: left;
+            height: 650px;
+            width: 100%;
+            margin-top: 20px;
+        }
             .principal-row{
+                background-color: #2C2C2C;
+                color: #B8B8B8;
                 width: 100%;
                 height: 600px;
                 float: left;
@@ -126,37 +137,37 @@
                 float: left;
                 width: 50%;
                 height: 100%;
-                background-color: red;
+                
             }
             .prin-formulario{
                 float: left;
                 width: 50%;
                 height: 100%;
-                background-color: blueviolet;
+                
             }
             .prin-margen{
                 width: 5%;
                 float: left;
                 height: 100%;
-                background-color: gray;
+                
             }
             .prin-margen-center{
                 width: 2.5%;
                 float: left;
                 height: 100%;
-                background-color: gray;
+                
             }
             .contenido-form{
                 width: 92.5%;
                 float: left;
                 height: 100%;
-                background-color: yellowgreen;
+                
             }
             .contenido-mant{
                 width: 92.5%;
                 float: left;
                 height: 100%;
-                background-color:brown;
+                
             }
 
             /*ok*/
@@ -309,22 +320,17 @@
             width: 25%;
             height: 100%;
             float: left;
-            background-color: rosybrown;
+            
         }
         .contenido-input{
             width: 100%;
             height: 33.33%;
             float: left;
         }
-        #boton{
-            background-color: black;
-        }
         #btnguardarchofer{
             margin-right: 5%;
         }
-        #xxx{
-            background-color: blue;
-        }
+
         #input-viajes{
             width: 100%;
             height: 100%;
@@ -334,13 +340,13 @@
             width: 100%;
             height: 75%;
             float: left;
-            background-color: royalblue;
+            
         }
         .contenido-extra{
             width: 100%;
             height: 25%;
             float: left;
-            background-color: gray;
+            
         }
 
     /* Divs Reportes*/
@@ -350,19 +356,19 @@
         float: left;
         text-align: center;
         padding-top: 5px;
-        background-color: green;
+        
     }
     #div-lista-reporte{
         width: 100%;
         height: 300px;
         float: left;
-        background-color: yellow;
+        
     }
     #div-opcion-report{
         width: 100%;
-        height: 200px;
+        height: 220px;
         float: left;
-        background-color: blue;
+        
     }
     .div-tercio{
         width: 33.3%;
@@ -373,13 +379,13 @@
         width: 100%;
         height: 80%;
         float: left;
-        background-color: teal;
+        
     }
     .div-total-botones{
         width: 100%;
         height: 20%;
         float: left;
-        background-color: gray;
+        
     }
 
     /* FOOTER */

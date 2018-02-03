@@ -4,13 +4,7 @@ var valorviaje=0;
 var totalpago=0;
 
 $(document).ready( function () {  
-    //$('#div-mants').html(""); 
-    //var x = getDate();
-    //document.getElementById("form-date-crtl").defaultValue = x;
-    //document.getElementById('form-date-crtl').value = getDate(); 
-    Fecha();
     ingresosgastosformulario();
-    //$('#div-finca').hide();
     seleccionfila();
 });
 
@@ -368,8 +362,9 @@ function chofer(){
 
 /*FORMULARIO PAGO*/
 $(document).on('click', '#menu-formulario-pago', function (event) {    
-    manteniminetoformulariopago();
+    mantenimientoformpago();
     ingresosgastosformulario();
+    Fecha();
 }); 
 
 function mantenimientochofer(){
@@ -558,7 +553,7 @@ function mantenimientoingresogasto(){
 }
 
 
-function manteniminetoformulariopago(){
+function mantenimientoformpago(){
     $('#contenido-form').html(""); 
     var inputs = '<div id="div-form" class="">'+
         '<div id="div-form-titulo">'+
@@ -610,6 +605,35 @@ function manteniminetoformulariopago(){
     $('#contenido-form').append(inputs);
 }
 
+
+function mantenimientoreportes(){
+    $('#contenido-form').html(""); 
+    var inputs = '<div id="div-repo">'+
+        '<div id=div-report-titulo>'+
+            '<h3>REPORTES</h3>'+
+        '</div>'+
+        '<div id=div-lista-reporte>'+
+        
+        '</div>'+
+        '<div id=div-opcion-report>'+
+            '<div class=div-tercio>'+
+                '<div class=div-opciones></div>'+
+                '<div class=div-total-botones></div>'+
+            '</div>'+
+            '<div class=div-tercio>'+
+                '<div class=div-opciones>'+
+                
+                '</div>'+
+                '<div class=div-total-botones></div>'+
+            '</div>'+
+            '<div class=div-tercio>'+
+                '<div class=div-opciones></div>'+
+                '<div class=div-total-botones></div>'+
+            '</div>'+
+        '</div>'+    
+    '</div>';
+    $('#contenido-form').append(inputs);
+}
 function LimpiaTitulo()
 {
     $('#div-mants').html("");  
@@ -648,22 +672,30 @@ function Fecha(){
 }
 
 
-/* REPORTE DIARIO*/
-$(document).on('click','#menu-diario', function(){        
-    LimpiaTitulo();
-    $('#div-mant-titulo').append("<h3 id='titulo-Colocaciones-Diarias'>COLOCACIONES DIARIAS</h3>");
-    $('#div-mants').append("<table id='tblrepdiario'class='tbl'>");
-    var col="<thead><tr><th>CHOFER</th><th>HORA CARGA</th><th>MARCHAMO</th><th>CONTENEDOR</th><th>NAVIERA</th></tr></thead><tbody id='tableBody'></tbody>";
-    $('#tblrepdiario').append(col);
-    var row1="<tr><td>Jill Smith</td><td>07:00 AM</td><td>EU 11485371</td><td>MEDU 606765-8</td><td>MSC</td></tr>";
-    var row2="<tr><td>Eve Jackson</td><td>08:00 AM</td><td>EU 11445871</td><td>MEDU 606766-8</td><td>MSC</td></tr>";
-    var row3="<tr><td>John Man</td><td>09:00 AM</td><td>EU 11485111</td><td>MEDU 606767-8</td><td>MSC</td></tr>";
-    var row4="<tr><td>Jill Smith</td><td>07:00 AM</td><td>EU 11485380</td><td>MEDU 606780-1</td><td>MSC</td></tr>";
-    var row5="<tr><td>Juan Gonzalez</td><td>07:00 AM</td><td>EU 11485371</td><td>MEDU 606765-8</td><td>MSC</td></tr>";
-    var row6="<tr><td>Jill Smith</td><td>07:00 AM</td><td>EU 11485425</td><td>MEDU 606766-4</td><td>MSC</td></tr>";
-    $('#tableBody').append(row1+row2+row3+row4+row5+row6);  
 
-    $('#tblrepdiario').DataTable( {
-        "order": [[ 1, "asc" ]]
-    } );
+/* REPORTES*/
+function listareportes(){        
+    $('#div-lista-reporte').append("<table id='tblreportes'class='tbl'>");
+    var col="<thead><tr><th>#</th><th>CHOFER</th><th>FECHA CARGA</th><th>PLACA</th><th>CONTENEDOR</th><th>NAVIERA</th></tr></thead><tbody id='tableBody-reportes'></tbody>";
+    $('#tblreportes').append(col);
+    var row1="<tr><td>00001</td><td>Jill Smith</td><td>07:00 AM</td><td>EU 11485371</td><td>MEDU 606765-8</td><td>MSC</td></tr>";
+    var row2="<tr><td>00002</td><td>Eve Jackson</td><td>08:00 AM</td><td>EU 11445871</td><td>MEDU 606766-8</td><td>MSC</td></tr>";
+    var row3="<tr><td>00003</td><td>John Man</td><td>09:00 AM</td><td>EU 11485111</td><td>MEDU 606767-8</td><td>MSC</td></tr>";
+    var row4="<tr><td>00004</td><td>Jill Smith</td><td>07:00 AM</td><td>EU 11485380</td><td>MEDU 606780-1</td><td>MSC</td></tr>";
+    var row5="<tr><td>00005</td><td>Juan Gonzalez</td><td>07:00 AM</td><td>EU 11485371</td><td>MEDU 606765-8</td><td>MSC</td></tr>";
+    var row6="<tr><td>00006</td><td>Jill Smith</td><td>07:00 AM</td><td>EU 11485425</td><td>MEDU 606766-4</td><td>MSC</td></tr>";
+    $('#tableBody-reportes').append(row1+row2+row3+row4+row5+row6);  
+
+    $('#tblreportes').DataTable( {
+        "order": [[ 0, "asc" ]],
+        "paging":   false,
+        "scrollY": "225px",
+        "scrollCollapse": true,
+        "bInfo" : false
+    });
+} 
+
+$(document).on('click','#menu-reporte', function(event){        
+    mantenimientoreportes();
+    listareportes();
 });
