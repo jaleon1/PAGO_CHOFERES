@@ -48,7 +48,7 @@ function finca(){
     $('#div-mants').append("<table id='tblfinca'class='tbl'>");
     var col="<thead><tr><th>NOMBRE</th><th>UBICACION</th><th>TELEFONO</th></thead><tbody id='tableBody'></tbody>";
     $('#tblfinca').append(col);
-    var row1="<tr><td>Banderas</td><td>Pocozol</td><td>8891-8749</td></tr>";
+    var row1="<tr><td>Arcoiris</td><td>Pocozol</td><td>8891-8749</td></tr>";
     var row2="<tr><td>Arcoiris</td><td>Guanacaste</td> <td>8857-1147</td></tr>";
     var row3="<tr><td>Maquenco</td><td>Guanacaste Samara</td> <td>9584-8744</td></tr>";
     var row4="<tr><td>Ostional</td><td>San Carlos</td> <td>8814-1178</td></tr>";
@@ -91,7 +91,7 @@ function naviera(){
     $('#tblnaviera').append(col);
     var row1="<tr><td>Japa Loid</td><td>Caldera</td><td>8891-8749</td></tr>";
     var row2="<tr><td>Traigo</td><td>Los Patios</td> <td>8857-1147</td></tr>";
-    var row3="<tr><td>Alamo</td><td>Los Patios</td> <td>9584-8744</td></tr>";
+    var row3="<tr><td>Alammo</td><td>Los Patios</td> <td>9584-8744</td></tr>";
     var row4="<tr><td>Naviera 4</td><td>Limón</td> <td>8814-1178</td></tr>";
     $('#tableBody').append(row1+row2+row3+row4);  
 
@@ -118,7 +118,7 @@ function calculokm(){
     $('#div-mants').append("<table id='tblcalculokm'class='tbl'>");
     var col="<thead><tr><th>Finca</th><th>Naviera</th><th>Kilometros</th></thead><tbody id='tableBody'></tbody>";
     $('#tblcalculokm').append(col);
-    var row1="<tr><td>San Carlos</td><td>Caldera</td><td>600</td></tr>";
+    var row1="<tr><td>Arcoiris</td><td>Japa Loid</td><td>600</td></tr>";
     var row2="<tr><td>Liberia</td> <td>Moin</td><td>750</td></tr>";
     var row3="<tr><td>La Cruz</td> <td>Moin</td><td>510</td></tr>";
     var row4="<tr><td>Zona Sur</td> <td>Moin</td><td>555</td></tr>";
@@ -344,7 +344,7 @@ function chofer(){
     $('#div-mants').append("<table id='tblchofer'class='tbl'>");
     var col="<thead><tr><th>NOMBRE</th><th>CEDULA</th><th>TELEFONO</th><th>CORREO</th><th></th><th></th></tr></thead><tbody id='tableBody'></tbody>";
     $('#tblchofer').append(col);
-    var row1="<tr><td>Jill Smith</td><td>103250698</td><td>8891-8749</td><td>jillsmith@gmail.com</td><td><img id=btnmodingreso class=borrar src=img/file_mod.png></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
+    var row1="<tr><td>Jairo León González</td><td>103250698</td><td>8891-8749</td><td>jillsmith@gmail.com</td><td><img id=btnmodingreso class=borrar src=img/file_mod.png></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
     var row2="<tr><td>Eve Jackson</td><td>302580444</td> <td>8857-1147</td><td>evejackson@hotmail.com</td><td><img id=btnmodingreso class=borrar src=img/file_mod.png></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
     var row3="<tr><td>John Man</td><td>305890555</td> <td>9584-8744</td><td>johnman@yahoo.com</td><td><img id=btnmodingreso class=borrar src=img/file_mod.png></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
     var row4="<tr><td>Evelyn Solis</td><td>102250361</td> <td>8814-1178</td><td>evelynsolis@cmx.com</td><td><img id=btnmodingreso class=borrar src=img/file_mod.png></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
@@ -599,7 +599,7 @@ function mantenimientoformpago(){
         '<div id="div-form-total-pago">'+
             '<label for="lbl-total-pago" class="lbl-style">TOTAL A PAGAR</label>'+
             '<input type="text" id="inp-total-pago" name="inp-total-pago" class="input-format" readonly="readonly" value="" required/>'+ 
-            '<input type="button" id="btnguardar" class="" value="Guardar">'+
+            '<input type="button" id="btnguardarform" class="" value="Guardar">'+
         '</div>'+
     '</div>';
     $('#contenido-form').append(inputs);
@@ -699,3 +699,32 @@ $(document).on('click','#menu-reporte', function(event){
     mantenimientoreportes();
     listareportes();
 });
+
+
+/* INSERTAR */
+//INSERTA UN FORMULARIO, SI ESTA CCORRECTO REDIRECCIONA A LISAT FORMULARIO
+$(document).on('click', '#btnguardarform', function (event) {
+    $.ajax({
+        type: "POST",
+        url: "class/Formulario.php",
+        data: {
+                action: "Insertar",
+                fechacarga: document.getElementById('form-date-crtl').value,
+                chofer: document.getElementById('inp-chofer').value,
+                contenedor: document.getElementById('inp-contenedor').value,
+                placa: document.getElementById('inp-placa').value,
+                finca: document.getElementById('inp-finca').value,
+                naviera: document.getElementById('inp-naviera').value,
+                valorviaje: document.getElementById('inp-valor-viaje').value,
+                totalpago: document.getElementById('inp-total-pago').value
+              }
+    })
+    .done(function( e ) {
+        
+    })    
+    .fail(function(msg){
+        
+    });
+}); 
+
+/* MODIFICAR*/ 
