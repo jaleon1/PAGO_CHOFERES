@@ -17,12 +17,14 @@ if(isset($_POST["action"])){
         //     $chofer->id=$_POST["id"];
         //     echo json_encode($task->LoadDatabyID());
         //     break;
-        // case "Insert":
-        //     $chofer->xxx= $_POST["xxx"];
-        //     $chofer->xxx= $_POST["xxx"];
-        //     $chofer->xxx= $_POST["xxx"];
-        //     $chofer->Insert();
-        //     break;
+        case "Insert":
+            $chofer->nombre= $_POST["nombre"];
+            $chofer->cedula= $_POST["cedula"];
+            $chofer->telefono= $_POST["telefono"];
+            $chofer->cuenta= $_POST["cuenta"];
+            $chofer->correo= $_POST["correo"];
+            $chofer->Insert();
+            break;
         // case "Update":
         //     $visitante->ID= $_POST["idvisitante"];
         //     $visitante->cedula= $_POST["cedula"];
@@ -44,6 +46,7 @@ class Chofer{
     public $cedula='';
     public $telefono='';
     public $cuenta='';
+    public $correo='';
 
     function __construct(){
         require_once('Globals.php');
@@ -59,11 +62,7 @@ class Chofer{
             $data= DATA::Ejecutar($sql);
             return $data;
         }     
-        catch(Exception $e) {            
-            //log::AddD('FATAL', 'Ha ocurrido un error al realizar la carga de datos', $e->getMessage());
-            //$_SESSION['errmsg']= $e->getMessage();
-            //header('Location: ../Error.php');            
-            //exit;
+        catch(Exception $e) {   
         }
     }
 
@@ -83,6 +82,23 @@ class Chofer{
     //         exit;
     //     }
     // }
+
+    function Insert(){
+        try {
+            $sql="INSERT INTO chofer (id,nombre, cedula, telefono, cuenta)
+                VALUES (uuid(),:nombre, :cedula, :telefono, :cuenta)";              
+            //
+            $param= array(':nombre'=>$this->nombre,':cedula'=>$this->cedula,':telefono'=>$this->telefono, ':cuenta'=>$this->cuenta);
+            $data = DATA::Ejecutar($sql,$param,true);
+            if($data)
+            {
+                return true;
+            }
+            else var_dump(http_response_code(500)); // error
+        }     
+        catch(Exception $e) {
+        }
+    }
 
 }
 

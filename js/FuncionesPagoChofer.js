@@ -400,8 +400,10 @@ function mantenimientochofer(){
             '</div>'+
         '</div>'+
     '</div>';
-
+    //
     $('#div-mant-inputs').append(inputs);
+    // evento
+    $('#btnguardarchofer').click(Save);
 }
 
 function mantenimientofinca(){

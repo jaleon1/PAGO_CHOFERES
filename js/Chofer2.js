@@ -12,6 +12,7 @@
 //     };
 // };
 // DOM
+var id= null;
 $(document).ready(function () {
     $(document).on('click', '#menu-chofer', function (event) {    
         $("#div-mants").css("height", "340px");
@@ -85,6 +86,7 @@ function LoadAll() {
         }
     })
     .done(function (e) {
+        CleanCtls();
         ShowData(e);
     })
     .fail(showError);
@@ -166,11 +168,13 @@ function ShowData(e) {
 //     .fail(showError);*/
 // };
 
-// function CleanCtls() {
-//     $("#nombre").val('');
-//     $("#ubicacion").val('');
-//     $("#telefono").val('');
-// };
+function CleanCtls() {
+    $("#inp-nombre-chofer").val(''),
+    $("#inp-cedula-chofer").val(''),
+    $("#inp-tel-chofer").val(''),
+    $("#inp-cuenta-chofer").val(''),
+    $("#inp-correo-chofer").val('')
+};
 
 // function ShowItemData(e) {
 //     // Limpia el controles
@@ -188,27 +192,30 @@ function ShowData(e) {
 //     $(".modal").css({ display: "block" });
 // };
 
-// function FormValidate(){
-// };
+function FormValidate(){
+    return true;
+};
 
-// // Save
-// function Save(){   
-//     // Ajax: insert / Update.
-//     if(!FormValidate())
-//         return false;
-//     var miAccion= id=='NULL' ? 'Insert' : 'Update';
-//     $.ajax({
-//         type: "POST",
-//         url: "class/Chofer.php",
-//         data: { 
-//             action: miAccion,  
-//             id: id,              
-//             nombre:  $("#nombre").val(),
-//             ubicacion: $("#ubicacion").val(),
-//             telefono: $("#telefono").val()
-//         }
-//     })
-//     .done(showInfo)
-//     .fail(showError)
-//     .always(Load);
-// }; 
+// Save
+function Save(){   
+    // Ajax: insert / Update.
+    if(!FormValidate())
+        return false;
+    var miAccion= id==null ? 'Insert' : 'Update';
+    $.ajax({
+        type: "POST",
+        url: "class/Chofer.php",
+        data: { 
+            action: miAccion,  
+            id: id,              
+            nombre:  $("#inp-nombre-chofer").val(),
+            cedula: $("#inp-cedula-chofer").val(),
+            telefono: $("#inp-tel-chofer").val(),
+            cuenta: $("#inp-cuenta-chofer").val(),
+            correo: $("#inp-correo-chofer").val()
+        }
+    })
+    .done(showInfo)
+    .fail(showError)
+    .always(LoadAll);
+}; 
