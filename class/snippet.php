@@ -8,12 +8,12 @@ require_once("Log.php");
 //Globals::ConfiguracionIni();
 
 if(isset($_POST["action"])){
-    $chofer= new Chofer();
+    $myclass= new MyClass();
     switch($_POST["action"]){       
         case "LoadAll":
             echo json_encode($chofer->LoadAll());
             break;
-        case "Load":
+        case "LoadDatabyID":
             $chofer->id=$_POST["id"];
             echo json_encode($task->LoadDatabyID());
             break;
