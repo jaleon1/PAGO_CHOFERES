@@ -38,7 +38,7 @@ if(isset($_POST["action"])){
     }
 }
 
-class Task{
+class Chofer{
     public $id='';
     public $nombre='';
     public $cedula='';

@@ -8,11 +8,11 @@ class DATA {
 
 	private static function ConfiguracionIni(){
         require_once('Globals.php');
-        if (file_exists('../../ini/config.ini')) {
-            self::$config = parse_ini_file('../../ini/config.ini',true); 
+        if (file_exists('../../ini/config_pagochofer.ini')) {
+            self::$config = parse_ini_file('../../ini/config_pagochofer.ini',true); 
         } 
-        else if (file_exists('../ini/config.ini')) {
-            self::$config = parse_ini_file('../ini/config.ini',true); 
+        else if (file_exists('../ini/config_pagochofer.ini')) {
+            self::$config = parse_ini_file('../ini/config_pagochofer.ini',true); 
         }         
     }  
 
@@ -35,7 +35,7 @@ class DATA {
     public static function ConectarSQL(){
         try {           
             if(!isset(self::$connSql)) {
-                $config = parse_ini_file('../ini/config.ini'); 
+                $config = parse_ini_file('../ini/config_pagochofer.ini'); 
                 self::$connSql = new PDO("odbc:sqlserver", 'dbaadmin', 'dbaadmin'); 
                 return self::$connSql;
             }
