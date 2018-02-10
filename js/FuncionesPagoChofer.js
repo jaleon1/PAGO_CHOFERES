@@ -331,28 +331,28 @@ $(document).on('click', '#inp-chofer', function (event) {
     mantenimientochofer();
 });
 
-$(document).on('click', '#menu-chofer', function (event) {    
-    $("#div-mants").css("height", "340px");
-    $("#div-mant-inputs").css("height", "180px");
-    chofer();
-    mantenimientochofer();
-});
+// $(document).on('click', '#menu-chofer', function (event) {    
+//     $("#div-mants").css("height", "340px");
+//     $("#div-mant-inputs").css("height", "180px");
+//     chofer();
+//     mantenimientochofer();
+// });
 
-function chofer(){
-    LimpiaTitulo();
-    $('#div-mant-titulo').append("<h3 id='titulo-Chofer'>CHOFER</h3>");
-    $('#div-mants').append("<table id='tblchofer'class='tbl'>");
-    var col="<thead><tr><th>NOMBRE</th><th>CEDULA</th><th>TELEFONO</th><th>CORREO</th><th></th><th></th></tr></thead><tbody id='tableBody-chofer'></tbody>";
-    $('#tblchofer').append(col);
+// function chofer(){
+//     LimpiaTitulo();
+//     $('#div-mant-titulo').append("<h3 id='titulo-Chofer'>CHOFER</h3>");
+//     $('#div-mants').append("<table id='tblchofer'class='tbl'>");
+//     var col="<thead><tr><th>NOMBRE</th><th>CEDULA</th><th>TELEFONO</th><th>CORREO</th><th></th><th></th></tr></thead><tbody id='tableBody-chofer'></tbody>";
+//     $('#tblchofer').append(col);
 
-    $('#tblchofer').DataTable( {
-        "order": [[ 1, "asc" ]],
-        "paging":   false,
-        "scrollY": "180px",
-        "scrollCollapse": true,
-        "bInfo" : false
-    } );
-}
+//     $('#tblchofer').DataTable( {
+//         "order": [[ 1, "asc" ]],
+//         "paging":   false,
+//         "scrollY": "180px",
+//         "scrollCollapse": true,
+//         "bInfo" : false
+//     } );
+// }
 
 /*FORMULARIO PAGO*/
 $(document).on('click', '#menu-formulario-pago', function (event) {    
