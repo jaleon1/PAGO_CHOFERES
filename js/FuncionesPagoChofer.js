@@ -342,13 +342,8 @@ function chofer(){
     LimpiaTitulo();
     $('#div-mant-titulo').append("<h3 id='titulo-Chofer'>CHOFER</h3>");
     $('#div-mants').append("<table id='tblchofer'class='tbl'>");
-    var col="<thead><tr><th>NOMBRE</th><th>CEDULA</th><th>TELEFONO</th><th>CORREO</th><th></th><th></th></tr></thead><tbody id='tableBody'></tbody>";
+    var col="<thead><tr><th>NOMBRE</th><th>CEDULA</th><th>TELEFONO</th><th>CORREO</th><th></th><th></th></tr></thead><tbody id='tableBody-chofer'></tbody>";
     $('#tblchofer').append(col);
-    var row1="<tr><td>Jairo León González</td><td>103250698</td><td>8891-8749</td><td>jillsmith@gmail.com</td><td><img id=btnmodingreso class=borrar src=img/file_mod.png></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
-    var row2="<tr><td>Eve Jackson</td><td>302580444</td> <td>8857-1147</td><td>evejackson@hotmail.com</td><td><img id=btnmodingreso class=borrar src=img/file_mod.png></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
-    var row3="<tr><td>John Man</td><td>305890555</td> <td>9584-8744</td><td>johnman@yahoo.com</td><td><img id=btnmodingreso class=borrar src=img/file_mod.png></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
-    var row4="<tr><td>Evelyn Solis</td><td>102250361</td> <td>8814-1178</td><td>evelynsolis@cmx.com</td><td><img id=btnmodingreso class=borrar src=img/file_mod.png></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
-    $('#tableBody').append(row1+row2+row3+row4);  
 
     $('#tblchofer').DataTable( {
         "order": [[ 1, "asc" ]],
@@ -358,7 +353,6 @@ function chofer(){
         "bInfo" : false
     } );
 }
-
 
 /*FORMULARIO PAGO*/
 $(document).on('click', '#menu-formulario-pago', function (event) {    
@@ -552,7 +546,6 @@ function mantenimientoingresogasto(){
     $('#div-mant-inputs').append(inputs);
 }
 
-
 function mantenimientoformpago(){
     $('#contenido-form').html(""); 
     var inputs = '<div id="div-form" class="">'+
@@ -617,7 +610,6 @@ function mantenimientoformpago(){
     $('#contenido-form').append(inputs);
 }
 
-
 function mantenimientoreportes(){
     $('#contenido-form').html(""); 
     var inputs = '<div id="div-repo">'+
@@ -646,8 +638,8 @@ function mantenimientoreportes(){
     '</div>';
     $('#contenido-form').append(inputs);
 }
-function LimpiaTitulo()
-{
+
+function LimpiaTitulo(){
     $('#div-mants').html("");  
     $('#div-mant-inputs').html("");    
     $('h3:contains(CHOFER)').remove();
@@ -683,8 +675,6 @@ function Fecha(){
     document.getElementById("form-date-crtl").value = today;
 }
 
-
-
 /* REPORTES*/
 function listareportes(){        
     $('#div-lista-reporte').append("<table id='tblreportes'class='tbl'>");
@@ -713,11 +703,13 @@ $(document).on('click','#menu-reporte', function(event){
 });
 
 $(document).on('click', '#btnaddingresos', function (event) {
+    $('#firsttr').closest('tr').remove();
     var td1="<tr><td><input type=text id=inp-ingreso class=inp-ingresogasto required/></td><td><input type=text id=inp-ingreso-monto class=inp-ingresogasto required/></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
     $("#tblbodyingresos-form").append(td1);
 }); 
 
 $(document).on('click', '#btnaddgastos', function (event) {
+    $('#firsttr2').closest('tr').remove();
     var td1="<tr><td><input type=text id=inp-gasto class=inp-ingresogasto required/></td><td><input type=text id=inp-gasto-monto class=inp-ingresogasto required/></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
     $("#tblbodygastos-form").append(td1);
 }); 
