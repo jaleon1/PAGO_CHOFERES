@@ -13,10 +13,6 @@ function Chofer(id=null, nombre, ubicacion, telefono) {
 };
 // DOM
 $(document).ready(function () {
-    // Close modal
-    this.Exit = function () {
-        $(".modal").css({ display: "none" });
-    };
     // Load lists
     LoadAll();
 });

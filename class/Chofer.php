@@ -13,33 +13,37 @@ if(isset($_POST["action"])){
         case "LoadAll":
             echo json_encode($chofer->LoadAll());
             break;
-        case "Load":
-            $chofer->id=$_POST["id"];
-            echo json_encode($task->LoadDatabyID());
-            break;
-        case "Insert":
-            $chofer->xxx= $_POST["xxx"];
-            $chofer->xxx= $_POST["xxx"];
-            $chofer->xxx= $_POST["xxx"];
-            $chofer->Insert();
-            break;
-        case "Update":
-            /*$visitante->ID= $_POST["idvisitante"];
-            $visitante->cedula= $_POST["cedula"];
-            $visitante->nombre= $_POST["nombre"];
-            $visitante->empresa= $_POST["empresa"];
-            $visitante->permisoanual= $_POST["permiso"];
-            $visitante->Modificar();*/
-            break;
-        case "Delete":
-            /*$visitante->ID= $_POST["idvisitante"];            
-            $visitante->Eliminar();*/
-            break;        
+        // case "Load":
+        //     $chofer->id=$_POST["id"];
+        //     echo json_encode($task->LoadDatabyID());
+        //     break;
+        // case "Insert":
+        //     $chofer->xxx= $_POST["xxx"];
+        //     $chofer->xxx= $_POST["xxx"];
+        //     $chofer->xxx= $_POST["xxx"];
+        //     $chofer->Insert();
+        //     break;
+        // case "Update":
+        //     $visitante->ID= $_POST["idvisitante"];
+        //     $visitante->cedula= $_POST["cedula"];
+        //     $visitante->nombre= $_POST["nombre"];
+        //     $visitante->empresa= $_POST["empresa"];
+        //     $visitante->permisoanual= $_POST["permiso"];
+        //     $visitante->Modificar();
+        //     break;
+        // case "Delete":
+        //     $visitante->ID= $_POST["idvisitante"];            
+        //     $visitante->Eliminar();
+        //     break;   
     }
 }
 
 class Task{
     public $id='';
+    public $nombre='';
+    public $cedula='';
+    public $telefono='';
+    public $cuenta='';
 
     function __construct(){
         require_once('Globals.php');
@@ -49,37 +53,36 @@ class Task{
 
     function LoadAll(){
         try {
-            $sql='SELECT 
-                FROM              
-                ORDER BY id desc';
-            //$param= array(':userid'=>$_SESSION["userid"]);
-            $data= DATA::Ejecutar($sql,$param);
+            $sql='SELECT id, nombre, cedula, telefono, cuenta 
+                FROM pagochofer.chofer                
+                ORDER BY nombre asc';
+            $data= DATA::Ejecutar($sql);
             return $data;
         }     
         catch(Exception $e) {            
             //log::AddD('FATAL', 'Ha ocurrido un error al realizar la carga de datos', $e->getMessage());
-            $_SESSION['errmsg']= $e->getMessage();
-            header('Location: ../Error.php');            
-            exit;
+            //$_SESSION['errmsg']= $e->getMessage();
+            //header('Location: ../Error.php');            
+            //exit;
         }
     }
 
-    function LoadDatabyID(){
-        try {
-            $sql='SELECT 
-                FROM chofer  
-                where id=:id';
-            $param= array(':id'=>$this->id);
-            $data= DATA::Ejecutar($sql,$param);
-            return $data;
-        }     
-        catch(Exception $e) {            
-            //log::AddD('FATAL', 'Ha ocurrido un error al realizar la carga de datos', $e->getMessage());
-            $_SESSION['errmsg']= $e->getMessage();
-            header('Location: ../Error.php');            
-            exit;
-        }
-    }
+    // function LoadDatabyID(){
+    //     try {
+    //         $sql='SELECT 
+    //             FROM chofer  
+    //             where id=:id';
+    //         $param= array(':id'=>$this->id);
+    //         $data= DATA::Ejecutar($sql,$param);
+    //         return $data;
+    //     }     
+    //     catch(Exception $e) {            
+    //         //log::AddD('FATAL', 'Ha ocurrido un error al realizar la carga de datos', $e->getMessage());
+    //         $_SESSION['errmsg']= $e->getMessage();
+    //         header('Location: ../Error.php');            
+    //         exit;
+    //     }
+    // }
 
 }
 
