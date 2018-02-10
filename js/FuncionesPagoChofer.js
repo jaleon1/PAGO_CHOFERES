@@ -592,10 +592,22 @@ function mantenimientoformpago(){
         '<div id="div-form-conversion">'+
             '<button id="btncambio">$/</button>'+
         '</div>'+
-        '<div id="div-form-ingresos">'+         
+        '<div class="div-form-medio">'+         
+            '<div id="div-form-ingresos">'+         
+            '</div>'+
+            '<div id="div-form-ingresos-add">'+       
+                '<input type="button" id="btnaddingresos" class="btnadd" value="+">'+  
+            '</div>'+
         '</div>'+
-        '<div id="div-form-gastos">'+
+        '<div class="div-form-medio">'+  
+            '<div id="div-form-gastos">'+
+            '</div>'+
+            '<div id="div-form-gastos-add">'+
+                '<input type="button" id="btnaddgastos" class="btnadd" value="+">'+  
+            '</div>'+
         '</div>'+
+
+        
         '<div id="div-form-total-pago">'+
             '<label for="lbl-total-pago" class="lbl-style">TOTAL A PAGAR</label>'+
             '<input type="text" id="inp-total-pago" name="inp-total-pago" class="input-format" readonly="readonly" value="" required/>'+ 
@@ -700,6 +712,15 @@ $(document).on('click','#menu-reporte', function(event){
     listareportes();
 });
 
+$(document).on('click', '#btnaddingresos', function (event) {
+    var td1="<tr><td><input type=text id=inp-ingreso class=inp-ingresogasto required/></td><td><input type=text id=inp-ingreso-monto class=inp-ingresogasto required/></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
+    $("#tblbodyingresos-form").append(td1);
+}); 
+
+$(document).on('click', '#btnaddgastos', function (event) {
+    var td1="<tr><td><input type=text id=inp-gasto class=inp-ingresogasto required/></td><td><input type=text id=inp-gasto-monto class=inp-ingresogasto required/></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
+    $("#tblbodygastos-form").append(td1);
+}); 
 
 /* INSERTAR */
 //INSERTA UN FORMULARIO, SI ESTA CCORRECTO REDIRECCIONA A LISAT FORMULARIO
