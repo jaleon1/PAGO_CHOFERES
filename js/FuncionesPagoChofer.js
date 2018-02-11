@@ -362,48 +362,50 @@ $(document).on('click', '#menu-formulario-pago', function (event) {
 }); 
 
 function mantenimientochofer(){
-    var inputs = '<div id=input-chofer>'+ 
-        '<div class=caja-media>'+  
-            '<div class=contenido-input>'+ 
-                '<label for="lbl-nombre-chofer" class="lbl-style">Nombre</label>'+ 
-                '<input type="text" id="inp-nombre-chofer" name="inp-nombre-chofer" class="input-format" value="" required/>'+ 
+    var inputs = '<form id="frmchofer">'+
+        '<div id=input-chofer>'+ 
+            '<div class=caja-media>'+  
+                '<div class="form-group">' +'<div class=contenido-input>'+  
+                    '<label for="lbl-nombre-chofer" class="lbl-style">Nombre</label>'+ 
+                    '<input type="text" id="inp-nombre-chofer" name="inp-nombre-chofer" class="input-format" value=""/>'+ 
+                '</div>'+ '</div>'+
+                '<div class="form-group">' +'<div class=contenido-input>'+ 
+                    '<label for="lbl-correo-chofer" class="lbl-style">Cuenta</label>'+    
+                    '<input type="text" id="inp-cuenta-chofer" name="inp-cuenta-chofer" class="input-format" value="" required/>'+  
+                '</div>'+ '</div>'+
+                '<div class=contenido-input>'+
+                '</div>'+
             '</div>'+
-            '<div class=contenido-input>'+ 
-                '<label for="lbl-correo-chofer" class="lbl-style">Cuenta</label>'+    
-                '<input type="text" id="inp-cuenta-chofer" name="inp-cuenta-chofer" class="input-format" value="" required/>'+  
+            '<div class=caja-cuarto>'+ 
+                '<div class=contenido-input>'+
+                    '<label for="lbl-cedula-chofer" class="lbl-style">Cedula</label>'+
+                    '<input type="text" id="inp-cedula-chofer" name="inp-cedula-chofer" class="input-format" value="" required/>'+
+                '</div>'+
+                '<div id=xxx class=contenido-input>'+
+                    '<label for="lbl-correo-chofer" class="lbl-style">Correo</label>'+
+                    '<input type="text" id="inp-correo-chofer" name="inp-correo-chofer" class="input-format" value="" required/>'+
+                '</div>'+
+                '<div class=contenido-input>'+
+                '</div>'+
             '</div>'+
-            '<div class=contenido-input>'+
-            '</div>'+
-        '</div>'+
-        '<div class=caja-cuarto>'+ 
-            '<div class=contenido-input>'+
-                '<label for="lbl-cedula-chofer" class="lbl-style">Cedula</label>'+
-                '<input type="text" id="inp-cedula-chofer" name="inp-cedula-chofer" class="input-format" value="" required/>'+
-            '</div>'+
-            '<div id=xxx class=contenido-input>'+
-                '<label for="lbl-correo-chofer" class="lbl-style">Correo</label>'+
-                '<input type="text" id="inp-correo-chofer" name="inp-correo-chofer" class="input-format" value="" required/>'+
-            '</div>'+
-            '<div class=contenido-input>'+
-            '</div>'+
-        '</div>'+
-        '<div class=caja-cuarto>'+ 
-            '<div class=contenido-input>'+
-                '<label for="lbl-tel-chofer" class="lbl-style">Telefono</label>'+
-                '<input type="text" id="inp-tel-chofer" name="inp-tel-chofer" class="input-format" value="" required/>'+
-            '</div>'+
-            '<div class=contenido-input>'+
+            '<div class=caja-cuarto>'+ 
+                '<div class=contenido-input>'+
+                    '<label for="lbl-tel-chofer" class="lbl-style">Telefono</label>'+
+                    '<input type="text" id="inp-tel-chofer" name="inp-tel-chofer" class="input-format" value="" required/>'+
+                '</div>'+
+                '<div class=contenido-input>'+
 
-            '</div>'+
-            '<div id=boton class=contenido-input>'+
-                '<input type="button" id="btnguardarchofer" class="btn" value="Guardar">'+ 
+                '</div>'+
+                '<div id=boton class=contenido-input>'+
+                    '<input type="submit" id="btnguardarchofer" class="btn" value="Guardar">'+ 
+                '</div>'+
             '</div>'+
         '</div>'+
-    '</div>';
+    '</form>';
     //
     $('#div-mant-inputs').append(inputs);
     // evento
-    $('#btnguardarchofer').click(Save);
+    $('#btnguardarchofer').click(FormValidate);
 }
 
 function mantenimientofinca(){
