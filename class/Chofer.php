@@ -34,10 +34,10 @@ if(isset($_POST["action"])){
             $chofer->correo= $_POST["correo"];
             $chofer->Update();
             break;
-        // case "Delete":
-        //     $chofer->ID= $_POST["idchofer"];            
-        //     $chofer->Eliminar();
-        //     break;   
+        case "Delete":
+            $chofer->id= $_POST["id"];            
+            $chofer->Delete();
+            break;   
     }
 }
 
@@ -85,8 +85,8 @@ class Chofer{
 
     function Insert(){
         try {
-            $sql="INSERT INTO chofer (id,nombre, cedula, telefono, cuenta, /*correo*/)
-                VALUES (uuid(),:nombre, :cedula, :telefono, :cuenta, /*:correo*/)";              
+            $sql="INSERT INTO chofer (id,nombre, cedula, telefono, cuenta /*,correo*/)
+                VALUES (uuid(),:nombre, :cedula, :telefono, :cuenta /*,:correo*/)";              
             //
             $param= array(':nombre'=>$this->nombre,':cedula'=>$this->cedula,':telefono'=>$this->telefono, ':cuenta'=>$this->cuenta);
             $data = DATA::Ejecutar($sql,$param,true);
@@ -117,6 +117,43 @@ class Chofer{
             // exit;
         }
     }   
+
+    function CheckRelatedItems(){
+        try{
+            $sql="SELECT id
+                FROM formulariopago F  
+                WHERE F.idchofer= :id";                
+            $param= array(':id'=>$this->id);
+            $data= DATA::Ejecutar($sql, $param);
+            if(count($data))
+                return true;
+            else return false;
+        }
+        catch(Exception $e){
+            // log::AddD('FATAL', 'Ha ocurrido un error al realizar la Entrada del Visitante', $e->getMessage());
+            // var_dump(http_response_code(500)); // error ajax
+        }
+    }
+
+    function Delete(){
+        try {
+            if($this->CheckRelatedItems()){
+                echo "Registro en uso";
+                return false;
+            }                
+            $sql='DELETE FROM chofer 
+            WHERE id= :id';
+            $param= array(':id'=>$this->id);
+            $data= DATA::Ejecutar($sql, $param, true);
+            if($data)
+                return true;
+            else var_dump(http_response_code(500)); // error 
+        }
+        catch(Exception $e) {            
+            // log::AddD('FATAL', 'Ha ocurrido un error al realizar la Entrada del Visitante', $e->getMessage());
+            // var_dump(http_response_code(500)); // error ajax
+        }
+    }
 
 }
 

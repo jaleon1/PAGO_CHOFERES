@@ -14,10 +14,14 @@ if (!isset($_SESSION))
     <script src="js/datatables.js" type="text/javascript" charset="utf8"></script>
 
     <script src="js/jquery.validate.min.js" languaje="javascript" type="text/javascript"></script> 
+    
     <script type="text/javascript" src="js/localization/messages_es.js"></script>
     <script src="js/FuncionesPagoChofer.js" languaje="javascript" type="text/javascript"></script> 
     <script src="js/Chofer.js" languaje="javascript" type="text/javascript"></script> 
     
+    <script type="text/javascript" src="js/sweetalert.js"></script>
+    <link rel="stylesheet" href="css/sweetalert.css" type="text/css"/>
+
     <link rel="stylesheet" href="css/dropdownmenu.css" type="text/css"/>
 
     
