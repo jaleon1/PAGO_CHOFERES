@@ -13,8 +13,11 @@ if (!isset($_SESSION))
     <script src="js/jquery.js" type="text/jscript"></script>
     <script src="js/datatables.js" type="text/javascript" charset="utf8"></script>
     <script src="js/FuncionesPagoChofer.js" languaje="javascript" type="text/javascript"></script> 
-    <script src="js/Chofer2.js" languaje="javascript" type="text/javascript"></script> 
+    <script src="js/Chofer.js" languaje="javascript" type="text/javascript"></script> 
+    <script src="js/jquery.validate.min.js" languaje="javascript" type="text/javascript"></script> 
     <link rel="stylesheet" href="css/dropdownmenu.css" type="text/css"/>
+
+    
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
