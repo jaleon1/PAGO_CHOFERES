@@ -78,6 +78,7 @@ function showError() {
 
 // Carga lista
 function LoadAll() {
+    id=null;
     $.ajax({
         type: "POST",
         url: "class/Chofer.php",
@@ -106,12 +107,12 @@ function ShowData(e) {
             '<td>' + item.cedula + '</td>' +
             '<td>' + item.cuenta + '</td>' +
             '<td><img id=btnmodingreso'+ item.id + ' class=borrar src=img/file_mod.png></td>'+
-            '<td><img id=btnborraingreso class=borrar src=img/file_delete.png></td>'+
+            '<td><img id=btnborraingreso'+ item.id + ' class=borrar src=img/file_delete.png></td>'+
             '</tr>';
         $('#tableBody-chofer').append(row);
         // evento click del boton modificar-eliminar
         $('#btnmodingreso' + item.id).click(UpdateEventHandler);
-        //$('#Delete' + item.id).click(DeleteEventHandler);
+        $('#btnborraingreso' + item.id).click(DeleteEventHandler);
     })
 };
 
@@ -131,41 +132,53 @@ function UpdateEventHandler() {
     .fail(showError);
 };
 
-// function DeleteEventHandler() {
-//     id = $(this).parents("tr").find("td").eq(0).text();
-//     // Mensaje de borrado:
-//     swal({
-//         title: 'Eliminar el Perfil?',
-//         text: "Esta acción es irreversible!",
-//         type: 'warning',
-//         showCancelButton: true,
-//         confirmButtonColor: '#3085d6',
-//         cancelButtonColor: '#d33',
-//         confirmButtonText: 'Si, eliminar!',
-//         cancelButtonText: 'No, cancelar!',
-//         confirmButtonClass: 'btn btn-success',
-//         cancelButtonClass: 'btn btn-danger'
-//     }).then(function () {
-//         // eliminar registro.
-//         //Delete();
-//     })
-// };
+function DeleteEventHandler() {
+    id = $(this).parents("tr").find("td").eq(0).text(); //Columna 0 de la fila seleccionda= ID.
+    // Mensaje de borrado:
+    swal({
+        title: 'Eliminar?',
+        text: "Esta acción es irreversible!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminar!',
+        cancelButtonText: 'No, cancelar!',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger'
+    }).then(function () {
+        // eliminar registro.
+        Delete();
+    })
+};
 
-// function Delete() {
-//     /*id = $(this).parents("tr").find("td").eq(1).text();  //Columna 1 = ID tarea.
-//     $.ajax({
-//         type: "POST",
-//         url: "class/Task.php",
-//         data: { 
-//             action: 'Load',                
-//             id:  id
-//         }            
-//     })
-//     .done(function( e ) {        
-//         ShowTaskData(e);
-//     })    
-//     .fail(showError);*/
-// };
+function Delete() {
+    $.ajax({
+        type: "POST",
+        url: "class/Chofer.php",
+        data: { 
+            action: 'Delete',                
+            id:  id
+        }            
+    })
+    .done(function( e ) {        
+        if(e=="Registro en uso")
+        {
+            swal(
+            'Mensaje!',
+            'El registro se encuentra  en uso, no es posible eliminar.',
+            'error'
+        );
+        }
+        else swal(
+            'Eliminado!',
+            'El registro se ha eliminado.',
+            'success'
+        );
+        LoadAll();
+    })    
+    .fail(showError);
+};
 
 function CleanCtls() {
     $("#inp-nombre-chofer").val(''),
