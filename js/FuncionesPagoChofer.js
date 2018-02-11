@@ -437,13 +437,15 @@ function mantenimientofinca(){
                 '<input type="text" id="inp-tel-finca" name="inp-tel-finca" class="input-format" value="" required/>'+                        
             '</div>'+
             '<div class=contenido-input>'+
-                '<input type="button" id="btnguardarfinca" class="btn" value="Guardar">'+        
+                '<input type="submit" id="btnguardarfinca" class="btn" value="Guardar">'+        
             '</div>'+
             '<div id=boton class=contenido-input>'+
             '</div>'+
         '</div>'+
     '</div>';
     $('#div-mant-inputs').append(inputs);
+    // evento
+    $('#btnguardarfinca').click(FormValidate);
 }
 
 function mantenimientonaviera(){
@@ -475,7 +477,7 @@ function mantenimientonaviera(){
                 '<input type="text" id="inp-tel-naviera" name="inp-tel-naviera" class="input-format" value="" required/>'+                        
             '</div>'+
             '<div class=contenido-input>'+
-                '<input type="button" id="btnguardarnaviera" class="btn" value="Guardar">'+        
+                '<input type="submit" id="btnguardarnaviera" class="btn" value="Guardar">'+        
             '</div>'+
             '<div id=boton class=contenido-input>'+
             '</div>'+
@@ -483,6 +485,8 @@ function mantenimientonaviera(){
     '</div>';
 
     $('#div-mant-inputs').append(inputs);
+    // evento
+    $('#btnguardarnaviera').click(FormValidate);
 }
 
 function mantenimientoviajes(){
@@ -505,13 +509,15 @@ function mantenimientoviajes(){
                     '<input type="text" id="inp-kms-viaje" name="inp-kms-viaje" class="input-format" value="" required/>'+                          
                 '</div>'+
                 '<div class=caja-media>'+
-                    '<input type="button" id="btnguardarviaje" class="btn" value="Guardar">'+  
+                    '<input type="submit" id="btnguardarviaje" class="btn" value="Guardar">'+  
                 '</div>'+    
             '</div>'+
         '</div>'+
     '</div>';
 
     $('#div-mant-inputs').append(inputs);
+    // evento
+    $('#btnguardarviaje').click(FormValidate);
 }
 
 function mantenimientoingresogasto(){

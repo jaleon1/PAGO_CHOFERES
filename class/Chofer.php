@@ -13,10 +13,10 @@ if(isset($_POST["action"])){
         case "LoadAll":
             echo json_encode($chofer->LoadAll());
             break;
-        // case "Load":
-        //     $chofer->id=$_POST["id"];
-        //     echo json_encode($task->LoadDatabyID());
-        //     break;
+        case "Load":
+            $chofer->id=$_POST["id"];
+            echo json_encode($chofer->Load());
+            break;
         case "Insert":
             $chofer->nombre= $_POST["nombre"];
             $chofer->cedula= $_POST["cedula"];
@@ -25,17 +25,18 @@ if(isset($_POST["action"])){
             $chofer->correo= $_POST["correo"];
             $chofer->Insert();
             break;
-        // case "Update":
-        //     $visitante->ID= $_POST["idvisitante"];
-        //     $visitante->cedula= $_POST["cedula"];
-        //     $visitante->nombre= $_POST["nombre"];
-        //     $visitante->empresa= $_POST["empresa"];
-        //     $visitante->permisoanual= $_POST["permiso"];
-        //     $visitante->Modificar();
-        //     break;
+        case "Update":
+            $chofer->id= $_POST["id"];
+            $chofer->cedula= $_POST["cedula"];
+            $chofer->nombre= $_POST["nombre"];
+            $chofer->telefono= $_POST["telefono"];
+            $chofer->cuenta= $_POST["cuenta"];
+            $chofer->correo= $_POST["correo"];
+            $chofer->Update();
+            break;
         // case "Delete":
-        //     $visitante->ID= $_POST["idvisitante"];            
-        //     $visitante->Eliminar();
+        //     $chofer->ID= $_POST["idchofer"];            
+        //     $chofer->Eliminar();
         //     break;   
     }
 }
@@ -66,27 +67,26 @@ class Chofer{
         }
     }
 
-    // function LoadDatabyID(){
-    //     try {
-    //         $sql='SELECT 
-    //             FROM chofer  
-    //             where id=:id';
-    //         $param= array(':id'=>$this->id);
-    //         $data= DATA::Ejecutar($sql,$param);
-    //         return $data;
-    //     }     
-    //     catch(Exception $e) {            
-    //         //log::AddD('FATAL', 'Ha ocurrido un error al realizar la carga de datos', $e->getMessage());
-    //         $_SESSION['errmsg']= $e->getMessage();
-    //         header('Location: ../Error.php');            
-    //         exit;
-    //     }
-    // }
+    function Load(){
+        try {
+            $sql='SELECT id, nombre, cedula, telefono, cuenta 
+                FROM chofer  
+                where id=:id';
+            $param= array(':id'=>$this->id);
+            $data= DATA::Ejecutar($sql,$param);
+            return $data;
+        }     
+        catch(Exception $e) {            
+            header('HTTP/1.1 500 Internal Server XXX');
+            header('Content-Type: application/json; charset=UTF-8');
+            die(json_encode(array('message' => 'ERROR:' . $e, 'code' => 666)));
+        }
+    }
 
     function Insert(){
         try {
-            $sql="INSERT INTO chofer (id,nombre, cedula, telefono, cuenta)
-                VALUES (uuid(),:nombre, :cedula, :telefono, :cuenta)";              
+            $sql="INSERT INTO chofer (id,nombre, cedula, telefono, cuenta, /*correo*/)
+                VALUES (uuid(),:nombre, :cedula, :telefono, :cuenta, /*:correo*/)";              
             //
             $param= array(':nombre'=>$this->nombre,':cedula'=>$this->cedula,':telefono'=>$this->telefono, ':cuenta'=>$this->cuenta);
             $data = DATA::Ejecutar($sql,$param,true);
@@ -99,6 +99,24 @@ class Chofer{
         catch(Exception $e) {
         }
     }
+
+    function Update(){
+        try {
+            $sql="UPDATE chofer
+                SET nombre=:nombre, cedula=:cedula, telefono=:telefono, cuenta=:cuenta /*correo=:correo*/
+                WHERE id=:id";
+            $param= array(':id'=>$this->id, ':nombre'=>$this->nombre,':cedula'=>$this->cedula,':telefono'=>$this->telefono, 'cuenta'=>$this->cuenta /*, 'correo'=>$this->correo*/ );
+            $data = DATA::Ejecutar($sql,$param,true);
+            if($data)
+                return true;
+            else var_dump(http_response_code(500)); // error
+        }     
+        catch(Exception $e) {
+            // log::AddD('FATAL', 'Ha ocurrido un error al realizar la Entrada del Visitante', $e->getMessage());
+            // header('Location: ../Error.php?w=conectar&id='.$e->getMessage());
+            // exit;
+        }
+    }   
 
 }
 

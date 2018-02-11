@@ -105,32 +105,31 @@ function ShowData(e) {
             '<td>' + item.nombre + '</td>' +
             '<td>' + item.cedula + '</td>' +
             '<td>' + item.cuenta + '</td>' +
-            '<td><img id=btnmodingreso class=borrar src=img/file_mod.png></td>'+
+            '<td><img id=btnmodingreso'+ item.id + ' class=borrar src=img/file_mod.png></td>'+
             '<td><img id=btnborraingreso class=borrar src=img/file_delete.png></td>'+
             '</tr>';
         $('#tableBody-chofer').append(row);
         // evento click del boton modificar-eliminar
-        //$('#Update' + item.id).click(UpdateEventHandler);
+        $('#btnmodingreso' + item.id).click(UpdateEventHandler);
         //$('#Delete' + item.id).click(DeleteEventHandler);
     })
 };
 
-// function UpdateEventHandler() {
-//     $(".modal").css({ display: "block" });
-//     id = $(this).parents("tr").find("td").eq(1).text();  //Columna 1 = ID tarea.
-//     $.ajax({
-//         type: "POST",
-//         url: "class/Task.php",
-//         data: {
-//             action: 'Load',
-//             id: id
-//         }
-//     })
-//     .done(function (e) {
-//         ShowItemData(e);
-//     })
-//     .fail(showError);
-// };
+function UpdateEventHandler() {
+    id = $(this).parents("tr").find("td").eq(0).text();  //Columna 0 de la fila seleccionda= ID.
+    $.ajax({
+        type: "POST",
+        url: "class/Chofer.php",
+        data: {
+            action: 'Load',
+            id: id
+        }
+    })
+    .done(function (e) {
+        ShowItemData(e);
+    })
+    .fail(showError);
+};
 
 // function DeleteEventHandler() {
 //     id = $(this).parents("tr").find("td").eq(0).text();
@@ -176,21 +175,17 @@ function CleanCtls() {
     $("#inp-correo-chofer").val('')
 };
 
-// function ShowItemData(e) {
-//     // Limpia el controles
-//     CleanCtls();
-//     // carga lista con datos.
-//     var data = JSON.parse(e);
-//     $("#nombre").val(data[0].title);
-//     $("#ubicacion").val(data[0].description);
-//     $("#telefono").val(taskdate);
-// };
-
-// function New() {
-//     CleanCtls();
-//     // Show modal.
-//     $(".modal").css({ display: "block" });
-// };
+function ShowItemData(e) {
+    // Limpia el controles
+    CleanCtls();
+    // carga lista con datos.
+    var data = JSON.parse(e);
+    $("#inp-nombre-chofer").val(data[0].nombre);
+    $("#inp-cedula-chofer").val(data[0].cedula);
+    $("#inp-tel-chofer").val(data[0].telefono);
+    $("#inp-cuenta-chofer").val(data[0].cuenta);
+    //$("#inp-correo-chofer").val(data[0].correo);
+};
 
 function FormValidate(){
     $("#frmchofer").validate({
