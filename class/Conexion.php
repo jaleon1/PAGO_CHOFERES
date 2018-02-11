@@ -13,6 +13,9 @@ class DATA {
         } 
         else if (file_exists('../ini/config_pagochofer.ini')) {
             self::$config = parse_ini_file('../ini/config_pagochofer.ini',true); 
+        }     
+        else if (file_exists('../../../ini/config_pagochofer.ini')) {
+            self::$config = parse_ini_file('../../../ini/config_pagochofer.ini',true); 
         }         
     }  
 

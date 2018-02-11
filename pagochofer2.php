@@ -12,9 +12,12 @@ if (!isset($_SESSION))
     <link rel="stylesheet" href="css/datatables.css" type="text/css"/>
     <script src="js/jquery.js" type="text/jscript"></script>
     <script src="js/datatables.js" type="text/javascript" charset="utf8"></script>
+
+    <script src="js/jquery.validate.min.js" languaje="javascript" type="text/javascript"></script> 
+    <script type="text/javascript" src="js/localization/messages_es.js"></script>
     <script src="js/FuncionesPagoChofer.js" languaje="javascript" type="text/javascript"></script> 
     <script src="js/Chofer.js" languaje="javascript" type="text/javascript"></script> 
-    <script src="js/jquery.validate.min.js" languaje="javascript" type="text/javascript"></script> 
+    
     <link rel="stylesheet" href="css/dropdownmenu.css" type="text/css"/>
 
     
@@ -110,8 +113,7 @@ if (!isset($_SESSION))
             </div>
             <div class=prin-formulario>
                 <div class=prin-margen-center></div>
-                <div id=contenido-form class=contenido-form>
-                    
+                <div id=contenido-form class=contenido-form>                
                 </div>   
                 <div class=prin-margen></div>            
             </div>

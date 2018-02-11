@@ -193,26 +193,36 @@ function CleanCtls() {
 // };
 
 function FormValidate(){
-    $("#input-chofer").validate({
+    $("#frmchofer").validate({
+        lang: 'es', 
         rules: {
-            'inp-nombre-chofer': {
-                required: true
+            'inp-nombre-chofer': "required",
+            'inp-cuenta-chofer': "required",
+            'inp-cedula-chofer': {
+                required: true,
+                number:true
+                //minlenght:5
+            },
+            'inp-correo-chofer': {
+                required: true,
+                email: true
+            },
+            'inp-tel-chofer': {
+                number: true
             }
         },
-        messages: {
-            'inp-nombre-chofer':{
-                required: "Ingrese el nombre del Chofer."
-            }
-        }
-        //submitHandler: submitForm
+        // messages: {
+        //     'inp-nombre-chofer': "Ingrese el nombre del Chofer.",
+        //     'inp-cuenta-chofer': "Ingrese el cuenta del Chofer.",
+        //     'inp-cedula-chofer': "Ingrese el cedula del Chofer."            
+        // },
+        submitHandler: Save
     });  
 };
 
 // Save
 function Save(){   
     // Ajax: insert / Update.
-    if(!FormValidate())
-        return false;
     var miAccion= id==null ? 'Insert' : 'Update';
     $.ajax({
         type: "POST",
