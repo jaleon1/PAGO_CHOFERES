@@ -34,10 +34,7 @@ $(document).on('click', '#inp-finca', function (event) {
 
 
 
-$(document).on('click', '#menu-naviera', function (event) {    
-    naviera();
-    mantenimientonaviera();
-});
+
 
 $(document).on('click', '#inp-naviera', function (event) {    
     $("#div-mants").css("height", "260px");
@@ -53,23 +50,7 @@ $(document).on('click','#tblnaviera tr', function(){
     document.getElementById('inp-valor-viaje').value = '$710';
 });
 
-function naviera(){
-    LimpiaTitulo();
-    $('#div-mant-titulo').append("<h3 id='titulo-naviera'>NAVIERA</h3>");
-    $('#div-mants').append("<table id='tblnaviera'class='tbl'>");
-    var col="<thead><tr><th>NOMBRE</th><th>UBICACION</th><th>TELEFONO</th></thead><tbody id='tableBody'></tbody>";
-    $('#tblnaviera').append(col);
-   
-    //$('#tableBody').append(row1+row2+row3+row4);  
 
-    $('#tblnaviera').DataTable({
-        "order": [[ 1, "asc" ]],
-        "paging":   false,
-        "scrollY": "180px",
-        "scrollCollapse": true,
-        "bInfo" : false
-    });
-}
 
 $(document).on('click', '#menu-calculokm', function (event) {    
     $("#div-mants").css("height", "260px");
@@ -417,11 +398,11 @@ function mantenimientofinca(){
 
 function mantenimientonaviera(){
     $('#div-mant-inputs').html(""); 
-    var inputs = '<form id="frmnaviera">'+'<div id=input-naviera>'+
+    var inputs = '<form id="frmnaviera" >'+'<div id=input-naviera>'+
         '<div class=caja-media>'+
             '<div class=contenido-input>'+
                 '<label for="lbl-nombre-naviera" class="lbl-style">Nombre</label>'+
-                '<input type="text" id="inp-nombre-naviera" name="inp-nombre-naviera" class="input-format" value="" required/>'+
+                '<input type="text" id="inp-nombre-naviera" name="inp-nombre-naviera" class="input-format" value="" />'+
             '</div>'+
             '<div class=contenido-input>'+
             '</div>'+
@@ -431,7 +412,7 @@ function mantenimientonaviera(){
         '<div class=caja-cuarto>'+
             '<div class=contenido-input>'+
                 '<label for="lbl-ubicacion-naviera" class="lbl-style">Ubicación</label>'+
-                '<input type="text" id="inp-ubicacion-naviera" name="inp-ubicacion-naviera" class="input-format" value="" required/>'+
+                '<input type="text" id="inp-ubicacion-naviera" name="inp-ubicacion-naviera" class="input-format" value="" />'+
             '</div>'+
             '<div id=xxx class=contenido-input>'+
             '</div>'+
@@ -441,7 +422,7 @@ function mantenimientonaviera(){
         '<div class=caja-cuarto>'+
             '<div class=contenido-input>'+
                 '<label for="lbl-tel-naviera" class="lbl-style">Telefono</label>'+
-                '<input type="text" id="inp-tel-naviera" name="inp-tel-naviera" class="input-format" value="" required/>'+                        
+                '<input type="text" id="inp-tel-naviera" name="inp-tel-naviera" class="input-format" value="" />'+                        
             '</div>'+
             '<div class=contenido-input>'+
                 '<input type="submit" id="btnguardarnaviera" class="btn" value="Guardar">'+        
