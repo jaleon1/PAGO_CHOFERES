@@ -1,16 +1,3 @@
-// POO Class Chofer
-// function Chofer(id=null, nombre, ubicacion, telefono) {
-//     // Var
-//     this.id = id;
-//     this.nombre = nombre;
-//     this.ubicacion = ubicacion;
-//     this.telefono = telefono;
-//     // Methods
-//     this.Get = function () {
-//         alert(this.id);
-//         alert(this.nombre);
-//     };
-// };
 // DOM
 var id= null;
 $(document).ready(function () {
@@ -49,19 +36,19 @@ function chofer(){
         "bInfo" : false
     } );
     // Carga lista
-    LoadAll();
+    LoadAllChofer();
 };
 
 // Muestra información en ventana
-function showInfo() {
+ function showInfo() {
     alert('show info');
-    /*$(".modal").css({ display: "none" });  
-    $("#textomensaje").text("Información almacenada correctamente!!");
-    $("#mensajetop").css("background-color", "#016DC4");
-    $("#mensajetop").css("color", "#FFFFFF");    
-    $("#mensajetop").css("visibility", "visible");
-    $("#mensajetop").slideDown("slow");
-    $("#mensajetop").slideDown("slow").delay(3000).slideUp("slow");*/
+//     /*$(".modal").css({ display: "none" });  
+//     $("#textomensaje").text("Información almacenada correctamente!!");
+//     $("#mensajetop").css("background-color", "#016DC4");
+//     $("#mensajetop").css("color", "#FFFFFF");    
+//     $("#mensajetop").css("visibility", "visible");
+//     $("#mensajetop").slideDown("slow");
+//     $("#mensajetop").slideDown("slow").delay(3000).slideUp("slow");*/
 };
 
 // Muestra errores en ventana
@@ -77,7 +64,7 @@ function showError() {
 };
 
 // Carga lista
-function LoadAll() {
+function LoadAllChofer() {
     id=null;
     $.ajax({
         type: "POST",
@@ -87,13 +74,13 @@ function LoadAll() {
         }
     })
     .done(function (e) {
-        CleanCtls();
-        ShowData(e);
+        CleanCtlsChofer();
+        ShowDataChofer(e);
     })
     .fail(showError);
 };
 
-function ShowData(e) {
+function ShowDataChofer(e) {
     // Limpia el div que contiene la tabla.
     $('#tableBody-chofer').html("");
     // carga lista con datos.
@@ -111,12 +98,12 @@ function ShowData(e) {
             '</tr>';
         $('#tableBody-chofer').append(row);
         // evento click del boton modificar-eliminar
-        $('#btnmodingreso' + item.id).click(UpdateEventHandler);
-        $('#btnborraingreso' + item.id).click(DeleteEventHandler);
+        $('#btnmodingreso' + item.id).click(UpdateEventHandlerChofer);
+        $('#btnborraingreso' + item.id).click(DeleteEventHandlerChofer);
     })
 };
 
-function UpdateEventHandler() {
+function UpdateEventHandlerChofer() {
     id = $(this).parents("tr").find("td").eq(0).text();  //Columna 0 de la fila seleccionda= ID.
     $.ajax({
         type: "POST",
@@ -127,12 +114,12 @@ function UpdateEventHandler() {
         }
     })
     .done(function (e) {
-        ShowItemData(e);
+        ShowItemDataChofer(e);
     })
     .fail(showError);
 };
 
-function DeleteEventHandler() {
+function DeleteEventHandlerChofer() {
     id = $(this).parents("tr").find("td").eq(0).text(); //Columna 0 de la fila seleccionda= ID.
     // Mensaje de borrado:
     swal({
@@ -148,11 +135,11 @@ function DeleteEventHandler() {
         cancelButtonClass: 'btn btn-danger'
     }).then(function () {
         // eliminar registro.
-        Delete();
+        DeleteChofer();
     })
 };
 
-function Delete() {
+function DeleteChofer() {
     $.ajax({
         type: "POST",
         url: "class/Chofer.php",
@@ -175,22 +162,22 @@ function Delete() {
             'El registro se ha eliminado.',
             'success'
         );
-        LoadAll();
+        LoadAllChofer();
     })    
     .fail(showError);
 };
 
-function CleanCtls() {
-    $("#inp-nombre-chofer").val(''),
-    $("#inp-cedula-chofer").val(''),
-    $("#inp-tel-chofer").val(''),
-    $("#inp-cuenta-chofer").val(''),
-    $("#inp-correo-chofer").val('')
+function CleanCtlsChofer() {
+    $("#inp-nombre-chofer").val('');
+    $("#inp-cedula-chofer").val('');
+    $("#inp-tel-chofer").val('');
+    $("#inp-cuenta-chofer").val('');
+    $("#inp-correo-chofer").val('');
 };
 
-function ShowItemData(e) {
+function ShowItemDataChofer(e) {
     // Limpia el controles
-    CleanCtls();
+    CleanCtlsChofer();
     // carga lista con datos.
     var data = JSON.parse(e);
     $("#inp-nombre-chofer").val(data[0].nombre);
@@ -200,7 +187,7 @@ function ShowItemData(e) {
     //$("#inp-correo-chofer").val(data[0].correo);
 };
 
-function FormValidate(){
+function FormValidateChofer(){
     $("#frmchofer").validate({
         lang: 'es', 
         rules: {
@@ -224,12 +211,12 @@ function FormValidate(){
         //     'inp-cuenta-chofer': "Ingrese el cuenta del Chofer.",
         //     'inp-cedula-chofer': "Ingrese el cedula del Chofer."            
         // },
-        submitHandler: Save
+        submitHandler: SaveChofer
     });  
 };
 
 // Save
-function Save(){   
+function SaveChofer(){   
     // Ajax: insert / Update.
     var miAccion= id==null ? 'Insert' : 'Update';
     $.ajax({
@@ -247,5 +234,5 @@ function Save(){
     })
     .done(showInfo)
     .fail(showError)
-    .always(LoadAll);
+    .always(LoadAllChofer);
 }; 
