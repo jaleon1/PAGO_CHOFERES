@@ -11,28 +11,32 @@ $(document).ready(function () {
         naviera();
         mantenimientonaviera();
     });
+});
 
-    $("#frmnaviera").validate({
-        lang: 'es', 
-        rules: {
-            'inp-nombre-naviera': "required"
-        },
-        submitHandler: SaveNaviera
-    });  
-
-
+$(document).on('click','#tblnaviera tr', function(){        
+    //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
+    document.getElementById('inp-naviera').value = $(this).find('td:first').html();
+    document.getElementById('inp-valor-viaje').value = '$710';
 });
 
 function naviera(){
     LimpiaTitulo();
     $('#div-mant-titulo').append("<h3 id='titulo-naviera'>NAVIERA</h3>");
-    $('#div-mants').append("<table id='tblnavieramant'class='tbl'>");
+    $('#div-mants').append("<table id='tblnaviera'class='tbl'>");
     var col="<thead><tr><th>NOMBRE</th><th>UBICACION</th><th>TELEFONO</th></thead><tbody id='tableBody-naviera'></tbody>";
-    $('#tblnavieramant').append(col);
+    $('#tblnaviera').append(col);
    
     //$('#tableBody').append(row1+row2+row3+row4);  
-    LoadAllNaviera;
-}
+    $('#tblnaviera').DataTable({
+        "order": [[ 1, "asc" ]],
+        "paging":   false,
+        "scrollY": "180px",
+        "scrollCollapse": true,
+        "bInfo" : false
+    });
+
+    LoadAllNaviera();
+};
 
 // Carga lista
 function LoadAllNaviera() {
@@ -141,7 +145,7 @@ function DeleteNaviera() {
 function CleanCtlsNaviera() {
     $("#inp-nombre-naviera").val('');
     $("#inp-ubicacion-naviera").val('');    
-    $("#inp-telefono-naviera").val('');
+    $("#inp-tel-naviera").val('');
 };
 
 function ShowItemDataNaviera(e) {
@@ -151,7 +155,7 @@ function ShowItemDataNaviera(e) {
     var data = JSON.parse(e);
     $("#inp-nombre-naviera").val(data[0].nombre);
     $("#inp-ubicacion-naviera").val(data[0].ubicacion);
-    $("#inp-telefono-naviera").val(data[0].telefono);
+    $("#inp-tel-naviera").val(data[0].telefono);
 };
 
 function FormValidateNaviera(){
@@ -176,7 +180,7 @@ function SaveNaviera(){
             id: id,              
             nombre:  $("#inp-nombre-naviera").val(),
             ubicacion: $("#inp-ubicacion-naviera").val(),           
-            telefono: $("#inp-telefono-naviera").val()
+            telefono: $("#inp-tel-naviera").val()
         }
     })
     .done(showInfo)

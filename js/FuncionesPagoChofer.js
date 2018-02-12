@@ -44,12 +44,6 @@ $(document).on('click', '#inp-naviera', function (event) {
     muestrafincanaviera();
 });
 
-$(document).on('click','#tblnaviera tr', function(){        
-    //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
-    document.getElementById('inp-naviera').value = $(this).find('td:first').html();
-    document.getElementById('inp-valor-viaje').value = '$710';
-});
-
 
 
 $(document).on('click', '#menu-calculokm', function (event) {    
@@ -105,12 +99,8 @@ function muestrafincanaviera(){
     $('#tablenaviera').append("<table id='tblnavieramant'class='tbl'>");
     var col="<thead><tr><th>NOMBRE</th></tr></thead><tbody id='tableBody-naviera'></tbody>";
     $('#tblnavieramant').append(col);
-    var row1="<tr><td>Banderas</td></tr>";
-    var row2="<tr><td>Arcoiris</td></tr>";
-    var row3="<tr><td>Maquenco</td></tr>";
-    var row4="<tr><td>Ostional</td></tr>";
-    var row5="<tr><td>La Irma</td></tr>";
-    $('#tableBody-naviera').append(row1+row2+row3+row4+row5);  
+    
+    //$('#tableBody-naviera').append(row1+row2+row3+row4+row5);  
 
     $('#tblnavieramant').DataTable({
         "order": [[ 0, "asc" ]],
