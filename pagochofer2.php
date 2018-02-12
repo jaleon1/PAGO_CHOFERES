@@ -18,6 +18,7 @@ if (!isset($_SESSION))
     <script type="text/javascript" src="js/localization/messages_es.js"></script>
     <script src="js/FuncionesPagoChofer.js" languaje="javascript" type="text/javascript"></script> 
     <script src="js/Chofer.js" languaje="javascript" type="text/javascript"></script> 
+    <script src="js/Finca.js" languaje="javascript" type="text/javascript"></script> 
     
     <script type="text/javascript" src="js/sweetalert.js"></script>
     <link rel="stylesheet" href="css/sweetalert.css" type="text/css"/>
