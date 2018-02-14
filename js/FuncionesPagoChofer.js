@@ -33,9 +33,6 @@ $(document).on('click', '#inp-finca', function (event) {
 
 
 
-
-
-
 $(document).on('click', '#inp-naviera', function (event) {    
     $("#div-mants").css("height", "260px");
     $("#div-mant-inputs").css("height", "260px");
@@ -45,47 +42,13 @@ $(document).on('click', '#inp-naviera', function (event) {
 });
 
 
-
-$(document).on('click', '#menu-calculokm', function (event) {    
-    $("#div-mants").css("height", "260px");
-    $("#div-mant-inputs").css("height", "260px");
-    calculokm();
-    mantenimientoviajes();
-    muestrafincanaviera();
-});
-
-function calculokm(){
-    LimpiaTitulo();
-    $('#div-mant-titulo').append("<h3 id='titulo-calculokm'>VIAJES</h3>");
-    $('#div-mants').append("<table id='tblcalculokm'class='tbl'>");
-    var col="<thead><tr><th>Finca</th><th>Naviera</th><th>Kilometros</th></thead><tbody id='tableBody'></tbody>";
-    $('#tblcalculokm').append(col);
-    var row1="<tr><td>Arcoiris</td><td>Japa Loid</td><td>600</td></tr>";
-    var row2="<tr><td>Liberia</td> <td>Moin</td><td>750</td></tr>";
-    var row3="<tr><td>La Cruz</td> <td>Moin</td><td>510</td></tr>";
-    var row4="<tr><td>Zona Sur</td> <td>Moin</td><td>555</td></tr>";
-    $('#tableBody').append(row1+row2+row3+row4);  
-
-    $('#tblcalculokm').DataTable({
-        "order": [[ 1, "asc" ]],
-        "paging":   false,
-        "scrollY": "180px",
-        "scrollCollapse": true,
-        "bInfo" : false
-    });
-}
-
 function muestrafincanaviera(){
     
     $('#tablefinca').append("<table id='tblfincamant'class='tbl'>");
     var col="<thead><tr><th>NOMBRE</th></tr></thead><tbody id='tableBody-finca'></tbody>";
     $('#tblfincamant').append(col);
-    var row1="<tr><td>Banderas</td></tr>";
-    var row2="<tr><td>Arcoiris</td></tr>";
-    var row3="<tr><td>Maquenco</td></tr>";
-    var row4="<tr><td>Ostional</td></tr>";
-    var row5="<tr><td>La Irma</td></tr>";
-    $('#tableBody-finca').append(row1+row2+row3+row4+row5);  
+  
+    //$('#tableBody-finca').append(row1+row2+row3+row4+row5);  
 
     $('#tblfincamant').DataTable({
         "order": [[ 0, "asc" ]],
@@ -444,7 +407,11 @@ function mantenimientoviajes(){
             '<div class=contenido-extra>'+
                 '<div class=caja-media>'+ 
                     '<label for="lbl-kms-viaje" class="lbl-style">Kms</label>'+
-                    '<input type="text" id="inp-kms-viaje" name="inp-kms-viaje" class="input-format" value="" required/>'+                          
+                    '<input type="text" id="inp-kms-viaje" name="inp-kms-viaje" class="input-format" value="" />'+         
+                    '<label for="inp-finca-viaje" class="lbl-style">Finca</label>'+
+                    '<input type="text" id="inp-finca-viaje" name="inp-finca-viaje" class="input-format" value="" readonly />'+         
+                    '<label for="inp-naviera-viaje" class="lbl-style">Naviera</label>'+
+                    '<input type="text" id="inp-naviera-viaje" name="inp-naviera-viaje" class="input-format" value="" readonly />'+                          
                 '</div>'+
                 '<div class=caja-media>'+
                     '<input type="submit" id="btnguardarviaje" class="btn" value="Guardar">'+  
@@ -455,7 +422,7 @@ function mantenimientoviajes(){
 
     $('#div-mant-inputs').append(inputs);
     // evento
-    $('#btnguardarviaje').click(FormValidateViaje);
+    $('#btnguardarviaje').click(FormValidateViajes);
 }
 
 function mantenimientoingresogasto(){
