@@ -52,7 +52,6 @@ class Formulario
     //AGREGA EL FORMULARIO
     function AgregarFormularioAJAX(){
         try {
-            
             $suma = "SELECT comprovante FROM formulariopago ORDER BY comprovante DESC LIMIT 1";
             $ultimo_comprovante = DATA::Ejecutar($suma);
             $comprovante = $ultimo_comprovante[0][0]+1;
@@ -74,8 +73,28 @@ class Formulario
 
             $result = DATA::Ejecutar($sql, $param);
 
+            //Consultar el Maximo ID insertado
+            $maxid="SELECT id FROM formulariopago ORDER BY comprovante DESC LIMIT 0,1";
+            //Captura el id del formulario
+            $idformulario =DATA::Ejecutar($maxid);
+            //Convierte el string en un arreglo
+            $ingresosarray = $_POST["ingresos"];
+            $gastoarray = $_POST["gastos"];
+            //Calcula la longitud del arreglo de visistantes
+            $longitudingreso = count($ingresosarray); 
+            $longitudgasto = count($gastoarray);
+            //Recorre el arreglo e inserta cada item en la tabla intermedia
+            for ($i=0; $i<$longitudingreso; $i++) {
+                $sql='INSERT INTO formingresos(id,idformulario,nombre,monto,porcentaje) VALUES (uuid(),:idformulario,:nombre,:monto,:porcentaje)';
+                $param= array(':idformulario'=>$idformulario[0][0],':nombre'=>$ingresosarray[$i]['nombreingreso'],':monto'=>$ingresosarray[$i]['montoingreso'],':porcentaje'=>"0.15");
+                $result = DATA::Ejecutar($sql, $param);
+            }
+            for ($i=0; $i<$longitudgasto; $i++) {
+                $sql='INSERT INTO formgastos(id,idformulario,nombre,monto) VALUES (uuid(),:idformulario,:nombre,:monto)';
+                $param= array(':idformulario'=>$idformulario[0][0],':nombre'=>$gastoarray[$i]['nombregasto'],':monto'=>$gastoarray[$i]['montogasto']);
+                $result = DATA::Ejecutar($sql, $param);
+            }
         } catch (Exception $e) {
-            header('Location: ../Error.php?w=visitante-agregar&id='.$e->getMessage());
             exit;
         }
     }
