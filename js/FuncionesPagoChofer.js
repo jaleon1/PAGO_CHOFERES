@@ -18,6 +18,7 @@ $(document).ready( function () {
     mantenimientochofer();
     mantenimientoformpago();
     ingresosgastosformulario();
+    Fecha();
 });
 
 //Selección DataTable
@@ -731,7 +732,9 @@ function mantenimientoingresogasto(){
 
 function mantenimientoformpago(){
     $('#contenido-form').html(""); 
-    var inputs = '<div id="div-form" class="">'+
+    var inputs = 
+    '<form action="" method="">'+
+    '<div id="div-form" class="">'+
         '<div id="div-form-titulo">'+
             '<h3>FORMULARIO DE PAGO</h3>'+
             '<label >COMPROBANTE #</label>'+
@@ -787,10 +790,10 @@ function mantenimientoformpago(){
         '<div id="div-form-total-pago">'+
             '<label for="lbl-total-pago" class="lbl-style">TOTAL A PAGAR</label>'+
             '<input type="text" id="inp-total-pago" name="inp-total-pago" class="input-format" readonly="readonly" value="" required/>'+ 
-            '<input type="button" id="btnguardarform" class="" value="Guardar">'+
-            '<input type="button" id="btnaplicar" class="" value="Aplicar">'+
+            '<input type="submit" id="btnguardarform" class="" value="Guardar">'+
         '</div>'+
-    '</div>';
+    '</div>'+
+    '</form>';
     $('#contenido-form').append(inputs);
 }
 
