@@ -862,31 +862,10 @@ function Fecha(){
     document.getElementById("form-date-crtl").value = today;
 }
 
-/* REPORTES*/
-function listareportes(){        
-    $('#div-lista-reporte').append("<table id='tblreportes'class='tbl'>");
-    var col="<thead><tr><th>#</th><th>CHOFER</th><th>FECHA CARGA</th><th>PLACA</th><th>CONTENEDOR</th><th>NAVIERA</th></tr></thead><tbody id='tableBody-reportes'></tbody>";
-    $('#tblreportes').append(col);
-    var row1="<tr><td>00001</td><td>Jill Smith</td><td>07:00 AM</td><td>EU 11485371</td><td>MEDU 606765-8</td><td>MSC</td></tr>";
-    var row2="<tr><td>00002</td><td>Eve Jackson</td><td>08:00 AM</td><td>EU 11445871</td><td>MEDU 606766-8</td><td>MSC</td></tr>";
-    var row3="<tr><td>00003</td><td>John Man</td><td>09:00 AM</td><td>EU 11485111</td><td>MEDU 606767-8</td><td>MSC</td></tr>";
-    var row4="<tr><td>00004</td><td>Jill Smith</td><td>07:00 AM</td><td>EU 11485380</td><td>MEDU 606780-1</td><td>MSC</td></tr>";
-    var row5="<tr><td>00005</td><td>Juan Gonzalez</td><td>07:00 AM</td><td>EU 11485371</td><td>MEDU 606765-8</td><td>MSC</td></tr>";
-    var row6="<tr><td>00006</td><td>Jill Smith</td><td>07:00 AM</td><td>EU 11485425</td><td>MEDU 606766-4</td><td>MSC</td></tr>";
-    $('#tableBody-reportes').append(row1+row2+row3+row4+row5+row6);  
-
-    $('#tblreportes').DataTable( {
-        "order": [[ 0, "asc" ]],
-        "paging":   false,
-        "scrollY": "225px",
-        "scrollCollapse": true,
-        "bInfo" : false
-    });
-} 
-
 $(document).on('click','#menu-reporte', function(event){        
     mantenimientoreportes();
     listareportes();
+    ConsultaReportes();
 });
 
 $(document).on('click', '#btnaddingresos', function (event) {
@@ -940,5 +919,54 @@ $(document).on('click', '#btnguardarform', function (event) {
         
     });
 }); 
+
+/* REPORTES*/
+function listareportes(){        
+    $('#div-lista-reporte').append("<table id='tblreportes'class='tbl'>");
+    var col="<thead><tr><th>#</th><th>CHOFER</th><th>FECHA CARGA</th><th>PLACA</th><th>CONTENEDOR</th><th>NAVIERA</th></tr></thead><tbody id='tableBody-reportes'></tbody>";
+    $('#tblreportes').append(col); 
+
+    $('#tblreportes').DataTable( {
+        "order": [[ 0, "asc" ]],
+        "paging":   false,
+        "scrollY": "225px",
+        "scrollCollapse": true,
+        "bInfo" : false
+    });
+} 
+
+//RECARGA LA TABLA CON LOS VISITANTES POR FORMULARIO AJAX
+function ConsultaReportes(){
+    $.ajax({
+        type: "POST",
+        url: "class/Reporte.php",
+        data: { action: "ConsultaFormulario"}
+    })
+    .done(function( e ) {
+        $('#contenido-form').append("<table id='tblreportes'class='display'>");
+        // carga lista con datos.
+        var data= JSON.parse(e);
+        visitantes = data;
+        // Recorre arreglo.
+        $.each(data, function(i, item) {
+            var row="<tr class='fila'>"+
+                "<td class='id-form'>"+ item.id+"</td>" +
+                "<td>"+ item.comprovante +"</td>" +
+                "<td>"+ item.chofer +"</td>" +
+                "<td>"+ item.fecha +"</td>" +
+                "<td>"+ item.placa +"</td>" +
+                "<td>"+ item.contenedor +"</td>" +
+                "<td>"+ item.naviera +"</td>" +
+                "<td><img id=imgmod src=img/file_mod.png class=borrar></td>"+
+                "<td><img id=imgdelete src=img/file_delete.png class=borrar></td>"+
+            "</tr>";
+            $('#tableBody-reportes').append(row);  
+            $('.id-form').hide();       
+        })
+    })    
+    .fail(function(msg){
+        alert("Error al Cargar Reportes");
+    });    
+}
 
 /* MODIFICAR*/ 

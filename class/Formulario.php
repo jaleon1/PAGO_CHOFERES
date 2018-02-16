@@ -98,88 +98,23 @@ class Formulario
             exit;
         }
     }
-    
-    //MODIFICA EL FORMULARIO
-    function Modificar(){
-        try {
-            $sql="UPDATE formulario SET fechaingreso=:fechaingreso,fechasalida=:fechasalida,idtramitante=(SELECT id FROM usuario WHERE nombre= :nombretramitante),
-            idautorizador=(SELECT id FROM usuario WHERE nombre= :nombreautorizador),idresponsable=(SELECT id FROM responsable WHERE nombre= :nombreresponsable),placavehiculo=:placavehiculo,
-            detalleequipo=:detalleequipo,motivovisita=:motivovisita,idestado=:estado,idsala=(SELECT id FROM sala WHERE nombre= :nombresala),rfc=:rfc WHERE id=:id;";
-            $param= array(':fechaingreso'=>$this->fechaingreso,
-                          ':fechasalida'=>$this->fechasalida,
-                          ':nombretramitante'=>$this->nombretramitante,
-                          ':nombreautorizador'=>$this->nombreautorizador,
-                          ':nombreresponsable'=>$this->nombreresponsable,
-                          ':placavehiculo'=>$this->placavehiculo,
-                          ':detalleequipo'=>$this->detalleequipo,
-                          ':motivovisita'=>$this->motivovisita,
-                          ':estado'=>$this->estado,
-                          ':nombresala'=>$this->nombresala,
-                          ':rfc'=>$this->rfc,
-                          ':id'=>$this->id);
-            $result = DATA::Ejecutar($sql, $param);
-
-            //Convierte el string en un arreglo
-            $visitantearray = explode(",", $this->visitante);
-
-            //Elimina los registros segun el arreglo de visitantes
-            $sql="DELETE FROM visitanteporformulario WHERE NOT FIND_IN_SET((SELECT cedula from visitante WHERE id=idvisitante),:EXCLUSION) 
-            AND idformulario=:id";
-            $param= array(':EXCLUSION'=>$this->visitante,
-            ':id'=>$this->id);
-
-            $result = DATA::Ejecutar($sql, $param);
-            
-            $longitud = count($visitantearray);
-
-            // formulario temporal, vacia la variable para llenarla con los id de los visitantes.
-            if(isset( $_SESSION['TEMP']))
-                $_SESSION['TEMP']="";
-
-            //Recorre el arreglo e inserta cada item en la tabla intermedia
-            for ($i=0; $i<$longitud; $i++) {
-                // formulario temporal, agrega los idvisitante.
-                if(isset( $_SESSION['TEMP'])){
-                    $_SESSION['TEMP'] = $_SESSION['TEMP'] . $visitantearray[$i] . '-' . $this->estado . ',';
-                }
-                
-                //Si no existe Inserta
-                $existe="SELECT id FROM visitanteporformulario  WHERE idvisitante = (SELECT id FROM visitante WHERE cedula=:cedula) AND idformulario = (SELECT id FROM formulario WHERE id=:id)";
-                $parametro= array(':cedula'=>$visitantearray[$i],':id'=>$this->id);
-                $resultadoexiste= DATA::Ejecutar($existe, $parametro);
-
-                if(count($resultadoexiste)==0){
-                    $sql="INSERT INTO visitanteporformulario(idvisitante,idformulario) VALUES((SELECT id FROM visitante WHERE cedula=:cedula),(SELECT id FROM formulario WHERE id=:id))";
-                    $param= array(':cedula'=>$visitantearray[$i],':id'=>$this->id);
-                    $result = DATA::Ejecutar($sql, $param);
-                }
-            }       
-            header('Location:../ListaFormulario.php');           
-            exit;
-        } catch (Exception $e) {
-            header('Location: ../Error.php?w=visitante-agregar&id='.$e->getMessage());
-            exit;
-        }
-    }
 
     //MODIFICA EL FORMULARIO
     function ModificarAJAX(){
         try {
-            $sql="UPDATE formulario SET fechaingreso=:fechaingreso,fechasalida=:fechasalida,idtramitante=(SELECT id FROM usuario WHERE nombre= :nombretramitante),
-            idautorizador=(SELECT id FROM usuario WHERE nombre= :nombreautorizador),idresponsable=(SELECT id FROM responsable WHERE nombre=:nombreresponsable),placavehiculo=:placavehiculo,
-            detalleequipo=:detalleequipo,motivovisita=:motivovisita,idestado=:estado,idsala=(SELECT id FROM sala WHERE nombre=:nombresala),rfc=:rfc WHERE id=:id;";
-            $param= array(':fechaingreso'=>$_POST["fechaingreso"],
-                            ':nombresala'=>$_POST["nombresala"],
-                            ':fechasalida'=>$_POST["fechasalida"],
-                            ':placavehiculo'=>$_POST["placavehiculo"],
-                            ':detalleequipo'=>$_POST["detalleequipo"],
-                            ':motivovisita'=>$_POST["motivovisita"],
-                            ':nombreresponsable'=>$_POST["nombreresponsable"],
-                            ':nombreautorizador'=>$_POST["nombreautorizador"],
-                            ':nombretramitante'=>$_POST["nombretramitante"],
-                            ':estado'=>$_POST["estado"],
-                            ':rfc'=>$_POST["rfc"],
-                            ':id'=>$_POST["id"]);
+            $sql="UPDATE formulariopago SET idchofer=:idchofer,idcalculokm=:idcalculokm,fecha=:fechaingreso,contenedor=:contenedor,placa=:placa,kms=:kms,
+            valorviaje=:valorviaje,valorkm=:valorkm,porcentajeingreso=:porcentajeingreso,totalpago=:totalpago WHERE id=:id;";
+
+            $param= array(':idchofer'=>$_POST["idchofer"],
+                            ':idcalculokm'=>$_POST["idcalculokm"],
+                            ':fechaingreso'=>$_POST["fechaingreso"],
+                            ':contenedor'=>$_POST["contenedor"],
+                            ':placa'=>$_POST["placa"],
+                            ':kms'=>$_POST["kms"],
+                            ':valorviaje'=>$_POST["valorviaje"],
+                            ':valorkm'=>$_POST["valorkm"],
+                            ':porcentajeingreso'=>$_POST["porcentajeingreso"],
+                            ':totalpago'=>$_POST["totalpago"]);
             $result = DATA::Ejecutar($sql, $param);
 
             //Convierte el string en un arreglo
