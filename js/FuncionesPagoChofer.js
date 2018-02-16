@@ -2,10 +2,23 @@
 var kmporviaje=0;
 var valorviaje=0;
 var totalpago=0;
+var contingreso=0;
+var contgasto=0;
+var totalingreso=0;
+var totalgasto=0;
+var RestaIngresosBorrados=0;
+var valortotalresta=0;
+var IngresoArray=[];
+var GastoArray=[];
 
 $(document).ready( function () {  
     ingresosgastosformulario();
     seleccionfila();
+    chofer();
+    mantenimientochofer();
+    mantenimientoformpago();
+    ingresosgastosformulario();
+    Fecha();
 });
 
 //Selección DataTable
@@ -130,23 +143,25 @@ function ingresosgastos(){
 
 $(document).on('click','#tblformingresos tr', function(){        
     ingresosgastos();
+    mantenimientoingresogasto();
 });
 
 $(document).on('click','#tblformgastos tr', function(){        
     ingresosgastos();
+    mantenimientoingresogasto();
 });
 
 function ingresosgastosformulario(){
     $('#div-form-ingresos').append("<table id='tblformingresos'class='tbl'>");
-    var col="<thead><tr><th>INGRESOS</th><th>MONTO</th><th>X</th></thead><tbody id='tblbodyingresos-form'></tbody>";
+    var col="<thead><tr class=tituloingreso><th>INGRESOS</th><th>MONTO</th><th>X</th></thead><tbody id='tblbodyingresos-form'></tbody>";
     $('#tblformingresos').append(col);
-    var td= "<tr id='firsttr'><td></td><td></td><td></td></tr>";
+    var td= "<tr id='firsttr' class=firsttr><td></td><td></td><td></td></tr>";
     $('#tblbodyingresos-form').append(td);
 
     $('#div-form-gastos').append("<table id='tblformgastos'class='tbl'>");
-    var col="<thead><tr><th>GASTOS</th><th>MONTO</th><th>X</th></thead><tbody id='tblbodygastos-form'></tbody>";
+    var col="<thead><tr class=titulogasto><th>GASTOS</th><th>MONTO</th><th>X</th></thead><tbody id='tblbodygastos-form'></tbody>";
     $('#tblformgastos').append(col);
-    var td2= "<tr id='firsttr2'><td></td><td></td><td></td></tr>";
+    var td2= "<tr id='firsttr2' class=firsttr><td></td><td></td><td></td></tr>";
     $('#tblbodygastos-form').append(td2);
 
     $('#tblformingresos').DataTable({
@@ -180,43 +195,210 @@ function ingresosgastosformulario(){
     });    
 }
 
-$(document).on('click', '#textarea-ingresos', function (event) {    
+/*$(document).on('click', '#textarea-ingresos', function (event) {    
     ingresosgastos();
 });
 
 $(document).on('click', '#textarea-gastos', function (event) {    
     ingresosgastos();
+});*/
+
+$(document).on('click','#tblgastos tr', function(){        
+    if(document.getElementById('inp-valor-viaje').value==""){
+        alert("DEBE DE SELECCIONAR UN VIAJE!");
+    }
+    else{
+        var monto = 0;
+        $('#firsttr2').closest('tr').remove();
+        monto = parseInt($(this).find('td:nth-child(2)').html());
+        var td1="<tr class=cambia-gasto><td>"+ $(this).find('td:first').html() +"</td><td class=montogasto>"+ monto +"</td><td><img id=btnborragasto class=borrar src=img/file_delete.png></td></tr>";
+        $("#tblbodygastos-form").append(td1);
+        totalgasto += monto;
+    }
+    aplicarIngresoGasto();
+    ArrayIngresos();
+    ArrayGastos();
 });
                       
 $(document).on('click','#tblingresos tr', function(){        
-    var montoejemplo = 100;
-    $('#firsttr').closest('tr').remove();
-    var td1="<tr><td>"+ $(this).find('td:first').html() +"</td><td>"+ montoejemplo +"</td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
-    $("#tblbodyingresos-form").append(td1);
-    valorviaje = valorviaje - montoejemplo;
-    document.getElementById('inp-total-pago').value = valorviaje;
+    if(document.getElementById('inp-valor-viaje').value==""){
+        alert("DEBE DE SELECCIONAR UN VIAJE!");
+    }
+    else{
+        var monto = 0;
+        $('#firsttr').closest('tr').remove();
+        if($(this).find('td:nth-child(3)').html()!="" ){
+            //Porcentaje Indicado calculo por valor viaje
+            monto = (parseInt($("#inp-valor-viaje").val())*parseInt($(this).find('td:nth-child(3)').html()))/100;
+        }
+        else{
+            monto = parseInt($(this).find('td:nth-child(2)').html());
+        }
+        
+        var td1="<tr class=cambia-ingreso><td>"+ $(this).find('td:first').html() +"</td><td class=montoingreso>"+ monto +"</td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
+        $("#tblbodyingresos-form").append(td1);
+        totalingreso += monto;
+    }
+    aplicarIngresoGasto();
+    ArrayIngresos();
+    ArrayGastos();
 });
                     
-$(document).on('click','#tblgastos tr', function(){        
-    var montoejemplo = 100;
-    $('#firsttr2').closest('tr').remove();
-    var td1="<tr><td>"+ $(this).find('td:first').html() +"</td><td>"+ montoejemplo +"</td><td><img id=btnborragasto class=borrar src=img/file_delete.png></td></tr>";
-    $("#tblbodygastos-form").append(td1);
-    valorviaje = valorviaje + montoejemplo;
-    document.getElementById('inp-total-pago').value = valorviaje;
-});
-
 $(document).on('click','#btnborraingreso', function(){        
     $(this).closest('tr').remove();
-    totalpago = totalpago - $(this).parents("tr").find("td").eq(1).text();
-    document.getElementById('inp-total-pago').value = totalpago;
+    aplicarIngresoGasto();
+    ArrayIngresos();
+    ArrayGastos();
+    //SE DEBE DE RESTAR AL PAGO TOTAL
 });
-                    
+
 $(document).on('click','#btnborragasto', function(){        
-    $(this).closest('tr').remove();
-    totalpago = totalpago + $(this).parents("tr").find("td").eq(1).text();
-    document.getElementById('inp-total-pago').value = totalpago;
+    $(this).closest('tr').remove(); 
+    aplicarIngresoGasto();
+    ArrayIngresos();
+    ArrayGastos();
+    //SE DEBE DE RESTAR AL PAGO TOTAL
 });
+
+jQuery(document).on( "keyup", ".inp-ingresogasto", function(){ 
+    aplicarIngresoGasto();
+    ArrayIngresos();
+    ArrayGastos();
+});
+
+jQuery(document).on( "keyup", ".inp-ingreso", function(){ 
+    aplicarIngresoGasto();
+    ArrayIngresos();
+    ArrayGastos();
+});
+
+$(document).on('click','#btnaplicar', function(event){        
+    
+});
+
+function aplicarIngresoGasto(){
+    document.getElementById('inp-total-pago').value = document.getElementById('inp-valor-viaje').value;
+    
+    document.getElementById('inp-total-pago').value = 
+    ( parseFloat( document.getElementById('inp-total-pago').value - ( SumarIngresosTD() + SumarIngresosINP() ) ) )
+    + ( SumarGastosTD()+SumarGastosINP() );    
+}
+
+function SumarIngresosTD(){
+    var total=0;
+    
+    var $filas= $("#tblformingresos tr:not('.tituloingreso, .firsttr')");
+   
+     $filas.each(function() {
+        $(this).find('td.montoingreso').each(function() { 
+           total += parseInt($(this).html());
+        });
+     });
+     return total;
+}
+
+function SumarIngresosINP(){
+    var total=0;
+
+    for (i = 1; i < contingreso+1; i++){
+        if($("#inp-ingreso-monto" + i.toString()).val()==""){
+            var x=0;
+        }
+        else{
+            if($("#inp-ingreso-monto" + i.toString()).val()==undefined){
+                x=0;
+            }
+            else{
+                if($("#inp-ingreso-monto" + i.toString()).val()!=undefined || $("#inp-ingreso-monto" + i.toString()).val()!=''){
+                    total += parseFloat($("#inp-ingreso-monto" + i.toString()).val());
+                }
+            }
+        }
+    }
+    return total;
+}
+
+function SumarGastosTD(){
+    var total=0;
+    
+    var $filas= $("#tblformgastos tr:not('.titulogasto, .firsttr')");
+   
+    $filas.each(function() {
+        $(this).find('td.montogasto').each(function() { 
+            total += parseInt($(this).html());
+        });
+    });
+    return total;
+}
+
+function SumarGastosINP(){
+    var total=0;
+    
+    for (i = 1; i < contgasto+1; i++){
+        if($("#inp-gasto-monto" + i.toString()).val()==""){
+            var x=0;
+        }
+        else{
+            if($("#inp-gasto-monto" + i.toString()).val()==undefined){
+                x=0;
+            }
+            else{
+                if($("#inp-gasto-monto" + i.toString()).val()!=undefined || $("#inp-gasto-monto" + i.toString()).val()!=''){
+                    total += parseFloat($("#inp-gasto-monto" + i.toString()).val());
+                }
+            }
+        }
+    }
+    return total;
+}
+
+function ArrayIngresos(){
+    var patt1 = /\binput/gi;
+    var table = document.getElementById( "tblformingresos" );
+    IngresoArray = [];
+    for ( var i = 1; i < table.rows.length; i++ ) {
+        var esinput1 = table.rows[i].cells[0].innerHTML;
+        var esinput2 = table.rows[i].cells[1].innerHTML;
+        if(!(esinput1.match(patt1))&&!(esinput2.match(patt1))){
+            IngresoArray.push({
+                nombreingreso: table.rows[i].cells[0].innerHTML,
+                montoingreso: table.rows[i].cells[1].innerHTML
+            });
+        }
+    }
+    for(var i=1; i<contingreso+1;i++){
+        if(($("#inp-ingreso" + i.toString()).val()!=undefined)&&($("#inp-ingreso-monto" + i.toString()).val()!=undefined)){
+            IngresoArray.push({
+                nombreingreso:$("#inp-ingreso" + i.toString()).val(),
+                montoingreso: $("#inp-ingreso-monto" + i.toString()).val()
+            });
+        }
+    }
+}
+
+function ArrayGastos(){
+    var patt1 = /\binput/gi;
+    var table = document.getElementById( "tblformgastos" );
+    GastoArray = [];
+    for ( var i = 1; i < table.rows.length; i++ ) {
+        var esinput1 = table.rows[i].cells[0].innerHTML;
+        var esinput2 = table.rows[i].cells[1].innerHTML;
+        if(!(esinput1.match(patt1))&&!(esinput2.match(patt1))){
+            GastoArray.push({
+                nombregasto: table.rows[i].cells[0].innerHTML,
+                montogasto: table.rows[i].cells[1].innerHTML
+            });
+        }
+    }
+    for(var i=1; i<contgasto+1;i++){
+        if(($("#inp-gasto" + i.toString()).val()!=undefined)&&($("#inp-gasto-monto" + i.toString()).val()!=undefined)){
+            GastoArray.push({
+                nombregasto:$("#inp-gasto" + i.toString()).val(),
+                montogasto: $("#inp-gasto-monto" + i.toString()).val()
+            });
+        }
+    }
+}
 
 /* CHOFER */
 
@@ -232,28 +414,28 @@ $(document).on('click', '#inp-chofer', function (event) {
     mantenimientochofer();
 });
 
-// $(document).on('click', '#menu-chofer', function (event) {    
-//     $("#div-mants").css("height", "340px");
-//     $("#div-mant-inputs").css("height", "180px");
-//     chofer();
-//     mantenimientochofer();
-// });
+$(document).on('click', '#menu-chofer', function (event) {    
+    $("#div-mants").css("height", "340px");
+    $("#div-mant-inputs").css("height", "180px");
+    chofer();
+    mantenimientochofer();
+});
 
-// function chofer(){
-//     LimpiaTitulo();
-//     $('#div-mant-titulo').append("<h3 id='titulo-Chofer'>CHOFER</h3>");
-//     $('#div-mants').append("<table id='tblchofer'class='tbl'>");
-//     var col="<thead><tr><th>NOMBRE</th><th>CEDULA</th><th>TELEFONO</th><th>CORREO</th><th></th><th></th></tr></thead><tbody id='tableBody-chofer'></tbody>";
-//     $('#tblchofer').append(col);
+function chofer(){
+    LimpiaTitulo();
+    $('#div-mant-titulo').append("<h3 id='titulo-Chofer'>CHOFER</h3>");
+    $('#div-mants').append("<table id='tblchofer'class='tbl'>");
+    var col="<thead><tr><th>NOMBRE</th><th>CEDULA</th><th>TELEFONO</th><th>CORREO</th><th></th><th></th></tr></thead><tbody id='tableBody-chofer'></tbody>";
+    $('#tblchofer').append(col);
 
-//     $('#tblchofer').DataTable( {
-//         "order": [[ 1, "asc" ]],
-//         "paging":   false,
-//         "scrollY": "180px",
-//         "scrollCollapse": true,
-//         "bInfo" : false
-//     } );
-// }
+    $('#tblchofer').DataTable( {
+        "order": [[ 1, "asc" ]],
+        "paging":   false,
+        "scrollY": "180px",
+        "scrollCollapse": true,
+        "bInfo" : false
+    } );
+}
 
 /*FORMULARIO PAGO*/
 $(document).on('click', '#menu-formulario-pago', function (event) {    
@@ -463,11 +645,13 @@ function mantenimientoingresogasto(){
 
 function mantenimientoformpago(){
     $('#contenido-form').html(""); 
-    var inputs = '<div id="div-form" class="">'+
+    var inputs = 
+    '<form action="" method="">'+
+    '<div id="div-form" class="">'+
         '<div id="div-form-titulo">'+
             '<h3>FORMULARIO DE PAGO</h3>'+
             '<label >COMPROBANTE #</label>'+
-            '<label id="lbl-comprovante" class="lbl-style">19291108</label>'+
+            '<label id="lbl-comprovante" class="lbl-style"></label>'+
         '</div>'+
         '<div id="div-form-chofer">'+
             '<label for="lbl-chofer" class="lbl-style">Chofer</label>'+
@@ -519,9 +703,10 @@ function mantenimientoformpago(){
         '<div id="div-form-total-pago">'+
             '<label for="lbl-total-pago" class="lbl-style">TOTAL A PAGAR</label>'+
             '<input type="text" id="inp-total-pago" name="inp-total-pago" class="input-format" readonly="readonly" value="" required/>'+ 
-            '<input type="button" id="btnguardarform" class="" value="Guardar">'+
+            '<input type="submit" id="btnguardarform" class="" value="Guardar">'+
         '</div>'+
-    '</div>';
+    '</div>'+
+    '</form>';
     $('#contenido-form').append(inputs);
 }
 
@@ -590,43 +775,34 @@ function Fecha(){
     document.getElementById("form-date-crtl").value = today;
 }
 
-/* REPORTES*/
-function listareportes(){        
-    $('#div-lista-reporte').append("<table id='tblreportes'class='tbl'>");
-    var col="<thead><tr><th>#</th><th>CHOFER</th><th>FECHA CARGA</th><th>PLACA</th><th>CONTENEDOR</th><th>NAVIERA</th></tr></thead><tbody id='tableBody-reportes'></tbody>";
-    $('#tblreportes').append(col);
-    var row1="<tr><td>00001</td><td>Jill Smith</td><td>07:00 AM</td><td>EU 11485371</td><td>MEDU 606765-8</td><td>MSC</td></tr>";
-    var row2="<tr><td>00002</td><td>Eve Jackson</td><td>08:00 AM</td><td>EU 11445871</td><td>MEDU 606766-8</td><td>MSC</td></tr>";
-    var row3="<tr><td>00003</td><td>John Man</td><td>09:00 AM</td><td>EU 11485111</td><td>MEDU 606767-8</td><td>MSC</td></tr>";
-    var row4="<tr><td>00004</td><td>Jill Smith</td><td>07:00 AM</td><td>EU 11485380</td><td>MEDU 606780-1</td><td>MSC</td></tr>";
-    var row5="<tr><td>00005</td><td>Juan Gonzalez</td><td>07:00 AM</td><td>EU 11485371</td><td>MEDU 606765-8</td><td>MSC</td></tr>";
-    var row6="<tr><td>00006</td><td>Jill Smith</td><td>07:00 AM</td><td>EU 11485425</td><td>MEDU 606766-4</td><td>MSC</td></tr>";
-    $('#tableBody-reportes').append(row1+row2+row3+row4+row5+row6);  
-
-    $('#tblreportes').DataTable( {
-        "order": [[ 0, "asc" ]],
-        "paging":   false,
-        "scrollY": "225px",
-        "scrollCollapse": true,
-        "bInfo" : false
-    });
-} 
-
 $(document).on('click','#menu-reporte', function(event){        
     mantenimientoreportes();
     listareportes();
+    ConsultaReportes();
 });
 
 $(document).on('click', '#btnaddingresos', function (event) {
-    $('#firsttr').closest('tr').remove();
-    var td1="<tr><td><input type=text id=inp-ingreso class=inp-ingresogasto required/></td><td><input type=text id=inp-ingreso-monto class=inp-ingresogasto required/></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
-    $("#tblbodyingresos-form").append(td1);
+    if(document.getElementById('inp-valor-viaje').value==""){
+        alert("DEBE DE SELECCIONAR UN VIAJE!");
+    }
+    else{
+        contingreso++;
+        $('#firsttr').closest('tr').remove();
+        var td1="<tr><td><input type=text id=inp-ingreso"+contingreso+" class=inp-ingreso required/></td><td><input type=text id=inp-ingreso-monto"+contingreso+" class=inp-ingresogasto required/></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
+        $("#tblbodyingresos-form").append(td1);
+    }
 }); 
 
 $(document).on('click', '#btnaddgastos', function (event) {
-    $('#firsttr2').closest('tr').remove();
-    var td1="<tr><td><input type=text id=inp-gasto class=inp-ingresogasto required/></td><td><input type=text id=inp-gasto-monto class=inp-ingresogasto required/></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
-    $("#tblbodygastos-form").append(td1);
+    if(document.getElementById('inp-valor-viaje').value==""){
+        alert("DEBE DE SELECCIONAR UN VIAJE!");
+    }
+    else{
+        contgasto++;
+        $('#firsttr2').closest('tr').remove();
+        var td1="<tr><td><input type=text id=inp-gasto"+contgasto+" class=inp-gasto required/></td><td><input type=text id=inp-gasto-monto"+contgasto+" class=inp-ingresogasto required/></td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
+        $("#tblbodygastos-form").append(td1);
+    }
 }); 
 
 /* INSERTAR */
@@ -644,7 +820,9 @@ $(document).on('click', '#btnguardarform', function (event) {
                 finca: document.getElementById('inp-finca').value,
                 naviera: document.getElementById('inp-naviera').value,
                 valorviaje: document.getElementById('inp-valor-viaje').value,
-                totalpago: document.getElementById('inp-total-pago').value
+                totalpago: document.getElementById('inp-total-pago').value,
+                ingresos: IngresoArray,
+                gastos: GastoArray
               }
     })
     .done(function( e ) {
@@ -654,5 +832,54 @@ $(document).on('click', '#btnguardarform', function (event) {
         
     });
 }); 
+
+/* REPORTES*/
+function listareportes(){        
+    $('#div-lista-reporte').append("<table id='tblreportes'class='tbl'>");
+    var col="<thead><tr><th>#</th><th>CHOFER</th><th>FECHA CARGA</th><th>PLACA</th><th>CONTENEDOR</th><th>NAVIERA</th></tr></thead><tbody id='tableBody-reportes'></tbody>";
+    $('#tblreportes').append(col); 
+
+    $('#tblreportes').DataTable( {
+        "order": [[ 0, "asc" ]],
+        "paging":   false,
+        "scrollY": "225px",
+        "scrollCollapse": true,
+        "bInfo" : false
+    });
+} 
+
+//RECARGA LA TABLA CON LOS VISITANTES POR FORMULARIO AJAX
+function ConsultaReportes(){
+    $.ajax({
+        type: "POST",
+        url: "class/Reporte.php",
+        data: { action: "ConsultaFormulario"}
+    })
+    .done(function( e ) {
+        $('#contenido-form').append("<table id='tblreportes'class='display'>");
+        // carga lista con datos.
+        var data= JSON.parse(e);
+        visitantes = data;
+        // Recorre arreglo.
+        $.each(data, function(i, item) {
+            var row="<tr class='fila'>"+
+                "<td class='id-form'>"+ item.id+"</td>" +
+                "<td>"+ item.comprovante +"</td>" +
+                "<td>"+ item.chofer +"</td>" +
+                "<td>"+ item.fecha +"</td>" +
+                "<td>"+ item.placa +"</td>" +
+                "<td>"+ item.contenedor +"</td>" +
+                "<td>"+ item.naviera +"</td>" +
+                "<td><img id=imgmod src=img/file_mod.png class=borrar></td>"+
+                "<td><img id=imgdelete src=img/file_delete.png class=borrar></td>"+
+            "</tr>";
+            $('#tableBody-reportes').append(row);  
+            $('.id-form').hide();       
+        })
+    })    
+    .fail(function(msg){
+        alert("Error al Cargar Reportes");
+    });    
+}
 
 /* MODIFICAR*/ 
