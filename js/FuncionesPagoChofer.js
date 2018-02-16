@@ -36,12 +36,6 @@ function seleccionfila(){
     } );
 }
 
-$(document).on('click', '#menu-finca', function (event) {    
-    finca();
-    $('#div-finca').show();
-    mantenimientofinca();
-});
-
 $(document).on('click', '#inp-finca', function (event) {    
     $("#div-mants").css("height", "260px");
     $("#div-mant-inputs").css("height", "260px");
@@ -50,37 +44,7 @@ $(document).on('click', '#inp-finca', function (event) {
     muestrafincanaviera();
 });
 
-$(document).on('click','#tblfinca tr', function(){        
-    //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
-    document.getElementById('inp-finca').value = $(this).find('td:first').html();
-});
 
-function finca(){
-    LimpiaTitulo(); 
-    $('#div-mant-titulo').append("<h3 id='titulo-finca'>FINCA</h3>");
-    $('#div-mants').append("<table id='tblfinca'class='tbl'>");
-    var col="<thead><tr><th>NOMBRE</th><th>UBICACION</th><th>TELEFONO</th></thead><tbody id='tableBody'></tbody>";
-    $('#tblfinca').append(col);
-    var row1="<tr><td>Arcoiris</td><td>Pocozol</td><td>8891-8749</td></tr>";
-    var row2="<tr><td>Arcoiris</td><td>Guanacaste</td> <td>8857-1147</td></tr>";
-    var row3="<tr><td>Maquenco</td><td>Guanacaste Samara</td> <td>9584-8744</td></tr>";
-    var row4="<tr><td>Ostional</td><td>San Carlos</td> <td>8814-1178</td></tr>";
-    var row5="<tr><td>La Irma</td><td>Guanacaste Abangares</td> <td>8814-1178</td></tr>";
-    $('#tableBody').append(row1+row2+row3+row4+row5);  
-
-    $('#tblfinca').DataTable({
-        "order": [[ 1, "asc" ]],
-        "paging":   false,
-        "scrollY": "180px",
-        "scrollCollapse": true,
-        "bInfo" : false
-    });
-}
-
-$(document).on('click', '#menu-naviera', function (event) {    
-    naviera();
-    mantenimientonaviera();
-});
 
 $(document).on('click', '#inp-naviera', function (event) {    
     $("#div-mants").css("height", "260px");
@@ -90,73 +54,14 @@ $(document).on('click', '#inp-naviera', function (event) {
     muestrafincanaviera();
 });
 
-$(document).on('click','#tblnaviera tr', function(){        
-    //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
-    document.getElementById('inp-naviera').value = $(this).find('td:first').html();
-    document.getElementById('inp-valor-viaje').value = '$710';
-});
-
-function naviera(){
-    LimpiaTitulo();
-    $('#div-mant-titulo').append("<h3 id='titulo-naviera'>NAVIERA</h3>");
-    $('#div-mants').append("<table id='tblnaviera'class='tbl'>");
-    var col="<thead><tr><th>NOMBRE</th><th>UBICACION</th><th>TELEFONO</th></thead><tbody id='tableBody'></tbody>";
-    $('#tblnaviera').append(col);
-    var row1="<tr><td>Japa Loid</td><td>Caldera</td><td>8891-8749</td></tr>";
-    var row2="<tr><td>Traigo</td><td>Los Patios</td> <td>8857-1147</td></tr>";
-    var row3="<tr><td>Alammo</td><td>Los Patios</td> <td>9584-8744</td></tr>";
-    var row4="<tr><td>Naviera 4</td><td>Limón</td> <td>8814-1178</td></tr>";
-    $('#tableBody').append(row1+row2+row3+row4);  
-
-    $('#tblnaviera').DataTable({
-        "order": [[ 1, "asc" ]],
-        "paging":   false,
-        "scrollY": "180px",
-        "scrollCollapse": true,
-        "bInfo" : false
-    });
-}
-
-$(document).on('click', '#menu-calculokm', function (event) {    
-    $("#div-mants").css("height", "260px");
-    $("#div-mant-inputs").css("height", "260px");
-    calculokm();
-    mantenimientoviajes();
-    muestrafincanaviera();
-});
-
-function calculokm(){
-    LimpiaTitulo();
-    $('#div-mant-titulo').append("<h3 id='titulo-calculokm'>VIAJES</h3>");
-    $('#div-mants').append("<table id='tblcalculokm'class='tbl'>");
-    var col="<thead><tr><th>Finca</th><th>Naviera</th><th>Kilometros</th></thead><tbody id='tableBody'></tbody>";
-    $('#tblcalculokm').append(col);
-    var row1="<tr><td>Arcoiris</td><td>Japa Loid</td><td>600</td></tr>";
-    var row2="<tr><td>Liberia</td> <td>Moin</td><td>750</td></tr>";
-    var row3="<tr><td>La Cruz</td> <td>Moin</td><td>510</td></tr>";
-    var row4="<tr><td>Zona Sur</td> <td>Moin</td><td>555</td></tr>";
-    $('#tableBody').append(row1+row2+row3+row4);  
-
-    $('#tblcalculokm').DataTable({
-        "order": [[ 1, "asc" ]],
-        "paging":   false,
-        "scrollY": "180px",
-        "scrollCollapse": true,
-        "bInfo" : false
-    });
-}
 
 function muestrafincanaviera(){
     
     $('#tablefinca').append("<table id='tblfincamant'class='tbl'>");
     var col="<thead><tr><th>NOMBRE</th></tr></thead><tbody id='tableBody-finca'></tbody>";
     $('#tblfincamant').append(col);
-    var row1="<tr><td>Banderas</td></tr>";
-    var row2="<tr><td>Arcoiris</td></tr>";
-    var row3="<tr><td>Maquenco</td></tr>";
-    var row4="<tr><td>Ostional</td></tr>";
-    var row5="<tr><td>La Irma</td></tr>";
-    $('#tableBody-finca').append(row1+row2+row3+row4+row5);  
+  
+    //$('#tableBody-finca').append(row1+row2+row3+row4+row5);  
 
     $('#tblfincamant').DataTable({
         "order": [[ 0, "asc" ]],
@@ -170,12 +75,8 @@ function muestrafincanaviera(){
     $('#tablenaviera').append("<table id='tblnavieramant'class='tbl'>");
     var col="<thead><tr><th>NOMBRE</th></tr></thead><tbody id='tableBody-naviera'></tbody>";
     $('#tblnavieramant').append(col);
-    var row1="<tr><td>Banderas</td></tr>";
-    var row2="<tr><td>Arcoiris</td></tr>";
-    var row3="<tr><td>Maquenco</td></tr>";
-    var row4="<tr><td>Ostional</td></tr>";
-    var row5="<tr><td>La Irma</td></tr>";
-    $('#tableBody-naviera').append(row1+row2+row3+row4+row5);  
+    
+    //$('#tableBody-naviera').append(row1+row2+row3+row4+row5);  
 
     $('#tblnavieramant').DataTable({
         "order": [[ 0, "asc" ]],
@@ -526,8 +427,6 @@ function chofer(){
     $('#div-mants').append("<table id='tblchofer'class='tbl'>");
     var col="<thead><tr><th>NOMBRE</th><th>CEDULA</th><th>TELEFONO</th><th>CORREO</th><th></th><th></th></tr></thead><tbody id='tableBody-chofer'></tbody>";
     $('#tblchofer').append(col);
-    var row="<tr><td>Jairo León González</td><td>304190452</td><td>8991-5749</td><td>jairolg27@gmail.com</td><td></td><td></td></tr>";
-    $('#tableBody-chofer').append(row);  
 
     $('#tblchofer').DataTable( {
         "order": [[ 1, "asc" ]],
@@ -546,51 +445,55 @@ $(document).on('click', '#menu-formulario-pago', function (event) {
 }); 
 
 function mantenimientochofer(){
-    var inputs = '<div id=input-chofer>'+ 
-        '<div class=caja-media>'+  
-            '<div class=contenido-input>'+ 
-                '<label for="lbl-nombre-chofer" class="lbl-style">Nombre</label>'+ 
-                '<input type="text" id="inp-nombre-chofer" name="inp-nombre-chofer" class="input-format" value="" required/>'+ 
+    var inputs = '<form id="frmchofer">'+
+        '<div id=input-chofer>'+ 
+            '<div class=caja-media>'+  
+                '<div class=contenido-input>'+  
+                    '<label for="lbl-nombre-chofer" class="lbl-style">Nombre</label>'+ 
+                    '<input type="text" id="inp-nombre-chofer" name="inp-nombre-chofer" class="input-format" value=""/>'+ 
+                '</div>'+ '</div>'+
+                '<div class=contenido-input>'+ 
+                    '<label for="lbl-correo-chofer" class="lbl-style">Cuenta</label>'+    
+                    '<input type="text" id="inp-cuenta-chofer" name="inp-cuenta-chofer" class="input-format" value="" required/>'+  
+                '</div>'+ '</div>'+
+                '<div class=contenido-input>'+
+                '</div>'+
             '</div>'+
-            '<div class=contenido-input>'+ 
-                '<label for="lbl-correo-chofer" class="lbl-style">Cuenta</label>'+    
-                '<input type="text" id="inp-cuenta-chofer" name="inp-cuenta-chofer" class="input-format" value="" required/>'+  
+            '<div class=caja-cuarto>'+ 
+                '<div class=contenido-input>'+
+                    '<label for="lbl-cedula-chofer" class="lbl-style">Cedula</label>'+
+                    '<input type="text" id="inp-cedula-chofer" name="inp-cedula-chofer" class="input-format" value="" required/>'+
+                '</div>'+
+                '<div id=xxx class=contenido-input>'+
+                    '<label for="lbl-correo-chofer" class="lbl-style">Correo</label>'+
+                    '<input type="text" id="inp-correo-chofer" name="inp-correo-chofer" class="input-format" value="" required/>'+
+                '</div>'+
+                '<div class=contenido-input>'+
+                '</div>'+
             '</div>'+
-            '<div class=contenido-input>'+
-            '</div>'+
-        '</div>'+
-        '<div class=caja-cuarto>'+ 
-            '<div class=contenido-input>'+
-                '<label for="lbl-cedula-chofer" class="lbl-style">Cedula</label>'+
-                '<input type="text" id="inp-cedula-chofer" name="inp-cedula-chofer" class="input-format" value="" required/>'+
-            '</div>'+
-            '<div id=xxx class=contenido-input>'+
-                '<label for="lbl-correo-chofer" class="lbl-style">Correo</label>'+
-                '<input type="text" id="inp-correo-chofer" name="inp-correo-chofer" class="input-format" value="" required/>'+
-            '</div>'+
-            '<div class=contenido-input>'+
-            '</div>'+
-        '</div>'+
-        '<div class=caja-cuarto>'+ 
-            '<div class=contenido-input>'+
-                '<label for="lbl-tel-chofer" class="lbl-style">Telefono</label>'+
-                '<input type="text" id="inp-tel-chofer" name="inp-tel-chofer" class="input-format" value="" required/>'+
-            '</div>'+
-            '<div class=contenido-input>'+
+            '<div class=caja-cuarto>'+ 
+                '<div class=contenido-input>'+
+                    '<label for="lbl-tel-chofer" class="lbl-style">Telefono</label>'+
+                    '<input type="text" id="inp-tel-chofer" name="inp-tel-chofer" class="input-format" value="" required/>'+
+                '</div>'+
+                '<div class=contenido-input>'+
 
-            '</div>'+
-            '<div id=boton class=contenido-input>'+
-                '<input type="button" id="btnguardarchofer" class="btn" value="Guardar">'+ 
+                '</div>'+
+                '<div id=boton class=contenido-input>'+
+                    '<input type="submit" id="btnguardarchofer" class="btn" value="Guardar">'+ 
+                '</div>'+
             '</div>'+
         '</div>'+
-    '</div>';
-
+    '</form>';
+    //
     $('#div-mant-inputs').append(inputs);
+    // evento
+    $('#btnguardarchofer').click(FormValidateChofer);
 }
 
 function mantenimientofinca(){
     $('#div-mant-inputs').html(""); 
-    var inputs = '<div id=input-finca>'+
+    var inputs = '<form id="frmfinca">'+'<div id=input-finca>'+
         '<div class=caja-media>'+
             '<div class=contenido-input>'+
                 '<label for="lbl-nombre-finca" class="lbl-style">Nombre</label>'+
@@ -617,22 +520,24 @@ function mantenimientofinca(){
                 '<input type="text" id="inp-tel-finca" name="inp-tel-finca" class="input-format" value="" required/>'+                        
             '</div>'+
             '<div class=contenido-input>'+
-                '<input type="button" id="btnguardarfinca" class="btn" value="Guardar">'+        
+                '<input type="submit" id="btnguardarfinca" class="btn" value="Guardar">'+        
             '</div>'+
             '<div id=boton class=contenido-input>'+
             '</div>'+
         '</div>'+
-    '</div>';
+    '</div></div>';
     $('#div-mant-inputs').append(inputs);
+    // evento
+    $('#btnguardarfinca').click(FormValidateFinca);
 }
 
 function mantenimientonaviera(){
     $('#div-mant-inputs').html(""); 
-    var inputs = '<div id=input-naviera>'+
+    var inputs = '<form id="frmnaviera" >'+'<div id=input-naviera>'+
         '<div class=caja-media>'+
             '<div class=contenido-input>'+
                 '<label for="lbl-nombre-naviera" class="lbl-style">Nombre</label>'+
-                '<input type="text" id="inp-nombre-naviera" name="inp-nombre-naviera" class="input-format" value="" required/>'+
+                '<input type="text" id="inp-nombre-naviera" name="inp-nombre-naviera" class="input-format" value="" />'+
             '</div>'+
             '<div class=contenido-input>'+
             '</div>'+
@@ -642,7 +547,7 @@ function mantenimientonaviera(){
         '<div class=caja-cuarto>'+
             '<div class=contenido-input>'+
                 '<label for="lbl-ubicacion-naviera" class="lbl-style">Ubicación</label>'+
-                '<input type="text" id="inp-ubicacion-naviera" name="inp-ubicacion-naviera" class="input-format" value="" required/>'+
+                '<input type="text" id="inp-ubicacion-naviera" name="inp-ubicacion-naviera" class="input-format" value="" />'+
             '</div>'+
             '<div id=xxx class=contenido-input>'+
             '</div>'+
@@ -652,22 +557,24 @@ function mantenimientonaviera(){
         '<div class=caja-cuarto>'+
             '<div class=contenido-input>'+
                 '<label for="lbl-tel-naviera" class="lbl-style">Telefono</label>'+
-                '<input type="text" id="inp-tel-naviera" name="inp-tel-naviera" class="input-format" value="" required/>'+                        
+                '<input type="text" id="inp-tel-naviera" name="inp-tel-naviera" class="input-format" value="" />'+                        
             '</div>'+
             '<div class=contenido-input>'+
-                '<input type="button" id="btnguardarnaviera" class="btn" value="Guardar">'+        
+                '<input type="submit" id="btnguardarnaviera" class="btn" value="Guardar">'+        
             '</div>'+
             '<div id=boton class=contenido-input>'+
             '</div>'+
         '</div>'+
-    '</div>';
+    '</div></div>';
 
     $('#div-mant-inputs').append(inputs);
+    // evento
+    $('#btnguardarnaviera').click(FormValidateNaviera);
 }
 
 function mantenimientoviajes(){
     $('#div-mant-inputs').html(""); 
-    var inputs ='<div id=input-viajes>'+
+    var inputs = '<form id="frmviajes">'+'<div id=input-viajes>'+
         '<div class=caja-media>'+
             '<div id=tablefinca class=contenido-table>'+
                 '<label for="lbl-nombre-finca" class="lbl-style">FINCA</label>'+
@@ -682,16 +589,22 @@ function mantenimientoviajes(){
             '<div class=contenido-extra>'+
                 '<div class=caja-media>'+ 
                     '<label for="lbl-kms-viaje" class="lbl-style">Kms</label>'+
-                    '<input type="text" id="inp-kms-viaje" name="inp-kms-viaje" class="input-format" value="" required/>'+                          
+                    '<input type="text" id="inp-kms-viaje" name="inp-kms-viaje" class="input-format" value="" />'+         
+                    '<label for="inp-finca-viaje" class="lbl-style">Finca</label>'+
+                    '<input type="text" id="inp-finca-viaje" name="inp-finca-viaje" class="input-format" value="" readonly />'+         
+                    '<label for="inp-naviera-viaje" class="lbl-style">Naviera</label>'+
+                    '<input type="text" id="inp-naviera-viaje" name="inp-naviera-viaje" class="input-format" value="" readonly />'+                          
                 '</div>'+
                 '<div class=caja-media>'+
-                    '<input type="button" id="btnguardarviaje" class="btn" value="Guardar">'+  
+                    '<input type="submit" id="btnguardarviaje" class="btn" value="Guardar">'+  
                 '</div>'+    
             '</div>'+
         '</div>'+
-    '</div>';
+    '</div></div>';
 
     $('#div-mant-inputs').append(inputs);
+    // evento
+    $('#btnguardarviaje').click(FormValidateViajes);
 }
 
 function mantenimientoingresogasto(){
