@@ -5,9 +5,14 @@ if (!isset($_SESSION)) {
 }
 
 if(isset($_POST["action"])){
-    if($_POST["action"]=="ConsultaFormulario"){
-        $reporte= new Reporte();
-        $reporte->Consulta();
+    $reporte= new Reporte();   
+    switch($_POST["action"]){       
+        case "ConsultaGeneral":                 
+            echo json_encode($reporte->ConsultaGeneral());
+            break;
+        case "ConsultaChofer":
+            echo json_encode($reporte->ConsultaChofer($_POST["idchofer"]));
+            break;
     }
 }
 
@@ -18,31 +23,38 @@ class Reporte
     }
     
     //CONSULTA FORMULARIO PARA LLENAR TABLA
-    function Consulta(){
+    function ConsultaGeneral(){
         try {
-            $sql = "SELECT id,comprovante,contenedor,placa,fecha,(SELECT nombre FROM naviera WHERE id=(SELECT id FROM naviera WHERE id=idcalculokm)),
-            (SELECT nombre FROM chofer WHERE id=idchofer),kms,porcentajeingreso,totalpago,valorkm,valorviaje 
-            FROM formulariopago ORDER BY comprovante DESC;";
-            $data = DATA::Ejecutar($sql);
-            //
-            if (count($data)) {
-                $this->id= $data[0]['id'];
-                $this->comprovante= $data[0]['comprovante'];
-                $this->placa= $data[0]['placa'];
-                $this->fecha= $data[0]['fecha'];
-                $this->naviera= $data[0]['naviera'];
-                $this->chofer= $data[0]['chofer'];
-                $this->kms= $data[0]['kms'];
-                $this->porcentajeingreso= $data[0]['porcentajeingreso'];
-                $this->totalpago= $data[0]['totalpago'];
-                $this->valorkm= $data[0]['valorkm'];
-                $this->valorviaje= $data[0]['valorviaje'];
-            }
-            //
-            echo json_encode($data);
+            $sql = "SELECT f.id, f.comprobante, c.nombre as chofer,f.fecha, f.contenedor, f.placa, fin.nombre as finca, nav.nombre as naviera, kms, valorkm, totalpago
+                FROM formulariopago f inner join calculokm cal on cal.id=f.idcalculokm
+                    inner join finca fin on fin.id=cal.idfinca
+                    inner join naviera nav on nav.id=cal.idnaviera
+                    inner join chofer c on c.id=f.idchofer
+                ORDER BY comprobante DESC";
+             //$param= array(':id'=>$this->id);
+             $data= DATA::Ejecutar($sql);
+             return $data;
         } catch (Exception $e) {
-            header('Location: ../Error.php?w=visitante-bitacora&id='.$e->getMessage());
-            exit;
+            //header('Location: ../Error.php?w=visitante-bitacora&id='.$e->getMessage());
+            //exit;
+        }
+    }
+
+    function ConsultaChofer($idchofer){
+        try {
+            $sql = "SELECT f.id, f.comprobante, c.nombre as chofer,f.fecha, f.contenedor, f.placa, fin.nombre as finca, nav.nombre as naviera, kms, valorkm, totalpago
+                FROM formulariopago f inner join calculokm cal on cal.id=f.idcalculokm
+                    inner join finca fin on fin.id=cal.idfinca
+                    inner join naviera nav on nav.id=cal.idnaviera
+                    inner join chofer c on c.id=f.idchofer
+                WHERE c.id= :idchofer
+                ORDER BY comprobante DESC";
+             $param= array(':id'=>$idchofer);
+             $data= DATA::Ejecutar($sql, $param);
+             return $data;
+        } catch (Exception $e) {
+            //header('Location: ../Error.php?w=visitante-bitacora&id='.$e->getMessage());
+            //exit;
         }
     }
 }
