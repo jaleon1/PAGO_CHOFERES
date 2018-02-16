@@ -710,34 +710,6 @@ function mantenimientoformpago(){
     $('#contenido-form').append(inputs);
 }
 
-function mantenimientoreportes(){
-    $('#contenido-form').html(""); 
-    var inputs = '<div id="div-repo">'+
-        '<div id=div-report-titulo>'+
-            '<h3>REPORTES</h3>'+
-        '</div>'+
-        '<div id=div-lista-reporte>'+
-        
-        '</div>'+
-        '<div id=div-opcion-report>'+
-            '<div class=div-tercio>'+
-                '<div class=div-opciones></div>'+
-                '<div class=div-total-botones></div>'+
-            '</div>'+
-            '<div class=div-tercio>'+
-                '<div class=div-opciones>'+
-                
-                '</div>'+
-                '<div class=div-total-botones></div>'+
-            '</div>'+
-            '<div class=div-tercio>'+
-                '<div class=div-opciones></div>'+
-                '<div class=div-total-botones></div>'+
-            '</div>'+
-        '</div>'+    
-    '</div>';
-    $('#contenido-form').append(inputs);
-}
 
 function LimpiaTitulo(){
     $('#div-mants').html("");  
@@ -775,11 +747,7 @@ function Fecha(){
     document.getElementById("form-date-crtl").value = today;
 }
 
-$(document).on('click','#menu-reporte', function(event){        
-    mantenimientoreportes();
-    listareportes();
-    ConsultaReportes();
-});
+
 
 $(document).on('click', '#btnaddingresos', function (event) {
     if(document.getElementById('inp-valor-viaje').value==""){
@@ -833,53 +801,6 @@ $(document).on('click', '#btnguardarform', function (event) {
     });
 }); 
 
-/* REPORTES*/
-function listareportes(){        
-    $('#div-lista-reporte').append("<table id='tblreportes'class='tbl'>");
-    var col="<thead><tr><th>#</th><th>CHOFER</th><th>FECHA CARGA</th><th>PLACA</th><th>CONTENEDOR</th><th>NAVIERA</th></tr></thead><tbody id='tableBody-reportes'></tbody>";
-    $('#tblreportes').append(col); 
 
-    $('#tblreportes').DataTable( {
-        "order": [[ 0, "asc" ]],
-        "paging":   false,
-        "scrollY": "225px",
-        "scrollCollapse": true,
-        "bInfo" : false
-    });
-} 
-
-//RECARGA LA TABLA CON LOS VISITANTES POR FORMULARIO AJAX
-function ConsultaReportes(){
-    $.ajax({
-        type: "POST",
-        url: "class/Reporte.php",
-        data: { action: "ConsultaFormulario"}
-    })
-    .done(function( e ) {
-        $('#contenido-form').append("<table id='tblreportes'class='display'>");
-        // carga lista con datos.
-        var data= JSON.parse(e);
-        visitantes = data;
-        // Recorre arreglo.
-        $.each(data, function(i, item) {
-            var row="<tr class='fila'>"+
-                "<td class='id-form'>"+ item.id+"</td>" +
-                "<td>"+ item.comprovante +"</td>" +
-                "<td>"+ item.chofer +"</td>" +
-                "<td>"+ item.fecha +"</td>" +
-                "<td>"+ item.placa +"</td>" +
-                "<td>"+ item.contenedor +"</td>" +
-                "<td>"+ item.naviera +"</td>" +
-                "<td><img id=imgmod src=img/file_mod.png class=borrar></td>"+
-                "<td><img id=imgdelete src=img/file_delete.png class=borrar></td>"+
-            "</tr>";
-            $('#tableBody-reportes').append(row);  
-            $('.id-form').hide();       
-        })
-    })    
-    .fail(function(msg){
-        alert("Error al Cargar Reportes");
-    });    
-}
 
 /* MODIFICAR*/ 

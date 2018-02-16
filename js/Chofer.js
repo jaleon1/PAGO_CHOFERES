@@ -7,6 +7,7 @@ $(document).ready(function () {
         chofer();
         mantenimientochofer();
     });
+
 });
 
 $(document).on('click','#tblchofer tr', function(){        
