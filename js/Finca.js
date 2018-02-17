@@ -17,7 +17,7 @@ $(document).ready(function () {
 
 $(document).on('click','#tblfinca tr', function(){        
     //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
-    document.getElementById('inp-finca').value = $(this).find('td:first').html();
+    document.getElementById('inp-finca').value = $(this).find('td:nth-child(2)').html();
 });
 
 function finca(){
@@ -91,7 +91,7 @@ function ShowDataFinca(e) {
             '<td style="display:none;">' + item.id + '</td>' +
             '<td>' + item.nombre + '</td>' +
             '<td>' + item.ubicacion + '</td>' +
-            '<td>' + item.telefono + '</td>' +
+            //'<td>' + item.telefono + '</td>' +
             
             '<td><img id=btnmodingreso'+ item.id + ' class=borrar src=img/file_mod.png></td>'+
             '<td><img id=btnborraingreso'+ item.id + ' class=borrar src=img/file_delete.png></td>'+

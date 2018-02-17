@@ -20,14 +20,16 @@ class Reporte
     //CONSULTA FORMULARIO PARA LLENAR TABLA
     function Consulta(){
         try {
-            $sql = "SELECT id,comprovante,contenedor,placa,fecha,(SELECT nombre FROM naviera WHERE id=(SELECT id FROM naviera WHERE id=idcalculokm)),
-            (SELECT nombre FROM chofer WHERE id=idchofer),kms,porcentajeingreso,totalpago,valorkm,valorviaje 
-            FROM formulariopago ORDER BY comprovante DESC;";
+            $sql = "SELECT id,comprobante,contenedor,placa,fecha,(SELECT naviera.nombre FROM ((naviera INNER JOIN 
+            calculokm ON calculokm.idnaviera = naviera.id) INNER JOIN formulariopago ON formulariopago.idcalculokm = calculokm.id) 
+            ORDER BY formulariopago.comprobante DESC;),(SELECT nombre FROM chofer WHERE id=idchofer),kms,porcentajeingreso,totalpago,
+            valorkm,valorviaje FROM formulariopago ORDER BY comprobante DESC;";
             $data = DATA::Ejecutar($sql);
             //
             if (count($data)) {
                 $this->id= $data[0]['id'];
-                $this->comprovante= $data[0]['comprovante'];
+                $this->comprobante= $data[0]['comprobante'];
+                $this->contenedor= $data[0]['contenedor'];
                 $this->placa= $data[0]['placa'];
                 $this->fecha= $data[0]['fecha'];
                 $this->naviera= $data[0]['naviera'];

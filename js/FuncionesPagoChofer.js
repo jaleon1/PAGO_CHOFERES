@@ -75,8 +75,6 @@ function muestrafincanaviera(){
     $('#tablenaviera').append("<table id='tblnavieramant'class='tbl'>");
     var col="<thead><tr><th>NOMBRE</th></tr></thead><tbody id='tableBody-naviera'></tbody>";
     $('#tblnavieramant').append(col);
-    
-    //$('#tableBody-naviera').append(row1+row2+row3+row4+row5);  
 
     $('#tblnavieramant').DataTable({
         "order": [[ 0, "asc" ]],
@@ -91,14 +89,15 @@ function muestrafincanaviera(){
 $(document).on('click', '#menu-ingresos-gastos', function (event) {    
     ingresosgastos();
     mantenimientoingresogasto();
+    document.getElementById("radio-ingreso").checked = true;
 });
 
 $(document).on('click','#tblcalculokm tr', function(){        
     //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
-    document.getElementById('inp-finca').value = $(this).find('td:first').html();
-    document.getElementById('inp-naviera').value = $(this).find('td:nth-child(2)').html();
+    document.getElementById('inp-finca').value = $(this).find('td:nth-child(4)').html();
+    document.getElementById('inp-naviera').value = $(this).find('td:nth-child(5)').html();
     //Multiplica los km por el precio de pago establecido
-    document.getElementById('inp-valor-viaje').value = $(this).find('td:nth-child(3)').html() * 1.9;
+    document.getElementById('inp-valor-viaje').value = ($(this).find('td:nth-child(6)').html() * 1.9).toFixed(2);
     document.getElementById('inp-total-pago').value = document.getElementById('inp-valor-viaje').value;
     valorviaje = document.getElementById('inp-valor-viaje').value;
 });
@@ -110,35 +109,34 @@ function ingresosgastos(){
     $('#div-mants').append("<div id='div-mant-ingresos'></div><div id='div-mant-gastos'></div>");
     
     $('#div-mant-ingresos').append("<table id='tblingresos'class='tbl'>");
-    var col="<thead><tr><th>INGRESOS</th><th>Monto</th><th>%</th></tr></thead><tbody id='tblbodyingresos'></tbody>";
+    var col="<thead><tr><th>INGRESOS</th><th>Monto</th><th>%</th><th></th><th></th></tr></thead><tbody id='tblbodyingresos'></tbody>";
     $('#tblingresos').append(col);
-    var row1="<tr><td>Alquiler de Cureña</td><td></td><td>15</td></tr>";
-    var row2="<tr><td>Combustible</td><td>150000</td><td>10</td></tr>";
-    var row3="<tr><td>Herramientas</td><td>15000</td><td></td></tr>";
-    $('#tblbodyingresos').append(row1+row2+row3);  
-
+ 
     $('#div-mant-gastos').append("<table id='tblgastos'class='tbl'>");
-    var col="<thead><tr><th>GASTOS</th><th>Monto</th></tr></thead><tbody id='tableBody'></tbody>";
-    $('#tblgastos').append(col);
-    var row1="<tr><td>Viaticos</td><td>70000</td></tr>";
-    var row2="<tr><td>Seguro</td><td>50000</td></tr>";
-    var row3="<tr><td>Otros</td><td>5000</td></tr>";
-    $('#tableBody').append(row1+row2+row3);  
+    var col="<thead><tr><th>GASTOS</th><th>Monto</th><th></th><th></th></tr></thead><tbody id='tblbodygastos'></tbody>";
+    $('#tblgastos').append(col); 
 
     $('#tblingresos').DataTable({
         "order": [[ 0, "asc" ]],
         "bLengthChange": false,
         searching: false,
         "bInfo": false,
-        "paging":   false
+        "paging":   false,
+        "scrollY": "175px",
+        "scrollCollapse": true
     });
     $('#tblgastos').DataTable({
         "order": [[ 0, "asc" ]],
         "bLengthChange": false,
         searching: false,
         "bInfo": false,
-        "paging":   false
+        "paging":   false,
+        "scrollY": "175px",
+        "scrollCollapse": true
     });
+
+    LoadAllIngreso();
+    LoadAllGasto();
 }
 
 $(document).on('click','#tblformingresos tr', function(){        
@@ -210,8 +208,8 @@ $(document).on('click','#tblgastos tr', function(){
     else{
         var monto = 0;
         $('#firsttr2').closest('tr').remove();
-        monto = parseInt($(this).find('td:nth-child(2)').html());
-        var td1="<tr class=cambia-gasto><td>"+ $(this).find('td:first').html() +"</td><td class=montogasto>"+ monto +"</td><td><img id=btnborragasto class=borrar src=img/file_delete.png></td></tr>";
+        monto = parseInt($(this).find('td:nth-child(3)').html());
+        var td1="<tr class=cambia-gasto><td>"+ $(this).find('td:nth-child(2)').html() +"</td><td class=montogasto>"+ monto +"</td><td><img id=btnborragasto class=borrar src=img/file_delete.png></td></tr>";
         $("#tblbodygastos-form").append(td1);
         totalgasto += monto;
     }
@@ -227,15 +225,13 @@ $(document).on('click','#tblingresos tr', function(){
     else{
         var monto = 0;
         $('#firsttr').closest('tr').remove();
-        if($(this).find('td:nth-child(3)').html()!="" ){
+        if(parseFloat($(this).find('td:nth-child(4)').html())!=0)
             //Porcentaje Indicado calculo por valor viaje
-            monto = (parseInt($("#inp-valor-viaje").val())*parseInt($(this).find('td:nth-child(3)').html()))/100;
-        }
-        else{
-            monto = parseInt($(this).find('td:nth-child(2)').html());
-        }
+            monto = (parseInt($("#inp-valor-viaje").val())*parseInt($(this).find('td:nth-child(4)').html()))/100;
+        else
+            monto = parseInt($(this).find('td:nth-child(3)').html());
         
-        var td1="<tr class=cambia-ingreso><td>"+ $(this).find('td:first').html() +"</td><td class=montoingreso>"+ monto +"</td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
+        var td1="<tr class=cambia-ingreso><td>"+ $(this).find('td:nth-child(2)').html() +"</td><td class=montoingreso>"+ monto +"</td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
         $("#tblbodyingresos-form").append(td1);
         totalingreso += monto;
     }
@@ -404,7 +400,7 @@ function ArrayGastos(){
 
 $(document).on('click','#tblchofer tr', function(){        
     //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
-    document.getElementById('inp-chofer').value = $(this).find('td:first').html();
+    document.getElementById('inp-chofer').value = $(this).find('td:nth-child(2)').html();
 });
 
 $(document).on('click', '#inp-chofer', function (event) {    
@@ -609,39 +605,54 @@ function mantenimientoviajes(){
 
 function mantenimientoingresogasto(){
     $('#div-mant-inputs').html(""); 
-    var inputs= '<div id=input-ingresosgastos>'+                                           
+    var inputs= '<form id=frmingresogasto>'+
+        '<div id=input-ingresosgastos>'+                                           
         '<div class=caja-cuarto>'+
             '<div class=contenido-input>'+
                 '<label for="lbl-nombre-inggas" class="lbl-style">Nombre</label>'+
                 '<input type="text" id="inp-nombre-inggas" name="inp-nombre-inggas" class="input-format" value="" required/>'+
             '</div>'+
             '<div class=contenido-input>'+
-                '<input type="radio" name="radio-ingreso" value="ingreso"> Ingreso'+
+                '<input type="radio" id=radio-ingreso name="radio-ingreso-gasto" value="ingreso" checked="checked"> Ingreso'+
             '</div>'+
         '</div>'+
         '<div class=caja-cuarto>'+
             '<div class=contenido-input>'+
                 '<label for="lbl-monto-inggas" class="lbl-style">Monto</label>'+
-                '<input type="text" id="inp-monto-inggas" name="inp-monto-inggas" class="input-format" value="" required/>'+
+                '<input type="text" id="inp-monto-inggas" name="inp-monto-inggas" class="input-format" value=""/>'+
             '</div>'+
             '<div class=contenido-input>'+
-                '<input type="radio" name="radio-gasto" value="gasto"> Gasto'+
+                '<input type="radio" id=radio-gasto name="radio-ingreso-gasto" value="gasto"> Gasto'+
             '</div>'+
         '</div>'+
         '<div class=caja-cuarto>'+
             '<div class=contenido-input>'+
                 '<label for="lbl-porc-inggas" class="lbl-style">Porcentaje</label>'+
-                '<input type="text" id="inp-porc-inggas" name="inp-porc-inggas" class="input-format" value="" required/>'+
+                '<input type="text" id="inp-porc-inggas" name="inp-porc-inggas" class="input-format" value=""/>'+
             '</div>'+
         '</div>'+
         '<div class=caja-cuarto>'+
             '<div class=contenido-input>'+
-                '<input type="button" id="btnguardaringgas" class="btn" value="Guardar">'+
+                '<input type="submit" id="btnguardaringgas" class="btn" value="Guardar">'+
             '</div>'+
         '</div>'+    
-    '</div>';
+    '</div>'+
+    '</form>';
     $('#div-mant-inputs').append(inputs);
+    document.getElementById("radio-ingreso").checked = true;
+        // evento
+    /*if(document.getElementById("radio-ingreso").checked == true)
+        $('#btnguardaringgas').click(FormValidateIngreso);
+    if(document.getElementById("radio-gasto").checked == true)
+        $('#btnguardaringgas').click(FormValidateGasto);*/
 }
+
+$(document).on('click', '#btnguardaringgas', function (event) {
+    if(document.getElementById("radio-ingreso").checked == true)
+        FormValidateIngreso();
+    if(document.getElementById("radio-gasto").checked == true)
+        FormValidateGasto();
+}); 
 
 function mantenimientoformpago(){
     $('#contenido-form').html(""); 
@@ -651,7 +662,7 @@ function mantenimientoformpago(){
         '<div id="div-form-titulo">'+
             '<h3>FORMULARIO DE PAGO</h3>'+
             '<label >COMPROBANTE #</label>'+
-            '<label id="lbl-comprovante" class="lbl-style"></label>'+
+            '<label id="lbl-comprobante" class="lbl-style"></label>'+
         '</div>'+
         '<div id="div-form-chofer">'+
             '<label for="lbl-chofer" class="lbl-style">Chofer</label>'+
@@ -864,7 +875,7 @@ function ConsultaReportes(){
         $.each(data, function(i, item) {
             var row="<tr class='fila'>"+
                 "<td class='id-form'>"+ item.id+"</td>" +
-                "<td>"+ item.comprovante +"</td>" +
+                "<td>"+ item.comprobante +"</td>" +
                 "<td>"+ item.chofer +"</td>" +
                 "<td>"+ item.fecha +"</td>" +
                 "<td>"+ item.placa +"</td>" +

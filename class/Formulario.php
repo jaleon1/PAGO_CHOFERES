@@ -52,12 +52,12 @@ class Formulario
     //AGREGA EL FORMULARIO
     function AgregarFormularioAJAX(){
         try {
-            $suma = "SELECT comprovante FROM formulariopago ORDER BY comprovante DESC LIMIT 1";
-            $ultimo_comprovante = DATA::Ejecutar($suma);
-            $comprovante = $ultimo_comprovante[0][0]+1;
+            $suma = "SELECT comprobante FROM formulariopago ORDER BY comprobante DESC LIMIT 1";
+            $ultimo_comprobante = DATA::Ejecutar($suma);
+            $comprobante = $ultimo_comprobante[0][0]+1;
 
-            $sql="INSERT INTO `formulariopago` (`id`, `comprovante`, `idchofer`, `idcalculokm`, `fecha`, `contenedor`, `placa`, `kms`, 
-            `valorviaje`, `valorkm`, `porcentajeingreso`, `totalpago`) VALUES (uuid(), $comprovante, (SELECT id FROM chofer WHERE nombre=:chofer), 
+            $sql="INSERT INTO `formulariopago` (`id`, `comprobante`, `idchofer`, `idcalculokm`, `fecha`, `contenedor`, `placa`, `kms`, 
+            `valorviaje`, `valorkm`, `porcentajeingreso`, `totalpago`) VALUES (uuid(), $comprobante, (SELECT id FROM chofer WHERE nombre=:chofer), 
             (SELECT id FROM calculokm WHERE idfinca=(SELECT id FROM finca WHERE nombre=:finca) and idnaviera=(SELECT id FROM naviera WHERE nombre=:naviera)),
              :fecha, :contenedor, :placa, (SELECT kmstotal FROM calculokm WHERE idfinca=(SELECT id FROM finca WHERE nombre=:finca) and idnaviera=(SELECT id FROM 
              naviera WHERE nombre=:naviera)),:valorviaje, (SELECT valorkm FROM parametros), (SELECT porcentajecalculoingreso FROM parametros), :totalpago);";
@@ -74,7 +74,7 @@ class Formulario
             $result = DATA::Ejecutar($sql, $param);
 
             //Consultar el Maximo ID insertado
-            $maxid="SELECT id FROM formulariopago ORDER BY comprovante DESC LIMIT 0,1";
+            $maxid="SELECT id FROM formulariopago ORDER BY comprobante DESC LIMIT 0,1";
             //Captura el id del formulario
             $idformulario =DATA::Ejecutar($maxid);
             //Convierte el string en un arreglo

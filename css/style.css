@@ -101,6 +101,12 @@
                     float: left;
                     height: 200px;
                 }
+                .col-nom{
+                    width: 30%;
+                }
+                .col-ubi{
+                    width: 70%;
+                }
 
     /* Divs Formulario*/
         #div-form{
@@ -235,6 +241,7 @@
             }
                 #inp-total-pago{
                     width: 100px;
+                    float: right;
                 }
             #div-mant-titulo{
                 height: 60px;
