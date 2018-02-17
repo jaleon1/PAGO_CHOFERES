@@ -1,36 +1,47 @@
 var idfiltro= null;
+var filtrofecha= null;
 const TipoFiltro = {
+    todos: 'todos',
     chofer: 'chofer',
     naviera: 'naviera',
     finca:'finca'
 };
-const Filtro = Object.freeze(TipoFiltro);
+var Filtro = Object.freeze(TipoFiltro);
 
 $(document).ready(function () {   
-    $(document).on('click','#menu-reporte', function(event){        
+    $(document).on('click','#menu-reporte', function(event){       
+        Filtro= TipoFiltro.todos;     
         mantenimientoreportes();
         listareportes();
         ConsultaGeneral();
     });
-    // Filtro
+    // Filtro por tabla
     $(document).on('click','#tblchofer tr', function(){   
-        idfiltro = $(this).children().eq(0).text();      
-        ConsultaFiltro(Filtro.chofer);
+        idfiltro = $(this).children().eq(0).text();  
+        Filtro= TipoFiltro.chofer;    
+        ConsultaFiltro();
     });
 
     $(document).on('click','#tblfinca tr', function(){   
         idfiltro = $(this).children().eq(0).text();      
-        ConsultaFiltro(Filtro.finca);
+        Filtro= TipoFiltro.finca;
+        ConsultaFiltro();
     });
 
     $(document).on('click','#tblnaviera tr', function(){   
-        idfiltro = $(this).children().eq(0).text();      
-        ConsultaFiltro(Filtro.naviera);
+        idfiltro = $(this).children().eq(0).text();    
+        Filtro= TipoFiltro.naviera;  
+        ConsultaFiltro();
+    });
+    // Filtro por fecha
+    $('#filtrofecha').on('change', function (e) {
+        //var optionSelected = $("option:selected", this);
+        filtrofecha = this.value;
+        ConsultaFiltro();
     });
 
 
 });
-
 
 function mantenimientoreportes(){
     $('#contenido-form').html(""); 
@@ -60,7 +71,6 @@ function mantenimientoreportes(){
     '</div>';
     $('#contenido-form').append(inputs);
 };
-
 
 /* REPORTES*/
 function listareportes(){        
@@ -93,14 +103,15 @@ function ConsultaGeneral(){
 };
 
 // Carga lista
-function ConsultaFiltro(t) {
+function ConsultaFiltro() {
     $.ajax({
         type: "POST",
         url: "class/Reporte.php",
         data: { 
             action: "ConsultaFiltro",
             idfiltro:  idfiltro,
-            tipo: t
+            tipo: Filtro,
+            filtrofecha: filtrofecha
         }
     })
     .done(function( e ) {
@@ -110,6 +121,25 @@ function ConsultaFiltro(t) {
         alert("Error al Cargar Reportes");
     });    
 };
+
+// function ConsultaFiltroFecha() {
+//     $.ajax({
+//         type: "POST",
+//         url: "class/Reporte.php",
+//         data: { 
+//             action: "ConsultaFiltroFecha",
+//             idfiltro:  idfiltro,
+//             tipo: Filtro,
+//             filtrofecha: filtrofecha
+//         }
+//     })
+//     .done(function( e ) {
+//         ShowData(e);
+//     })    
+//     .fail(function(msg){
+//         alert("Error al Cargar Reportes");
+//     });    
+// };
 
 function ShowData(e) {
     $('#tableBody-reportes').html("");

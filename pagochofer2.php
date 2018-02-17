@@ -122,6 +122,13 @@ if (!isset($_SESSION))
                 <div class=prin-margen-center></div>
             </div>
             <div class=prin-formulario>
+                <select name="filtrofecha" id="filtrofecha">
+                    <option value="Total">Total</option>
+                    <option value="Anual">Anual</option>
+                    <option value="Semanal">Semanal</option>
+                    <option value="Mensual">Mensual</option>
+                    <option value="Diario">Diario</option>
+                </select>
                 <div class=prin-margen-center></div>
                 <div id=contenido-form class=contenido-form>                
                 </div>   
