@@ -65,9 +65,9 @@ function ShowDataNaviera(e) {
         var row =
             '<tr>' +
             '<td style="display:none;">' + item.id + '</td>' +
-            '<td>' + item.nombre + '</td>' +
-            '<td>' + item.ubicacion + '</td>' +
-            '<td>' + item.telefono + '</td>' +
+            '<td style="width: 80px">' + item.nombre + '</td>' +
+            '<td style="width: 160px">' + item.ubicacion + '</td>' +
+            //'<td>' + item.telefono + '</td>' +
             '<td><img id=btnmodingreso'+ item.id + ' class=borrar src=img/file_mod.png></td>'+
             '<td><img id=btnborraingreso'+ item.id + ' class=borrar src=img/file_delete.png></td>'+
             '</tr>';

@@ -19,6 +19,7 @@ $(document).ready(function () {
 //     document.getElementById('inp-finca').value = $(this).find('td:first').html();
 // });
 
+
 function finca(){
     LimpiaTitulo(); 
     $('#div-mant-titulo').append("<h3 id='titulo-finca'>FINCA</h3>");
@@ -90,7 +91,7 @@ function ShowDataFinca(e) {
             '<td style="display:none;">' + item.id + '</td>' +
             '<td>' + item.nombre + '</td>' +
             '<td>' + item.ubicacion + '</td>' +
-            '<td>' + item.telefono + '</td>' +
+            //'<td>' + item.telefono + '</td>' +
             
             '<td><img id=btnmodingreso'+ item.id + ' class=borrar src=img/file_mod.png></td>'+
             '<td><img id=btnborraingreso'+ item.id + ' class=borrar src=img/file_delete.png></td>'+
