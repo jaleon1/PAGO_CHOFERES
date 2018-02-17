@@ -7,12 +7,13 @@ $(document).ready(function () {
         chofer();
         mantenimientochofer();
     });
+
 });
 
-$(document).on('click','#tblchofer tr', function(){        
-    //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
-    document.getElementById('inp-chofer').value = $(this).find('td:nth-child(2)').html();
-});
+// $(document).on('click','#tblchofer tr', function(){        
+//     //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
+//     document.getElementById('inp-chofer').value = $(this).find('td:first').html();
+// });
 
 $(document).on('click', '#inp-chofer', function (event) {    
     $("#div-mants").css("height", "340px");

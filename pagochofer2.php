@@ -45,7 +45,7 @@ if (!isset($_SESSION))
     <link rel="stylesheet" href="css\style2.css" type="text/css">
     
     <!-- Font Awesome CDN -->
-    <!--<script src="https://use.fontawesome.com/a128d9602f.js"></script>
+    <!--<script src="https://use.fontawesome.com/a128d9602f.js"></script>  -->
     <!-- Google Fonts -->
     <!--<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
 
