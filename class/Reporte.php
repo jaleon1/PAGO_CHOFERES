@@ -49,7 +49,7 @@ class Reporte
                     inner join chofer c on c.id=f.idchofer
                 WHERE c.id= :idchofer
                 ORDER BY comprobante DESC";
-             $param= array(':id'=>$idchofer);
+             $param= array(':idchofer'=>$idchofer);
              $data= DATA::Ejecutar($sql, $param);
              return $data;
         } catch (Exception $e) {
