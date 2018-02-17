@@ -13,11 +13,11 @@ $(document).ready(function () {
     });
 });
 
-$(document).on('click','#tblnaviera tr', function(){        
-    //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
-    document.getElementById('inp-naviera').value = $(this).find('td:first').html();
-    document.getElementById('inp-valor-viaje').value = '$710';
-});
+// $(document).on('click','#tblnaviera tr', function(){        
+//     //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
+//     document.getElementById('inp-naviera').value = $(this).find('td:first').html();
+//     document.getElementById('inp-valor-viaje').value = '$710';
+// });
 
 function naviera(){
     LimpiaTitulo();
