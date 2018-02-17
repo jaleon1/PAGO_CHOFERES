@@ -37,7 +37,7 @@ $(document).ready(function () {
     $('#filtrofecha').on('change', function (e) {
         //var optionSelected = $("option:selected", this);
         filtrofecha = this.value;
-        ConsultaFiltroFecha();
+        ConsultaFiltro();
     });
 
 
@@ -110,24 +110,6 @@ function ConsultaFiltro() {
         data: { 
             action: "ConsultaFiltro",
             idfiltro:  idfiltro,
-            tipo: Filtro
-        }
-    })
-    .done(function( e ) {
-        ShowData(e);
-    })    
-    .fail(function(msg){
-        alert("Error al Cargar Reportes");
-    });    
-};
-
-function ConsultaFiltroFecha() {
-    $.ajax({
-        type: "POST",
-        url: "class/Reporte.php",
-        data: { 
-            action: "ConsultaFiltroFecha",
-            idfiltro:  idfiltro,
             tipo: Filtro,
             filtrofecha: filtrofecha
         }
@@ -139,6 +121,25 @@ function ConsultaFiltroFecha() {
         alert("Error al Cargar Reportes");
     });    
 };
+
+// function ConsultaFiltroFecha() {
+//     $.ajax({
+//         type: "POST",
+//         url: "class/Reporte.php",
+//         data: { 
+//             action: "ConsultaFiltroFecha",
+//             idfiltro:  idfiltro,
+//             tipo: Filtro,
+//             filtrofecha: filtrofecha
+//         }
+//     })
+//     .done(function( e ) {
+//         ShowData(e);
+//     })    
+//     .fail(function(msg){
+//         alert("Error al Cargar Reportes");
+//     });    
+// };
 
 function ShowData(e) {
     $('#tableBody-reportes').html("");

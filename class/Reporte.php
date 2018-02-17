@@ -11,10 +11,7 @@ if(isset($_POST["action"])){
             echo json_encode($reporte->ConsultaGeneral());
             break;
         case "ConsultaFiltro":
-            echo json_encode($reporte->ConsultaFiltro($_POST["idfiltro"], $_POST["tipo"]));
-            break;
-        case "ConsultaFiltroFecha":
-            echo json_encode($reporte->ConsultaFiltro($_POST["idfiltro"], $_POST["tipo"], $_POST["filtrofecha"] ));
+        echo json_encode($reporte->ConsultaFiltro($_POST["idfiltro"], $_POST["tipo"], $_POST["filtrofecha"] ));
             break;
     }
 }
@@ -34,9 +31,9 @@ class Reporte
                     inner join naviera nav on nav.id=cal.idnaviera
                     inner join chofer c on c.id=f.idchofer
                 ORDER BY comprobante DESC";
-             //$param= array(':id'=>$this->id);
-             $data= DATA::Ejecutar($sql);
-             return $data;
+            //
+            $data= DATA::Ejecutar($sql);
+            return $data;
         } catch (Exception $e) {
             //header('Location: ../Error.php?w=visitante-bitacora&id='.$e->getMessage());
             //exit;
@@ -50,30 +47,35 @@ class Reporte
             $where= '';
             switch($tipo){
                 case 'chofer':
-                    $where = ' c.id= :idfiltro ';
+                    $where .= ' c.id= :idfiltro ';
                     break;
                 case 'naviera':
-                    $where = ' nav.id= :idfiltro ';
+                    $where .= ' nav.id= :idfiltro ';
                     break;
                 case 'finca':
-                    $where = ' fin.id= :idfiltro ';
+                    $where .= ' fin.id= :idfiltro ';
                     break;
             }
+            //
             switch($filtrofecha){
+                case 'Total':
+                    $inidate = date("Y-m-d", strtotime("1900-01-01"));
+                    $findate =  date('Y-m-d', strtotime("+1 days"));
+                    $where .=  ($where!='' ? ' and ': '') . " f.fecha between '". $inidate ."' and '". $findate ."' ";
+                    break;
                 case 'Diario':
-                    $inidate = new DateTime();
-                    $inidate->sub(new DateInterval('P1D'));
-
-                    $where += ' f.fecha between  $inidate and $final ';
+                    $inidate = date("Y-m-d");;
+                    $findate = date('Y-m-d', strtotime("+1 days"));
+                    $where .=  ($where!='' ? ' and ': '') . " f.fecha between '". $inidate ."' and '". $findate ."' ";
                     break;
                 case 'Mensual':
-                    $where += ' ';
+                    $where .=  ($where!='' ? ' and ': '') .' MONTH(f.fecha) = MONTH(curdate()) ';
                     break;
                 case 'Semanal':
-                    $where += '  ';
+                    $where .= ($where!='' ? ' and ': '') .' YEARWEEK(f.fecha) = YEARWEEK(curdate()) ';
                     break;
                 case 'Anual':
-                    $where= '';
+                    $where .= ($where!='' ? ' and ': '') .' YEAR(f.fecha) = YEAR(curdate()) ';
                     break;
             }
             //
