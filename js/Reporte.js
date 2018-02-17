@@ -8,9 +8,11 @@ $(document).ready(function () {
     });
     // Filtro por chofer
     $(document).on('click','#tblchofer tr', function(){   
-        idchofer = $(this).parents("tr").find("td").eq(0).text();              
+        idchofer = $(this).children().eq(0).text();      
         ConsultaChofer();
     });
+    //sumatoria.
+
 });
 
 
@@ -111,11 +113,21 @@ function ShowData(e) {
             "<td>"+ item.naviera +"</td>" +
             "<td>"+ item.kms +"</td>" +
             "<td>"+ item.valorkm +"</td>" +
-            "<td>"+ item.totalpago +"</td>" +
+            "<td class='totalpago'>"+ item.totalpago +"</td>" +
             // "<td><img id=imgmod src=img/file_mod.png class=borrar></td>"+
             // "<td><img id=imgdelete src=img/file_delete.png class=borrar></td>"+
         "</tr>";
         $('#tableBody-reportes').append(row);  
         $('.id-form').hide();       
     })
+    // Summary
+    var foot= '<label for="inp-sumtotal" class="lbl-style">TOTAL</label>'+ 
+        '<input type="text" id="inp-sumtotal" name="inp-sumtotal" class="input-format" value="0" readonly />';
+    //'<tfoot> <tr> <th>Total:</th> <th></th> <th></th> <th></th> <th></th> <th id="sumtotal"> </th> </tr> </tfoot>';
+    $('#tableBody-reportes').append(foot);
+    var sumtotal=0;
+    $('.totalpago').each(function() {
+        sumtotal += parseFloat( $(this).text() );
+        $('#inp-sumtotal').val(sumtotal);
+    });
 };
