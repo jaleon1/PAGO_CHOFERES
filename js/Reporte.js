@@ -1,4 +1,10 @@
-var idchofer= null;
+var idfiltro= null;
+const TipoFiltro = {
+    chofer: 'chofer',
+    naviera: 'naviera',
+    finca:'finca'
+};
+const Filtro = Object.freeze(TipoFiltro);
 
 $(document).ready(function () {   
     $(document).on('click','#menu-reporte', function(event){        
@@ -6,12 +12,22 @@ $(document).ready(function () {
         listareportes();
         ConsultaGeneral();
     });
-    // Filtro por chofer
+    // Filtro
     $(document).on('click','#tblchofer tr', function(){   
-        idchofer = $(this).children().eq(0).text();      
-        ConsultaChofer();
+        idfiltro = $(this).children().eq(0).text();      
+        ConsultaFiltro(Filtro.chofer);
     });
-    //sumatoria.
+
+    $(document).on('click','#tblfinca tr', function(){   
+        idfiltro = $(this).children().eq(0).text();      
+        ConsultaFiltro(Filtro.finca);
+    });
+
+    $(document).on('click','#tblnaviera tr', function(){   
+        idfiltro = $(this).children().eq(0).text();      
+        ConsultaFiltro(Filtro.naviera);
+    });
+
 
 });
 
@@ -77,13 +93,14 @@ function ConsultaGeneral(){
 };
 
 // Carga lista
-function ConsultaChofer() {
+function ConsultaFiltro(t) {
     $.ajax({
         type: "POST",
         url: "class/Reporte.php",
         data: { 
-            action: "ConsultaChofer",
-            idchofer:  idchofer
+            action: "ConsultaFiltro",
+            idfiltro:  idfiltro,
+            tipo: t
         }
     })
     .done(function( e ) {

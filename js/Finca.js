@@ -14,11 +14,10 @@ $(document).ready(function () {
     });
 });
 
-
-$(document).on('click','#tblfinca tr', function(){        
-    //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
-    document.getElementById('inp-finca').value = $(this).find('td:first').html();
-});
+// $(document).on('click','#tblfinca tr', function(){        
+//     //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
+//     document.getElementById('inp-finca').value = $(this).find('td:first').html();
+// });
 
 function finca(){
     LimpiaTitulo(); 
