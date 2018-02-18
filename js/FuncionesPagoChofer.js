@@ -651,6 +651,7 @@ function mantenimientoingresogasto(){
 $(document).on('click', '#btnguardaringgas', function (event) {
     if(document.getElementById("radio-ingreso").checked == true)
         FormValidateIngreso();
+    
     if(document.getElementById("radio-gasto").checked == true)
         FormValidateGasto();
 }); 
