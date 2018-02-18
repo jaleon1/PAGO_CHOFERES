@@ -10,6 +10,7 @@ var RestaIngresosBorrados=0;
 var valortotalresta=0;
 var IngresoArray=[];
 var GastoArray=[];
+var seleccionlinea=0;
 
 $(document).ready( function () {  
     ingresosgastosformulario();
@@ -19,6 +20,7 @@ $(document).ready( function () {
     mantenimientoformpago();
     ingresosgastosformulario();
     Fecha();
+    $("#filtrofecha").hide();
 });
 
 //Selección DataTable
@@ -398,10 +400,12 @@ function ArrayGastos(){
 
 /* CHOFER */
 
-// $(document).on('click','#tblchofer tr', function(){        
-//     //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
-//     document.getElementById('inp-chofer').value = $(this).find('td:first').html();
-// });
+$(document).on('click','#tblchofer tr', function(){        
+    if(seleccionlinea==0){
+    //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
+    document.getElementById('inp-chofer').value = $(this).find('td:nth-child(2)').html();
+    }
+});
 
 
 $(document).on('click', '#inp-chofer', function (event) {    
@@ -422,7 +426,7 @@ function chofer(){
     LimpiaTitulo();
     $('#div-mant-titulo').append("<h3 id='titulo-Chofer'>CHOFER</h3>");
     $('#div-mants').append("<table id='tblchofer'class='tbl'>");
-    var col="<thead><tr><th>NOMBRE</th><th>CEDULA</th><th>TELEFONO</th><th>CORREO</th><th></th><th></th></tr></thead><tbody id='tableBody-chofer'></tbody>";
+    var col="<thead><tr><th>NOMBRE</th><th>CEDULA</th><th>TELEFONO</th><th>CORREO</th><th></th><th></th><th></th></tr></thead><tbody id='tableBody-chofer'></tbody>";
     $('#tblchofer').append(col);
 
     $('#tblchofer').DataTable( {
@@ -439,6 +443,8 @@ $(document).on('click', '#menu-formulario-pago', function (event) {
     mantenimientoformpago();
     ingresosgastosformulario();
     Fecha();
+    $("#filtrofecha").hide();
+    seleccionlinea=0;
 }); 
 
 function mantenimientochofer(){
@@ -807,7 +813,7 @@ $(document).on('click', '#btnguardarform', function (event) {
               }
     })
     .done(function( e ) {
-        
+        alert('FORMULARIO GUARDADO!');
     })    
     .fail(function(msg){
         

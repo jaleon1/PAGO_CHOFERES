@@ -14,6 +14,8 @@ $(document).ready(function () {
         mantenimientoreportes();
         listareportes();
         ConsultaGeneral();
+        $("#filtrofecha").show();
+        seleccionlinea=1;
     });
     // Filtro por tabla
     $(document).on('click','#tblchofer tr', function(){   
@@ -81,7 +83,7 @@ function listareportes(){
     $('#tblreportes').DataTable( {
         "order": [[ 0, "asc" ]],
         "paging":   false,
-        "scrollY": "225px",
+        "scrollY": "400px",
         "scrollCollapse": true,
         "bInfo" : false
     });
