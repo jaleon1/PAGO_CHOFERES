@@ -26,7 +26,7 @@ function chofer(){
     LimpiaTitulo();
     $('#div-mant-titulo').append("<h3 id='titulo-Chofer'>CHOFER</h3>");
     $('#div-mants').append("<table id='tblchofer'class='tbl'>");
-    var col="<thead><tr><th style='display:none;'>ID</th><th>NOMBRE</th><th>CEDULA</th><th>CUENTA</th><th></th><th></th></tr></thead><tbody id='tableBody-chofer'></tbody>";
+    var col="<thead><tr><th style='display:none;'>ID</th><th>NOMBRE</th><th>CEDULA</th><th>CUENTA</th><th></th><th></th><th></th></tr></thead><tbody id='tableBody-chofer'></tbody>";
     $('#tblchofer').append(col);
     //
     $('#tblchofer').DataTable( {
@@ -96,6 +96,7 @@ function ShowDataChofer(e) {
             '<td>' + item.cuenta + '</td>' +
             '<td><img id=btnmodingreso'+ item.id + ' class=borrar src=img/file_mod.png></td>'+
             '<td><img id=btnborraingreso'+ item.id + ' class=borrar src=img/file_delete.png></td>'+
+            '<td><img id=btnaddchofer'+ item.id + ' class=borrar src=img/file_add.png></td>'+
             '</tr>';
         $('#tableBody-chofer').append(row);
         // evento click del boton modificar-eliminar

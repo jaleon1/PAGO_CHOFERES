@@ -10,6 +10,10 @@ var RestaIngresosBorrados=0;
 var valortotalresta=0;
 var IngresoArray=[];
 var GastoArray=[];
+var seleccionlinea=0;
+var kmsviaje;
+var idchofer;
+var idcalculokm;
 
 $(document).ready( function () {  
     ingresosgastosformulario();
@@ -19,6 +23,7 @@ $(document).ready( function () {
     mantenimientoformpago();
     ingresosgastosformulario();
     Fecha();
+    $("#filtrofecha").hide();
 });
 
 //Selección DataTable
@@ -97,9 +102,11 @@ $(document).on('click','#tblcalculokm tr', function(){
     document.getElementById('inp-finca').value = $(this).find('td:nth-child(4)').html();
     document.getElementById('inp-naviera').value = $(this).find('td:nth-child(5)').html();
     //Multiplica los km por el precio de pago establecido
-    document.getElementById('inp-valor-viaje').value = ($(this).find('td:nth-child(6)').html() * 1.9).toFixed(2);
+    document.getElementById('inp-valor-viaje').value = $(this).find('td:nth-child(6)').html() * 1.9;
     document.getElementById('inp-total-pago').value = document.getElementById('inp-valor-viaje').value;
     valorviaje = document.getElementById('inp-valor-viaje').value;
+    kmsviaje = $(this).find('td:nth-child(6)').html();
+    idcalculokm = $(this).find('td:nth-child(1)').html();
 });
 
 function ingresosgastos(){
@@ -398,10 +405,13 @@ function ArrayGastos(){
 
 /* CHOFER */
 
-// $(document).on('click','#tblchofer tr', function(){        
-//     //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
-//     document.getElementById('inp-chofer').value = $(this).find('td:first').html();
-// });
+$(document).on('click','#tblchofer tr', function(){        
+    if(seleccionlinea==0){
+    //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
+    document.getElementById('inp-chofer').value = $(this).find('td:nth-child(2)').html();
+    idchofer = $(this).find('td:nth-child(1)').html();
+    }
+});
 
 
 $(document).on('click', '#inp-chofer', function (event) {    
@@ -422,7 +432,7 @@ function chofer(){
     LimpiaTitulo();
     $('#div-mant-titulo').append("<h3 id='titulo-Chofer'>CHOFER</h3>");
     $('#div-mants').append("<table id='tblchofer'class='tbl'>");
-    var col="<thead><tr><th>NOMBRE</th><th>CEDULA</th><th>TELEFONO</th><th>CORREO</th><th></th><th></th></tr></thead><tbody id='tableBody-chofer'></tbody>";
+    var col="<thead><tr><th>NOMBRE</th><th>CEDULA</th><th>TELEFONO</th><th>CORREO</th><th></th><th></th><th></th></tr></thead><tbody id='tableBody-chofer'></tbody>";
     $('#tblchofer').append(col);
 
     $('#tblchofer').DataTable( {
@@ -439,6 +449,8 @@ $(document).on('click', '#menu-formulario-pago', function (event) {
     mantenimientoformpago();
     ingresosgastosformulario();
     Fecha();
+    $("#filtrofecha").hide();
+    seleccionlinea=0;
 }); 
 
 function mantenimientochofer(){
@@ -659,7 +671,7 @@ $(document).on('click', '#btnguardaringgas', function (event) {
 function mantenimientoformpago(){
     $('#contenido-form').html(""); 
     var inputs = 
-    '<form action="" method="">'+
+    //'<form action="" method="">'+
     '<div id="div-form" class="">'+
         '<div id="div-form-titulo">'+
             '<h3>FORMULARIO DE PAGO</h3>'+
@@ -718,8 +730,8 @@ function mantenimientoformpago(){
             '<input type="text" id="inp-total-pago" name="inp-total-pago" class="input-format" readonly="readonly" value="" required/>'+ 
             '<input type="submit" id="btnguardarform" class="" value="Guardar">'+
         '</div>'+
-    '</div>'+
-    '</form>';
+    '</div>';
+    //'</form>';
     $('#contenido-form').append(inputs);
 }
 
@@ -794,20 +806,22 @@ $(document).on('click', '#btnguardarform', function (event) {
         url: "class/Formulario.php",
         data: {
                 action: "Insertar",
-                fechacarga: document.getElementById('form-date-crtl').value,
-                chofer: document.getElementById('inp-chofer').value,
+                fecha: document.getElementById('form-date-crtl').value,
+                idchofer: idchofer,
+                idcalculokm: idcalculokm,
                 contenedor: document.getElementById('inp-contenedor').value,
                 placa: document.getElementById('inp-placa').value,
                 finca: document.getElementById('inp-finca').value,
                 naviera: document.getElementById('inp-naviera').value,
-                valorviaje: document.getElementById('inp-valor-viaje').value,
-                totalpago: document.getElementById('inp-total-pago').value,
+                valorviaje: parseFloat(document.getElementById('inp-valor-viaje').value),
+                totalpago: parseFloat(document.getElementById('inp-total-pago').value),
+                kms:parseInt(kmsviaje),
                 ingresos: IngresoArray,
                 gastos: GastoArray
               }
     })
     .done(function( e ) {
-        
+        alert('FORMULARIO GUARDADO!');
     })    
     .fail(function(msg){
         
