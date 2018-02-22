@@ -60,21 +60,20 @@ class Formulario
             $totalpago = floatval($_POST["totalpago"]);
             $valorkm = 1.9;
             $sql="INSERT INTO `formulariopago` (`id`, `comprobante`, `idchofer`, `idcalculokm`, `fecha`, `contenedor`, `placa`,`kms`, 
-            `valorviaje`, `valorkm`, `porcentajeingreso`, `totalpago`, `estado`) VALUES (:id,:comprobante,:idchofer,:idcalculokm,:fecha,
+            `valorviaje`, `valorkm`, `porcentajeingreso`, `totalpago`, `estado`) VALUES (uuid(),:comprobante,:idchofer,:idcalculokm,:fecha,
             :contenedor,:placa,:kms,:valorviaje,:valorkm,:porcentajeingreso,:totalpago,:estado);";
             $param= array(
-                            ':id'=>'uuid()',
                             ':comprobante'=>$comprobante,
                             ':idchofer'=>$_POST["idchofer"],
                             ':idcalculokm'=>$_POST["idcalculokm"],
                             ':fecha'=>$_POST["fecha"],
                             ':contenedor'=>$_POST["contenedor"],
                             ':placa'=>$_POST["placa"],               
-                            ':kms'=>500,
-                            ':valorviaje'=>1330.00,
-                            ':valorkm'=>1.9,
-                            ':porcentajeingreso'=>15.00,
-                            ':totalpago'=>1350.00,
+                            ':kms'=>$_POST["kms"],
+                            ':valorviaje'=>$_POST["valorviaje"],
+                            ':valorkm'=>$valorkm,
+                            ':porcentajeingreso'=>15,
+                            ':totalpago'=>$_POST["totalpago"],
                             ':estado'=>0);
 
             $result = DATA::Ejecutar($sql,$param);
