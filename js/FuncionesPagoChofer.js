@@ -446,12 +446,16 @@ function chofer(){
 
 /*FORMULARIO PAGO*/
 $(document).on('click', '#menu-formulario-pago', function (event) {    
+    AbreFormulario();
+    Fecha();
+});
+
+function AbreFormulario(){
     mantenimientoformpago();
     ingresosgastosformulario();
-    Fecha();
     $("#filtrofecha").hide();
-    seleccionlinea=0;
-}); 
+    seleccionlinea=0;    
+}
 
 function mantenimientochofer(){
     var inputs = '<form id="frmchofer">'+
@@ -798,9 +802,20 @@ $(document).on('click', '#btnaddgastos', function (event) {
     }
 }); 
 
+
+
+
+$(document).on('click', '#btnguardarform', function (event) {
+    if ($("#lbl-comprobante").text()=='') 
+        InsertarFormulario();
+    else
+        ModificarFormulario();
+}); 
+
+
 /* INSERTAR */
 //INSERTA UN FORMULARIO, SI ESTA CCORRECTO REDIRECCIONA A LISAT FORMULARIO
-$(document).on('click', '#btnguardarform', function (event) {
+function InsertarFormulario(){
     $.ajax({
         type: "POST",
         url: "class/Formulario.php",
@@ -826,6 +841,36 @@ $(document).on('click', '#btnguardarform', function (event) {
     .fail(function(msg){
         
     });
-}); 
+}
 
 /* MODIFICAR*/ 
+function ModificarFormulario(){
+    //var idform = $(this).parents("tr").find("td").eq(0).text();
+    $.ajax({
+        type: "POST",
+        url: "class/Formulario.php",
+        data: {
+                action: "Modificar",
+                id:id,
+                comprobante:$("#lbl-comprobante").text(),
+                fecha: document.getElementById('form-date-crtl').value,
+                idchofer: idchofer,
+                idcalculokm: idcalculokm,
+                contenedor: document.getElementById('inp-contenedor').value,
+                placa: document.getElementById('inp-placa').value,
+                finca: document.getElementById('inp-finca').value,
+                naviera: document.getElementById('inp-naviera').value,
+                valorviaje: parseFloat(document.getElementById('inp-valor-viaje').value),
+                totalpago: parseFloat(document.getElementById('inp-total-pago').value),
+                kms:parseInt(kmsviaje),
+                ingresos: IngresoArray,
+                gastos: GastoArray
+              }
+    })
+    .done(function( e ) {
+        alert('FORMULARIO MODIFICADO!');
+    })    
+    .fail(function(msg){
+        
+    });
+}
