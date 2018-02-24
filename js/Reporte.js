@@ -1,5 +1,7 @@
 var idfiltro= null;
 var filtrofecha= null;
+var idformulario;
+var id='';
 const TipoFiltro = {
     todos: 'todos',
     chofer: 'chofer',
@@ -77,7 +79,7 @@ function mantenimientoreportes(){
 /* REPORTES*/
 function listareportes(){        
     $('#div-lista-reporte').append("<table id='tblreportes'class='tbl'>");
-    var col="<thead> <tr><th>#</th> <th>CHOFER</th> <th>FECHA CARGA</th>  <th>CONTENEDOR</th> <th>PLACA</th> <th>FINCA</th> <th>NAVIERA</th> <th>kms</th> <th>VALOR KM</th> <th>TOTAL PAGO</th> </tr ></thead> <tbody id='tableBody-reportes'></tbody>";
+    var col="<thead> <tr><th>#</th> <th>CHOFER</th> <th>FECHA CARGA</th>  <th>CONTENEDOR</th> <th>PLACA</th> <th>FINCA</th> <th>NAVIERA</th> <th>kms</th> <th>VALOR KM</th> <th>TOTAL PAGO</th> <th></th><th></th> </tr ></thead> <tbody id='tableBody-reportes'></tbody>";
     $('#tblreportes').append(col); 
 
     $('#tblreportes').DataTable( {
@@ -163,10 +165,11 @@ function ShowData(e) {
             "<td>"+ item.kms +"</td>" +
             "<td>"+ item.valorkm +"</td>" +
             "<td class='totalpago'>"+ item.totalpago +"</td>" +
-            // "<td><img id=imgmod src=img/file_mod.png class=borrar></td>"+
-            // "<td><img id=imgdelete src=img/file_delete.png class=borrar></td>"+
+            '<td><img id=btnmodform'+ item.id +' src=img/file_mod.png class=borrar></td>'+
+            '<td><img id=btndeleteform'+ item.id +' src=img/file_delete.png class=borrar></td>'+
         "</tr>";
         $('#tableBody-reportes').append(row);  
+        $('#btnmodform' + item.id).click(UpdateEventHandlerFormulario);
         $('.id-form').hide();       
     })
     // Summary
@@ -179,4 +182,99 @@ function ShowData(e) {
         sumtotal += parseFloat( $(this).text() );
         $('#inp-sumtotal').val(sumtotal);
     });
+};
+
+function UpdateEventHandlerFormulario() {
+    id = $(this).parents("tr").find("td").eq(0).text();  //Columna 0 de la fila seleccionda= ID.
+    $.ajax({
+        type: "POST",
+        url: "class/Formulario.php",
+        data: {
+            action: 'Cargar',
+            id: id
+        }
+    })
+    .done(function (e) {
+        ShowItemDataFormulario(e);
+        UpdateEventHandlerIngresoForm();
+        UpdateEventHandlerGastoForm();
+    })
+    .fail(showError);
+};
+
+function UpdateEventHandlerIngresoForm() {
+    //id = $(this).parents("tr").find("td").eq(0).text();  //Columna 0 de la fila seleccionda= ID.
+    $.ajax({
+        type: "POST",
+        url: "class/Formulario.php",
+        data: {
+            action: 'CargarIngreso',
+            idformulario: id
+        }
+    })
+    .done(function (x) {
+        ShowItemDataIngresoForm(x);
+    })
+    .fail(showError);
+};
+
+function UpdateEventHandlerGastoForm() {
+    //id = $(this).parents("tr").find("td").eq(0).text();  //Columna 0 de la fila seleccionda= ID.
+    $.ajax({
+        type: "POST",
+        url: "class/Formulario.php",
+        data: {
+            action: 'CargarGasto',
+            idformulario: id
+        }
+    })
+    .done(function (x) {
+        ShowItemDataGastoForm(x);
+    })
+    .fail(showError);
+};
+
+function ShowItemDataFormulario(e) {
+    AbreFormulario();
+    // Limpia el controles
+    
+    // carga lista con datos.
+    var data = JSON.parse(e);
+    $("#lbl-comprobante").text(data[0][1]);
+    $("#inp-chofer").val(data[0][2]);
+    $("#form-date-crtl").val(data[0][3]);
+    $("#inp-contenedor").val(data[0][4]);
+    $("#inp-placa").val(data[0][5]);
+    $("#inp-finca").val(data[0][6]);
+    $("#inp-naviera").val(data[0][7]);
+    $("#inp-valor-viaje").val(data[0][10]);
+    $("#inp-total-pago").val(data[0][11]);
+    idchofer = data[0][12];
+    idcalculokm = data[0][13];
+};
+
+function ShowItemDataIngresoForm(x) {
+    $('#firsttr').closest('tr').remove();
+    // Limpia el controles
+    
+    // carga lista con datos.
+    var data = JSON.parse(x);
+    for (var i = 0; i < data.length; i++) {
+        var td1="<tr class=cambia-ingreso><td>"+ data[i][2] +"</td><td class=montoingreso>"+ data[i][1] +"</td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
+        $("#tblbodyingresos-form").append(td1);
+    }
+    ArrayIngresos();
+};
+
+function ShowItemDataGastoForm(x) {
+    $('#firsttr2').closest('tr').remove();
+    // Limpia el controles
+    
+    // carga lista con datos.
+    var data = JSON.parse(x);
+    for (var i = 0; i < data.length; i++) {
+        var td1="<tr class=cambia-gasto><td>"+ data[i][2] +"</td><td class=montogasto>"+ data[i][1] +"</td><td><img id=btnborragasto class=borrar src=img/file_delete.png></td></tr>";
+        $("#tblbodygastos-form").append(td1);
+    }
+    ArrayGastos();
 };

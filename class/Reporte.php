@@ -26,7 +26,8 @@ class Reporte
     function ConsultaGeneral(){
         try {
             $sql = "SELECT f.id, f.comprobante, c.nombre as chofer,f.fecha, f.contenedor, f.placa, fin.nombre as finca, nav.nombre as naviera, kms, valorkm, totalpago
-                FROM formulariopago f inner join calculokm cal on cal.id=f.idcalculokm
+                    FROM formulariopago f 
+                    inner join calculokm cal on cal.id=f.idcalculokm
                     inner join finca fin on fin.id=cal.idfinca
                     inner join naviera nav on nav.id=cal.idnaviera
                     inner join chofer c on c.id=f.idchofer
