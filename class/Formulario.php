@@ -94,10 +94,10 @@ class Formulario
 
     function Modificar(){
         try {
-            $valorkm = 1.9;
-            $sql="UPDATE `formulariopago` SET `idchofer`=:idchofer,`idcalculokm`=:idcalculo,`fecha`=:fecha,`contenedor`=:contenedor,`placa`=:placa,
-            `kms`=:kms,`valorviaje`=:valorviaje,`valorkm`=:valorkm,`porcentajeingreso`=:porcentajeingreso,`totalpago`=:totalpago,`estado`=:estado WHERE comprobante = :comprobante;";
-            $param= array(  ':comprobante'=>$comprobante,
+            // $valorkm = '1,9';
+            $sql="UPDATE `formulariopago` SET `idchofer`=:idchofer,`idcalculokm`=:idcalculokm,`fecha`=:fecha,`contenedor`=:contenedor,`placa`=:placa,
+            `kms`=:kms,`valorviaje`=:valorviaje,`valorkm`=:valorkm,`porcentajeingreso`=:porcentajeingreso,`totalpago`=:totalpago,`estado`=:estado WHERE id = :id;";
+            $param= array(  ':id'=>$_POST["id"],
                             ':idchofer'=>$_POST["idchofer"],
                             ':idcalculokm'=>$_POST["idcalculokm"],
                             ':fecha'=>$_POST["fecha"],
@@ -105,42 +105,50 @@ class Formulario
                             ':placa'=>$_POST["placa"],               
                             ':kms'=>$_POST["kms"],
                             ':valorviaje'=>$_POST["valorviaje"],
-                            ':valorkm'=>$valorkm,
-                            ':porcentajeingreso'=>15,
+                            ':valorkm'=>'1,9',
+                            ':porcentajeingreso'=>'15',
                             ':totalpago'=>$_POST["totalpago"],
-                            ':estado'=>0);
-            $result = DATA::Ejecutar($sql,$param);
+        ':estado'=>'0');
+            DATA::Ejecutar($sql,$param);
 
             //Contenedores Almacenados
             //Elimina el Contenedor
             $borracontenedor = "DELETE FROM `contenedor` WHERE idformulario=:id";
             $param= array(  ':id'=>$_POST["id"]);
             DATA::Ejecutar($borracontenedor,$param);
-
+            
+            //Inserta Contenedor
             $contenedor = $_POST['contenedor'];
             $sqlcontenedor = "INSERT INTO contenedor(id,contenedor,idformulario,estado) VALUES (uuid(),:contenedor,:idformulario,:estado)";
             $param= array(  ':contenedor'=>$contenedor,
                             ':idformulario'=>$_POST['id'],
                             ':estado'=>0);
             DATA::Ejecutar($sqlcontenedor,$param);
+            
+            //Borrar Todos los Ingresos y Gastos antes de volver a insertarlos
+            $sqlingresos= "DELETE FROM `formingresos` WHERE idformulario=:idformulario";
+            $param= array(':idformulario'=>$_POST['id']);
+            DATA::Ejecutar($sqlingresos,$param);
 
+            $sqlgastos= "DELETE FROM `formgastos` WHERE idformulario=:idformulario";
+            $param= array(':idformulario'=>$_POST['id']);
+            DATA::Ejecutar($sqlgastos,$param);
+
+            //Calcula la longitud del arreglo de visistantes
             $ingresosarray = $_POST["ingresos"];
             $gastoarray = $_POST["gastos"];
-            //Calcula la longitud del arreglo de visistantes
             $longitudingreso = count($ingresosarray); 
             $longitudgasto = count($gastoarray);
-            
-            //Borrar Todos los INgresos y Gastos antes de volver a insertarlos
-            
+
             //Recorre el arreglo e inserta cada item en la tabla intermedia
             for ($i=0; $i<$longitudingreso; $i++) {
                 $sql='INSERT INTO formingresos(id,idformulario,nombre,monto,porcentaje) VALUES (uuid(),:idformulario,:nombre,:monto,:porcentaje)';
-                $param= array(':idformulario'=>$idformulario[0][0],':nombre'=>$ingresosarray[$i]['nombreingreso'],':monto'=>$ingresosarray[$i]['montoingreso'],':porcentaje'=>"0.15");
+                $param= array(':idformulario'=>$_POST['id'],':nombre'=>$ingresosarray[$i]['nombreingreso'],':monto'=>$ingresosarray[$i]['montoingreso'],':porcentaje'=>"0.15");
                 $result = DATA::Ejecutar($sql, $param);
             }
             for ($i=0; $i<$longitudgasto; $i++) {
                 $sql='INSERT INTO formgastos(id,idformulario,nombre,monto) VALUES (uuid(),:idformulario,:nombre,:monto)';
-                $param= array(':idformulario'=>$idformulario[0][0],':nombre'=>$gastoarray[$i]['nombregasto'],':monto'=>$gastoarray[$i]['montogasto']);
+                $param= array(':idformulario'=>$_POST['id'],':nombre'=>$gastoarray[$i]['nombregasto'],':monto'=>$gastoarray[$i]['montogasto']);
                 $result = DATA::Ejecutar($sql, $param);
             }
         } catch (Exception $e) {

@@ -160,7 +160,14 @@
                 text-align: center;
                 padding-top: 5px;
             }
-            #div-form-fecha{
+            .div-form-input{
+                width: 50%;
+                height: 60px;
+                float: left;
+                padding-top: 5px;
+            }
+
+            /* #div-form-fecha{
                 width: 50%;
                 height: 60px;
                 float: left;
@@ -211,9 +218,8 @@
                 width: 50%;
                 height: 60px;
                 float: left;
-                padding-top: 5px;
-                
-            }
+                padding-top: 5px; 
+            } */
             #div-form-conversion{
                 width: 50%;
                 height: 60px;

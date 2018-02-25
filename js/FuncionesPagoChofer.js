@@ -14,6 +14,7 @@ var seleccionlinea=0;
 var kmsviaje;
 var idchofer;
 var idcalculokm;
+var idformulario=null;
 
 $(document).ready( function () {  
     ingresosgastosformulario();
@@ -107,6 +108,9 @@ $(document).on('click','#tblcalculokm tr', function(){
     valorviaje = document.getElementById('inp-valor-viaje').value;
     kmsviaje = $(this).find('td:nth-child(6)').html();
     idcalculokm = $(this).find('td:nth-child(1)').html();
+    aplicarIngresoGasto();
+    ArrayIngresos();
+    ArrayGastos();
 });
 
 function ingresosgastos(){
@@ -175,7 +179,7 @@ function ingresosgastosformulario(){
         "bLengthChange": false,
         searching: false,
         "bInfo": false,
-        "scrollY": "140px",
+        "scrollY": "105px",
         "scrollCollapse": true,
         "bPaginate": false,
         "columns": [
@@ -190,7 +194,7 @@ function ingresosgastosformulario(){
         "bLengthChange": false,
         searching: false,
         "bInfo": false,
-        "scrollY": "140px",
+        "scrollY": "105px",
         "scrollCollapse": true,
         "bPaginate": false,
         "columns": [
@@ -679,39 +683,38 @@ function mantenimientoformpago(){
     '<div id="div-form" class="">'+
         '<div id="div-form-titulo">'+
             '<h3>FORMULARIO DE PAGO</h3>'+
-            '<label >COMPROBANTE #</label>'+
-            '<label id="lbl-comprobante" class="lbl-style"></label>'+
         '</div>'+
-        '<div id="div-form-chofer">'+
-            '<label for="lbl-chofer" class="lbl-style">Chofer</label>'+
-            '<input type="text" id="inp-chofer" name="inp-chofer" class="input-format" readonly="readonly" value="" required/>'+ 
-        '</div>'+
-        '<div id="div-form-fecha">'+
+        '<div id="div-form-fecha" class="div-form-input">'+
             '<label id="lbl-fecha" for="form-date-crtl" class="lbl-style">Fecha de Carga</label>'+
             '<input type="datetime-local" id="form-date-crtl" name="form-date-crtl" class="input-format" required/>'+
         '</div>'+
-        '<div id="div-form-contenedor">'+
-            '<label for="lbl-contenedor" class="lbl-style">Contenedor</label>'+
-            '<input type="text" id="inp-contenedor" name="inp-contenedor" class="input-format" value="" required/>'+ 
+        '<div id="div-form-fecha" class="div-form-input">'+
+            '<label class="lbl-style">COMPROBANTE   #</label></br>'+
+            '<label id="lbl-comprobante">12345</label>'+
         '</div>'+
-        '<div id="div-form-placa">'+
+        '<div id="div-form-chofer" class="div-form-input">'+
+            '<label for="lbl-chofer" class="lbl-style">Chofer</label>'+
+            '<input type="text" id="inp-chofer" name="inp-chofer" class="input-format" readonly="readonly" value="" required/>'+ 
+        '</div>'+
+        '<div id="div-form-placa" class="div-form-input">'+
             '<label for="lbl-placa" class="lbl-style">Placa</label>'+
             '<input type="text" id="inp-placa" name="inp-placa" class="input-format" value="" required/>'+ 
         '</div>'+
-        '<div id="div-form-finca">'+
-            '<label for="lbl-finca" class="lbl-style">Finca</label>'+
+        '<div class="div-form-input">'+
+            '<label for="lbl-valor-viaje" class="lbl-style">Booking</label>'+
+            '<input type="text" id="inp-booking" name="inp-booking" class="input-format" readonly="readonly" value="" required/>'+ 
+        '</div>'+
+        '<div id="div-form-contenedor" class="div-form-input">'+
+            '<label for="lbl-contenedor" class="lbl-style">Contenedor</label>'+
+            '<input type="text" id="inp-contenedor" name="inp-contenedor" class="input-format" value="" required/>'+ 
+        '</div>'+
+        '<div id="div-form-finca" class="div-form-input">'+
+            '<label for="lbl-finca" class="lbl-style">Punto de Carga</label>'+
             '<input type="text" id="inp-finca" name="inp-finca" class="input-format" readonly="readonly" value="" required/>'+ 
         '</div>'+
-        '<div id="div-form-naviera">'+
-            '<label for="lbl-naviera" class="lbl-style">Naviera</label>'+
+        '<div id="div-form-naviera" class="div-form-input">'+
+            '<label for="lbl-naviera" class="lbl-style">Punto de Descarga</label>'+
             '<input type="text" id="inp-naviera" name="inp-naviera" class="input-format" readonly="readonly" value="" required/>'+ 
-        '</div>'+
-        '<div id="div-form-valor-viaje">'+
-            '<label for="lbl-valor-viaje" class="lbl-style">VALOR DEL VIAJE</label>'+
-            '<input type="text" id="inp-valor-viaje" name="inp-valor-viaje" class="input-format" readonly="readonly" value="" required/>'+ 
-        '</div>'+
-        '<div id="div-form-conversion">'+
-            '<button id="btncambio">$/</button>'+
         '</div>'+
         '<div class="div-form-medio">'+         
             '<div id="div-form-ingresos">'+         
@@ -727,12 +730,19 @@ function mantenimientoformpago(){
                 '<input type="button" id="btnaddgastos" class="btnadd" value="+">'+  
             '</div>'+
         '</div>'+
-
-        
-        '<div id="div-form-total-pago">'+
+        '<div id="div-form-valor-viaje" class="div-form-input">'+
+            '<label for="lbl-valor-viaje" class="lbl-style">VALOR DEL VIAJE</label>'+
+            '<input type="text" id="inp-valor-viaje" name="inp-valor-viaje" class="input-format" readonly="readonly" value="" required/>'+ 
+        '</div>'+
+        '<div class="div-form-input">'+
             '<label for="lbl-total-pago" class="lbl-style">TOTAL A PAGAR</label>'+
-            '<input type="text" id="inp-total-pago" name="inp-total-pago" class="input-format" readonly="readonly" value="" required/>'+ 
-            '<input type="submit" id="btnguardarform" class="" value="Guardar">'+
+            '<input type="text" id="inp-total-pago" name="inp-total-pago" class="input-format" readonly="readonly" value="" required/>'+
+        '</div>'+
+        '<div class="div-form-input">'+
+            
+        '</div>'+
+        '<div class="div-form-input">'+
+            '<input type="submit" id="btnguardarform" class="input-format" value="Guardar">'+
         '</div>'+
     '</div>';
     //'</form>';
@@ -851,7 +861,7 @@ function ModificarFormulario(){
         url: "class/Formulario.php",
         data: {
                 action: "Modificar",
-                id:id,
+                id:idformulario,
                 comprobante:$("#lbl-comprobante").text(),
                 fecha: document.getElementById('form-date-crtl').value,
                 idchofer: idchofer,
