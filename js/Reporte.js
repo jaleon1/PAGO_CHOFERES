@@ -1,7 +1,6 @@
 var idfiltro= null;
 var filtrofecha= null;
 var idformulario;
-var id='';
 const TipoFiltro = {
     todos: 'todos',
     chofer: 'chofer',
@@ -9,7 +8,6 @@ const TipoFiltro = {
     finca:'finca'
 };
 var Filtro = Object.freeze(TipoFiltro);
-
 $(document).ready(function () {   
     $(document).on('click','#menu-reporte', function(event){       
         Filtro= TipoFiltro.todos;     
@@ -79,7 +77,7 @@ function mantenimientoreportes(){
 /* REPORTES*/
 function listareportes(){        
     $('#div-lista-reporte').append("<table id='tblreportes'class='tbl'>");
-    var col="<thead> <tr><th>#</th> <th>CHOFER</th> <th>FECHA CARGA</th>  <th>CONTENEDOR</th> <th>PLACA</th> <th>FINCA</th> <th>NAVIERA</th> <th>kms</th> <th>VALOR KM</th> <th>TOTAL PAGO</th> <th></th><th></th> </tr ></thead> <tbody id='tableBody-reportes'></tbody>";
+    var col="<thead> <tr><th>#</th> <th>CHOFER</th> <th>FECHA</th>  <th>CONTENEDOR</th> <th></th><th></th> </tr ></thead> <tbody id='tableBody-reportes'></tbody>";
     $('#tblreportes').append(col); 
 
     $('#tblreportes').DataTable( {
@@ -159,12 +157,12 @@ function ShowData(e) {
             "<td>"+ item.chofer +"</td>" +
             "<td>"+ item.fecha +"</td>" +
             "<td>"+ item.contenedor +"</td>" +
-            "<td>"+ item.placa +"</td>" +
-            "<td>"+ item.finca +"</td>" +
-            "<td>"+ item.naviera +"</td>" +
-            "<td>"+ item.kms +"</td>" +
-            "<td>"+ item.valorkm +"</td>" +
-            "<td class='totalpago'>"+ item.totalpago +"</td>" +
+            // "<td>"+ item.placa +"</td>" +
+            // "<td>"+ item.finca +"</td>" +
+            // "<td>"+ item.naviera +"</td>" +
+            // "<td>"+ item.kms +"</td>" +
+            // "<td>"+ item.valorkm +"</td>" +
+            // "<td class='totalpago'>"+ item.totalpago +"</td>" +
             '<td><img id=btnmodform'+ item.id +' src=img/file_mod.png class=borrar></td>'+
             '<td><img id=btndeleteform'+ item.id +' src=img/file_delete.png class=borrar></td>'+
         "</tr>";
@@ -240,6 +238,7 @@ function ShowItemDataFormulario(e) {
     
     // carga lista con datos.
     var data = JSON.parse(e);
+    idformulario = data[0][0];
     $("#lbl-comprobante").text(data[0][1]);
     $("#inp-chofer").val(data[0][2]);
     $("#form-date-crtl").val(data[0][3]);
@@ -247,6 +246,7 @@ function ShowItemDataFormulario(e) {
     $("#inp-placa").val(data[0][5]);
     $("#inp-finca").val(data[0][6]);
     $("#inp-naviera").val(data[0][7]);
+    kmsviaje = data[0][8];
     $("#inp-valor-viaje").val(data[0][10]);
     $("#inp-total-pago").val(data[0][11]);
     idchofer = data[0][12];

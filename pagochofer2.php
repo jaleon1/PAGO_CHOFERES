@@ -92,7 +92,9 @@ if (!isset($_SESSION))
                                         </a>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                                             <li><a id="menu-formulario-pago" tabindex="-1" href="#">Formulario Pago</a></li>
-                                            <li><a id="menu-reporte" tabindex="-1" href="#">Reportes</a></li>
+                                            <li><a id="menu-reporte" tabindex="-1" href="#">Historial</a></li>
+                                            <li><a id="menu-reporte" tabindex="-1" href="#">Liquidación</a></li>
+                                            <li><a id="menu-reporte" tabindex="-1" href="#">Colocaciones Diarias</a></li>
                                         </ul>
                                 </div>
                             </li>
