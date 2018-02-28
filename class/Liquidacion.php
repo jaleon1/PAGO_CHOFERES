@@ -5,31 +5,31 @@ if (!isset($_SESSION)) {
 }
 
 if(isset($_POST["action"])){
-    $colocacion= new Colocacion();   
+    $liquidacion= new Liquidacion();   
     switch($_POST["action"]){       
-        case "ConsultaFecha":                 
-            echo json_encode($colocacion->ConsultaFecha());
+        case "Consulta":                 
+            echo json_encode($colocacion->Consulta());
             break;
     }
 }
 
-class Colocacion
+class Liquidacion
 {       
     function __construct(){
         require_once("Conexion.php");
     }
     
     //CONSULTA FORMULARIO PARA LLENAR TABLA
-    function ConsultaFecha(){
+    function Consulta(){
         try {
-            $sql = "SELECT f.id, c.nombre as chofer,f.fechacarga, f.contenedor, fin.nombre as puntocarga, nav.nombre as puntodescarga FROM formulariopago f 
+            $sql = "SELECT f.id, c.nombre as chofer,f.fechacarga, f.contenedor, fin.nombre as puntocarga, nav.nombre as puntodescarga,f.totalpago FROM formulariopago f 
             inner join calculokm cal on cal.id=f.idcalculokm 
             inner join finca fin on fin.id=cal.idfinca 
             inner join naviera nav on nav.id=cal.idnaviera 
             inner join chofer c on c.id=f.idchofer 
-            WHERE estado=:estado AND DATE(fechacarga) = :fechacarga ORDER BY fechacarga ASC";
+            WHERE estado=:estado AND c.id=:idchofer ORDER BY fechacarga ASC";
             
-            $param= array(':estado'=>$_POST["estado"],':fechacarga'=>$_POST["fechacarga"]);
+            $param= array(':estado'=>$_POST["estado"],':idchofer'=>$_POST["idchofer"]);
             $data= DATA::Ejecutar($sql,$param);
             return $data;
         } catch (Exception $e) {

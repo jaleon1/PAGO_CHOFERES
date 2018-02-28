@@ -22,7 +22,7 @@ function mantenimientocolocaciones(){
             '</div>'+
             '<div class=div-tercio>'+
                 '<div class=div-opciones>'+
-                    '<input type="button" id="btnpdfcolocacion" class="btn" value="Generar Reporte">'+
+                    '<input type="button" id="btnpdfcolocacion" class="inputformat" value="Generar Reporte">'+
                 '</div>'+
                 '<div class=div-total-botones></div>'+
             '</div>'+
@@ -34,14 +34,6 @@ function mantenimientocolocaciones(){
     '</div>';
     $('#contenido-form').append(inputs);
 };
-    
-function export_div(){
-    
-        var pdf = new jsPDF("p", "pt", "a4");
-        pdf.addHTML($('#div-colocacion'), 15, 15, function() {
-          pdf.save('div.pdf');
-        });
-    }
 
 /* REPORTES*/
 function listacolocaciones(){        
@@ -50,13 +42,14 @@ function listacolocaciones(){
     $('#tblcolocacion').append(col); 
 
     $('#tblcolocacion').DataTable( {
-        "order": [[ 0, "asc" ]],
-        "paging":   false,
-        "scrollY": "400px",
-        "scrollCollapse": true,
-        "bInfo" : false
+        dom: 'Bfrtip',
+        buttons: ['copy', 'csv', 'excel', 'pdf']
     });
 };
+
+$(document).on('click', '#btnpdfcolocacion', function (event) {    
+
+});
 
 // Carga lista
 function ConsultaFecha() {
@@ -72,7 +65,7 @@ function ConsultaFecha() {
     .done(function( e ) {
         // var data = JSON.parse(e);
         // alert(data.length);
-        ShowData(e);
+        ShowDataColocacion(e);
     })    
     .fail(function(msg){
         alert("Error al Cargar Reportes");
@@ -80,10 +73,11 @@ function ConsultaFecha() {
 };
 
 jQuery(document).on( "onchange", "#date-fechacarga", function(){ 
+    listacolocaciones();
     ConsultaFecha();
 });
 
-function ShowData(e) {
+function ShowDataColocacion(e) {
     $('#tableBody-colocacion').html("");
     $('#contenido-form').append("<table id='tblcolocacion'class='display'>");
     // carga lista con datos.
@@ -104,101 +98,4 @@ function ShowData(e) {
         $('#tableBody-colocacion').append(row);  
         $('.id-form').hide();       
     })
-};
-
-function UpdateEventHandlerFormulario() {
-    id = $(this).parents("tr").find("td").eq(0).text();  //Columna 0 de la fila seleccionda= ID.
-    $.ajax({
-        type: "POST",
-        url: "class/Formulario.php",
-        data: {
-            action: 'Cargar',
-            id: id
-        }
-    })
-    .done(function (e) {
-        ShowItemDataFormulario(e);
-        UpdateEventHandlerIngresoForm();
-        UpdateEventHandlerGastoForm();
-    })
-    .fail(showError);
-};
-
-function UpdateEventHandlerIngresoForm() {
-    //id = $(this).parents("tr").find("td").eq(0).text();  //Columna 0 de la fila seleccionda= ID.
-    $.ajax({
-        type: "POST",
-        url: "class/Formulario.php",
-        data: {
-            action: 'CargarIngreso',
-            idformulario: id
-        }
-    })
-    .done(function (x) {
-        ShowItemDataIngresoForm(x);
-    })
-    .fail(showError);
-};
-
-function UpdateEventHandlerGastoForm() {
-    //id = $(this).parents("tr").find("td").eq(0).text();  //Columna 0 de la fila seleccionda= ID.
-    $.ajax({
-        type: "POST",
-        url: "class/Formulario.php",
-        data: {
-            action: 'CargarGasto',
-            idformulario: id
-        }
-    })
-    .done(function (x) {
-        ShowItemDataGastoForm(x);
-    })
-    .fail(showError);
-};
-
-function ShowItemDataFormulario(e) {
-    AbreFormulario();
-    // Limpia el controles
-    
-    // carga lista con datos.
-    var data = JSON.parse(e);
-    idformulario = data[0][0];
-    $("#lbl-comprobante").text(data[0][1]);
-    $("#inp-chofer").val(data[0][2]);
-    $("#form-date-crtl").val(data[0][3]);
-    $("#inp-contenedor").val(data[0][4]);
-    $("#inp-placa").val(data[0][5]);
-    $("#inp-finca").val(data[0][6]);
-    $("#inp-naviera").val(data[0][7]);
-    kmsviaje = data[0][8];
-    $("#inp-valor-viaje").val(data[0][10]);
-    $("#inp-total-pago").val(data[0][11]);
-    idchofer = data[0][12];
-    idcalculokm = data[0][13];
-};
-
-function ShowItemDataIngresoForm(x) {
-    $('#firsttr').closest('tr').remove();
-    // Limpia el controles
-    
-    // carga lista con datos.
-    var data = JSON.parse(x);
-    for (var i = 0; i < data.length; i++) {
-        var td1="<tr class=cambia-ingreso><td>"+ data[i][2] +"</td><td class=montoingreso>"+ data[i][1] +"</td><td><img id=btnborraingreso class=borrar src=img/file_delete.png></td></tr>";
-        $("#tblbodyingresos-form").append(td1);
-    }
-    ArrayIngresos();
-};
-
-function ShowItemDataGastoForm(x) {
-    $('#firsttr2').closest('tr').remove();
-    // Limpia el controles
-    
-    // carga lista con datos.
-    var data = JSON.parse(x);
-    for (var i = 0; i < data.length; i++) {
-        var td1="<tr class=cambia-gasto><td>"+ data[i][2] +"</td><td class=montogasto>"+ data[i][1] +"</td><td><img id=btnborragasto class=borrar src=img/file_delete.png></td></tr>";
-        $("#tblbodygastos-form").append(td1);
-    }
-    ArrayGastos();
 };

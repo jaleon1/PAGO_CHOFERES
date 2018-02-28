@@ -8,12 +8,29 @@ if (!isset($_SESSION))
 <html lang="en">
   <head>
     <title>Pago Choferes</title>
-
-    <link rel="stylesheet" href="css/datatables.css" type="text/css"/>
+    
+    <!-- <link rel="stylesheet" href="css/jquery.dataTables.min.css" type="text/css"/> -->
+    <!-- <link rel="stylesheet" href="css/buttons.dataTables.min.css" type="text/css"/> -->
+    <!-- <link rel="stylesheet" href="css/datatables.css" type="text/css"/> -->
+    
     <script src="js/jquery.js" type="text/jscript"></script>
-    <script src="js/datatables.js" type="text/javascript" charset="utf8"></script>
+    <!-- <script src="js/jquery.validate.min.js" languaje="javascript" type="text/javascript"></script> -->
+    <!-- <script src="js/jspdf.min.js" languaje="javascript" type="text/javascript"></script> -->
 
-    <script src="js/jquery.validate.min.js" languaje="javascript" type="text/javascript"></script>
+    <!-- DATATABLES BOOSTRAP -->
+    <!-- <script src="js/datatables.js" type="text/javascript" charset="utf8"></script> -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>																													   
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdn.datatables.net/buttons/15.1/js/buttons.print.min.js"></script> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" type="text/css"/>
     
     <script type="text/javascript" src="js/localization/messages_es.js"></script>
     <script src="js/FuncionesPagoChofer.js" languaje="javascript" type="text/javascript"></script> 
@@ -27,9 +44,9 @@ if (!isset($_SESSION))
     <script src="js/Colocacion.js" languaje="javascript" type="text/javascript"></script>
     
     <script type="text/javascript" src="js/sweetalert.js"></script>
+    
     <link rel="stylesheet" href="css/sweetalert.css" type="text/css"/>
-
-    <link rel="stylesheet" href="css/dropdownmenu.css" type="text/css"/>
+    <!-- <link rel="stylesheet" href="css/dropdownmenu.css" type="text/css"/> -->
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -39,14 +56,9 @@ if (!isset($_SESSION))
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <!-- Main CSS -->
     <link rel="stylesheet" href="css\style2.css" type="text/css">
     
-    <!-- Font Awesome CDN -->
-    <!--<script src="https://use.fontawesome.com/a128d9602f.js"></script>  -->
-    <!-- Google Fonts -->
-    <!--<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
 
   </head>
   <body>
