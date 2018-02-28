@@ -120,6 +120,12 @@
             font-size: 12px;
             margin-top: 20px;
         }
+        #div-colocacion{
+            float: left;
+            height: 700px;
+            width: 100%;
+            margin-top: 20px;
+        }
         #div-repo{
             float: left;
             height: 700px;
@@ -405,11 +411,10 @@
         float: left;
         
     }
-    #div-opcion-report{
+    .div-opcion-report{
         width: 100%;
         height: 220px;
         float: left;
-        
     }
     .div-tercio{
         width: 33.3%;
@@ -428,7 +433,15 @@
         float: left;
         
     }
-
+    /*COLOCACIONES*/
+    #div-colocacion-titulo{
+        width: 100%;
+        height: 60px;
+        float: left;
+        text-align: center;
+        padding-top: 5px;
+        
+    }
     /* FOOTER */
     footer{
         margin-top: 0px;

@@ -49,12 +49,12 @@ function mantenimientoreportes(){
     $('#contenido-form').html(""); 
     var inputs = '<div id="div-repo">'+
         '<div id=div-report-titulo>'+
-            '<h3>REPORTES</h3>'+
+            '<h3>HISTORIAL</h3>'+
         '</div>'+
         '<div id=div-lista-reporte>'+
         
         '</div>'+
-        '<div id=div-opcion-report>'+
+        '<div class=div-opcion-report>'+
             '<div class=div-tercio>'+
                 '<div class=div-opciones></div>'+
                 '<div class=div-total-botones></div>'+
@@ -77,7 +77,7 @@ function mantenimientoreportes(){
 /* REPORTES*/
 function listareportes(){        
     $('#div-lista-reporte').append("<table id='tblreportes'class='tbl'>");
-    var col="<thead> <tr><th>#</th> <th>CHOFER</th> <th>FECHA</th>  <th>CONTENEDOR</th> <th></th><th></th> </tr ></thead> <tbody id='tableBody-reportes'></tbody>";
+    var col="<thead> <tr><th>#</th> <th>CHOFER</th> <th>FECHA</th>  <th>CONTENEDOR</th> <th>EST</th> <th></th><th></th> </tr ></thead> <tbody id='tableBody-reportes'></tbody>";
     $('#tblreportes').append(col); 
 
     $('#tblreportes').DataTable( {
@@ -97,7 +97,7 @@ function ConsultaGeneral(){
         data: { action: "ConsultaGeneral"}
     })
     .done(function( e ) {
-        ShowData(e);
+        ShowDataReporte(e);
     })    
     .fail(function(msg){
         alert("Error al Cargar Reportes");
@@ -117,33 +117,15 @@ function ConsultaFiltro() {
         }
     })
     .done(function( e ) {
-        ShowData(e);
+        ShowDataReporte(e);
     })    
     .fail(function(msg){
         alert("Error al Cargar Reportes");
     });    
 };
 
-// function ConsultaFiltroFecha() {
-//     $.ajax({
-//         type: "POST",
-//         url: "class/Reporte.php",
-//         data: { 
-//             action: "ConsultaFiltroFecha",
-//             idfiltro:  idfiltro,
-//             tipo: Filtro,
-//             filtrofecha: filtrofecha
-//         }
-//     })
-//     .done(function( e ) {
-//         ShowData(e);
-//     })    
-//     .fail(function(msg){
-//         alert("Error al Cargar Reportes");
-//     });    
-// };
-
-function ShowData(e) {
+function ShowDataReporte(e) {
+    // $('#contenido-form').html(""); 
     $('#tableBody-reportes').html("");
     $('#contenido-form').append("<table id='tblreportes'class='display'>");
     // carga lista con datos.
@@ -151,17 +133,23 @@ function ShowData(e) {
     visitantes = data;
     // Recorre arreglo.
     $.each(data, function(i, item) {
+        var estado_form;
+        if (item.estado=="0") 
+            estado_form="EN ESPERA";
+        else
+            estado_form="ACTIVO";
+        
         var row="<tr class='fila'>"+
             "<td class='id-form' style='display:none;'>"+ item.id+"</td>" +
             "<td>"+ item.comprobante +"</td>" +
             "<td>"+ item.chofer +"</td>" +
-            "<td>"+ item.fecha +"</td>" +
+            "<td>"+ item.fechacarga +"</td>" +
             "<td>"+ item.contenedor +"</td>" +
             // "<td>"+ item.placa +"</td>" +
             // "<td>"+ item.finca +"</td>" +
             // "<td>"+ item.naviera +"</td>" +
             // "<td>"+ item.kms +"</td>" +
-            // "<td>"+ item.valorkm +"</td>" +
+            "<td>"+ estado_form +"</td>" +
             // "<td class='totalpago'>"+ item.totalpago +"</td>" +
             '<td><img id=btnmodform'+ item.id +' src=img/file_mod.png class=borrar></td>'+
             '<td><img id=btndeleteform'+ item.id +' src=img/file_delete.png class=borrar></td>'+

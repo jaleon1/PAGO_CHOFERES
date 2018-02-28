@@ -25,7 +25,7 @@ class Reporte
     //CONSULTA FORMULARIO PARA LLENAR TABLA
     function ConsultaGeneral(){
         try {
-            $sql = "SELECT f.id, f.comprobante, c.nombre as chofer,f.fecha, f.contenedor, f.placa, fin.nombre as finca, nav.nombre as naviera, kms, valorkm, totalpago
+            $sql = "SELECT f.id, f.comprobante, c.nombre as chofer,f.fechacarga, f.contenedor, f.placa, fin.nombre as finca, nav.nombre as naviera, kms, valorkm, totalpago, estado
                     FROM formulariopago f 
                     inner join calculokm cal on cal.id=f.idcalculokm
                     inner join finca fin on fin.id=cal.idfinca
