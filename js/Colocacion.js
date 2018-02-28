@@ -1,67 +1,28 @@
-var idfiltro= null;
-var filtrofecha= null;
-var idformulario;
-const TipoFiltro = {
-    todos: 'todos',
-    chofer: 'chofer',
-    naviera: 'naviera',
-    finca:'finca'
-};
-var Filtro = Object.freeze(TipoFiltro);
-$(document).ready(function () {   
-    $(document).on('click','#menu-reporte', function(event){       
-        Filtro= TipoFiltro.todos;     
-        mantenimientoreportes();
-        listareportes();
-        ConsultaGeneral();
-        $("#filtrofecha").show();
-        seleccionlinea=1;
-    });
-    // Filtro por tabla
-    $(document).on('click','#tblchofer tr', function(){   
-        idfiltro = $(this).children().eq(0).text();  
-        Filtro= TipoFiltro.chofer;    
-        ConsultaFiltro();
-    });
 
-    $(document).on('click','#tblfinca tr', function(){   
-        idfiltro = $(this).children().eq(0).text();      
-        Filtro= TipoFiltro.finca;
-        ConsultaFiltro();
-    });
-
-    $(document).on('click','#tblnaviera tr', function(){   
-        idfiltro = $(this).children().eq(0).text();    
-        Filtro= TipoFiltro.naviera;  
-        ConsultaFiltro();
-    });
-    // Filtro por fecha
-    $('#filtrofecha').on('change', function (e) {
-        //var optionSelected = $("option:selected", this);
-        filtrofecha = this.value;
-        ConsultaFiltro();
-    });
-
-
+$(document).on('click','#menu-colocacion', function(){        
+    mantenimientocolocaciones();
+    listacolocaciones();
 });
 
-function mantenimientoreportes(){
+function mantenimientocolocaciones(){
     $('#contenido-form').html(""); 
-    var inputs = '<div id="div-repo">'+
-        '<div id=div-report-titulo>'+
-            '<h3>HISTORIAL</h3>'+
+    var inputs = '<div id="div-colocacion">'+
+        '<div id=div-colocacion-titulo>'+
+            '<h3>COLOCACIONES DIARIAS</h3>'+
         '</div>'+
-        '<div id=div-lista-reporte>'+
-        
+        '<div id=div-lista-colocacion>'+
         '</div>'+
         '<div class=div-opcion-report>'+
             '<div class=div-tercio>'+
-                '<div class=div-opciones></div>'+
+                '<div class=div-opciones>'+
+                    '<label id="lbl-fecha" for="form-date-crtl" class="lbl-style">Fecha de Carga</label>'+
+                    '<input type="date" id="date-fechacarga" name="date-fechacarga" class="input-format" onchange="ConsultaFecha()" required/>'+
+                '</div>'+
                 '<div class=div-total-botones></div>'+
             '</div>'+
             '<div class=div-tercio>'+
                 '<div class=div-opciones>'+
-                
+                    '<input type="button" id="btnpdfcolocacion" class="btn" value="Generar Reporte">'+
                 '</div>'+
                 '<div class=div-total-botones></div>'+
             '</div>'+
@@ -73,14 +34,22 @@ function mantenimientoreportes(){
     '</div>';
     $('#contenido-form').append(inputs);
 };
+    
+function export_div(){
+    
+        var pdf = new jsPDF("p", "pt", "a4");
+        pdf.addHTML($('#div-colocacion'), 15, 15, function() {
+          pdf.save('div.pdf');
+        });
+    }
 
 /* REPORTES*/
-function listareportes(){        
-    $('#div-lista-reporte').append("<table id='tblreportes'class='tbl'>");
-    var col="<thead> <tr><th>#</th> <th>CHOFER</th> <th>FECHA</th>  <th>CONTENEDOR</th> <th>EST</th> <th></th><th></th> </tr ></thead> <tbody id='tableBody-reportes'></tbody>";
-    $('#tblreportes').append(col); 
+function listacolocaciones(){        
+    $('#div-lista-colocacion').append("<table id='tblcolocacion'class='tbl'>");
+    var col="<thead> <tr> <th>CHOFER</th> <th>FECHA CARGA</th>  <th>CONTENEDOR</th> <th>PUNTO CARGA</th> <th>PUNTO DESCARGA</th> <th></th></tr ></thead> <tbody id='tableBody-colocacion'></tbody>";
+    $('#tblcolocacion').append(col); 
 
-    $('#tblreportes').DataTable( {
+    $('#tblcolocacion').DataTable( {
         "order": [[ 0, "asc" ]],
         "paging":   false,
         "scrollY": "400px",
@@ -89,85 +58,52 @@ function listareportes(){
     });
 };
 
-//RECARGA LA TABLA CON LOS VISITANTES POR FORMULARIO AJAX
-function ConsultaGeneral(){
-    $.ajax({
-        type: "POST",
-        url: "class/Reporte.php",
-        data: { action: "ConsultaGeneral"}
-    })
-    .done(function( e ) {
-        ShowDataReporte(e);
-    })    
-    .fail(function(msg){
-        alert("Error al Cargar Reportes");
-    });    
-};
-
 // Carga lista
-function ConsultaFiltro() {
+function ConsultaFecha() {
     $.ajax({
         type: "POST",
-        url: "class/Reporte.php",
+        url: "class/Colocacion.php",
         data: { 
-            action: "ConsultaFiltro",
-            idfiltro:  idfiltro,
-            tipo: Filtro,
-            filtrofecha: filtrofecha
+            action: "ConsultaFecha",
+            estado:  '1',
+            fechacarga: $("#date-fechacarga").val()
         }
     })
     .done(function( e ) {
-        ShowDataReporte(e);
+        // var data = JSON.parse(e);
+        // alert(data.length);
+        ShowData(e);
     })    
     .fail(function(msg){
         alert("Error al Cargar Reportes");
     });    
 };
 
-function ShowDataReporte(e) {
-    // $('#contenido-form').html(""); 
-    $('#tableBody-reportes').html("");
-    $('#contenido-form').append("<table id='tblreportes'class='display'>");
+jQuery(document).on( "onchange", "#date-fechacarga", function(){ 
+    ConsultaFecha();
+});
+
+function ShowData(e) {
+    $('#tableBody-colocacion').html("");
+    $('#contenido-form').append("<table id='tblcolocacion'class='display'>");
     // carga lista con datos.
     var data= JSON.parse(e);
-    visitantes = data;
+
     // Recorre arreglo.
     $.each(data, function(i, item) {
-        var estado_form;
-        if (item.estado=="0") 
-            estado_form="EN ESPERA";
-        else
-            estado_form="ACTIVO";
         
         var row="<tr class='fila'>"+
             "<td class='id-form' style='display:none;'>"+ item.id+"</td>" +
-            "<td>"+ item.comprobante +"</td>" +
             "<td>"+ item.chofer +"</td>" +
             "<td>"+ item.fechacarga +"</td>" +
             "<td>"+ item.contenedor +"</td>" +
-            // "<td>"+ item.placa +"</td>" +
-            // "<td>"+ item.finca +"</td>" +
-            // "<td>"+ item.naviera +"</td>" +
-            // "<td>"+ item.kms +"</td>" +
-            "<td>"+ estado_form +"</td>" +
-            // "<td class='totalpago'>"+ item.totalpago +"</td>" +
-            '<td><img id=btnmodform'+ item.id +' src=img/file_mod.png class=borrar></td>'+
-            '<td><img id=btndeleteform'+ item.id +' src=img/file_delete.png class=borrar></td>'+
+            "<td>"+ item.puntocarga +"</td>" +
+            "<td>"+ item.puntodescarga +"</td>" +
+            '<td><img id=btndeletecolocación'+ item.id +' src=img/file_delete.png class=borrar></td>'+
         "</tr>";
-        $('#tableBody-reportes').append(row);  
-        $('#btnmodform' + item.id).click(UpdateEventHandlerFormulario);
+        $('#tableBody-colocacion').append(row);  
         $('.id-form').hide();       
     })
-    // Summary
-    var foot= '<label for="inp-sumtotal" class="lbl-style">TOTAL</label>'+ 
-        '<input type="text" id="inp-sumtotal" name="inp-sumtotal" class="input-format" value="0" readonly />';
-    //'<tfoot> <tr> <th>Total:</th> <th></th> <th></th> <th></th> <th></th> <th id="sumtotal"> </th> </tr> </tfoot>';
-    $('#tableBody-reportes').append(foot);
-    var sumtotal=0;
-    $('.totalpago').each(function() {
-        sumtotal += parseFloat( $(this).text() );
-        $('#inp-sumtotal').val(sumtotal);
-    });
 };
 
 function UpdateEventHandlerFormulario() {

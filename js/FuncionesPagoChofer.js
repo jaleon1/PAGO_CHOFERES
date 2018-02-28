@@ -690,7 +690,7 @@ function mantenimientoformpago(){
         '</div>'+
         '<div id="div-form-fecha" class="div-form-input">'+
             '<label class="lbl-style">COMPROBANTE   #</label></br>'+
-            '<label id="lbl-comprobante">12345</label>'+
+            '<label id="lbl-comprobante"></label>'+
         '</div>'+
         '<div id="div-form-chofer" class="div-form-input">'+
             '<label for="lbl-chofer" class="lbl-style">Chofer</label>'+
@@ -702,7 +702,7 @@ function mantenimientoformpago(){
         '</div>'+
         '<div class="div-form-input">'+
             '<label for="lbl-valor-viaje" class="lbl-style">Booking</label>'+
-            '<input type="text" id="inp-booking" name="inp-booking" class="input-format" readonly="readonly" value="" required/>'+ 
+            '<input type="text" id="inp-booking" name="inp-booking" class="input-format" value="" required/>'+ 
         '</div>'+
         '<div id="div-form-contenedor" class="div-form-input">'+
             '<label for="lbl-contenedor" class="lbl-style">Contenedor</label>'+
@@ -739,7 +739,8 @@ function mantenimientoformpago(){
             '<input type="text" id="inp-total-pago" name="inp-total-pago" class="input-format" readonly="readonly" value="" required/>'+
         '</div>'+
         '<div class="div-form-input">'+
-            
+            '<input type="button" id="btncolocarform" class="input-format" value="Colocar">'+
+
         '</div>'+
         '<div class="div-form-input">'+
             '<input type="submit" id="btnguardarform" class="input-format" value="Guardar">'+
@@ -820,7 +821,28 @@ $(document).on('click', '#btnguardarform', function (event) {
         InsertarFormulario();
     else
         ModificarFormulario();
-}); 
+});
+
+$(document).on('click', '#btncolocarform', function (event) {
+    var estado='0';
+
+    $.ajax({
+        type: "POST",
+        url: "class/Formulario.php",
+        data: {
+                action: "ModificarEstado",
+                id:idformulario,
+                estado:'1'
+              }
+    })
+    .done(function( e ) {
+        if (e==true) 
+            alert('AGREGADO A COLOCACIONES DIARIAS!');    
+    })    
+    .fail(function(msg){
+        
+    });   
+});
 
 
 /* INSERTAR */
@@ -831,7 +853,7 @@ function InsertarFormulario(){
         url: "class/Formulario.php",
         data: {
                 action: "Insertar",
-                fecha: document.getElementById('form-date-crtl').value,
+                fechacarga: document.getElementById('form-date-crtl').value,
                 idchofer: idchofer,
                 idcalculokm: idcalculokm,
                 contenedor: document.getElementById('inp-contenedor').value,
@@ -841,12 +863,19 @@ function InsertarFormulario(){
                 valorviaje: parseFloat(document.getElementById('inp-valor-viaje').value),
                 totalpago: parseFloat(document.getElementById('inp-total-pago').value),
                 kms:parseInt(kmsviaje),
+                booking:document.getElementById('inp-booking').value,
                 ingresos: IngresoArray,
                 gastos: GastoArray
               }
     })
     .done(function( e ) {
-        alert('FORMULARIO GUARDADO!');
+        if (e==false) {
+            alert('CONTENEDOR DUPLICADO, INSERTE OTRO!');    
+        }
+        else{
+            alert('FORMULARIO GUARDADO!');    
+        }
+        
     })    
     .fail(function(msg){
         
@@ -855,7 +884,6 @@ function InsertarFormulario(){
 
 /* MODIFICAR*/ 
 function ModificarFormulario(){
-    //var idform = $(this).parents("tr").find("td").eq(0).text();
     $.ajax({
         type: "POST",
         url: "class/Formulario.php",
@@ -863,7 +891,7 @@ function ModificarFormulario(){
                 action: "Modificar",
                 id:idformulario,
                 comprobante:$("#lbl-comprobante").text(),
-                fecha: document.getElementById('form-date-crtl').value,
+                fechacarga: document.getElementById('form-date-crtl').value,
                 idchofer: idchofer,
                 idcalculokm: idcalculokm,
                 contenedor: document.getElementById('inp-contenedor').value,

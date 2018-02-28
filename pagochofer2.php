@@ -13,7 +13,7 @@ if (!isset($_SESSION))
     <script src="js/jquery.js" type="text/jscript"></script>
     <script src="js/datatables.js" type="text/javascript" charset="utf8"></script>
 
-    <script src="js/jquery.validate.min.js" languaje="javascript" type="text/javascript"></script> 
+    <script src="js/jquery.validate.min.js" languaje="javascript" type="text/javascript"></script>
     
     <script type="text/javascript" src="js/localization/messages_es.js"></script>
     <script src="js/FuncionesPagoChofer.js" languaje="javascript" type="text/javascript"></script> 
@@ -24,6 +24,7 @@ if (!isset($_SESSION))
     <script src="js/Reporte.js" languaje="javascript" type="text/javascript"></script>
     <script src="js/Ingreso.js" languaje="javascript" type="text/javascript"></script>
     <script src="js/Gasto.js" languaje="javascript" type="text/javascript"></script>
+    <script src="js/Colocacion.js" languaje="javascript" type="text/javascript"></script>
     
     <script type="text/javascript" src="js/sweetalert.js"></script>
     <link rel="stylesheet" href="css/sweetalert.css" type="text/css"/>
@@ -93,8 +94,8 @@ if (!isset($_SESSION))
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                                             <li><a id="menu-formulario-pago" tabindex="-1" href="#">Formulario Pago</a></li>
                                             <li><a id="menu-reporte" tabindex="-1" href="#">Historial</a></li>
-                                            <li><a id="menu-reporte" tabindex="-1" href="#">Liquidación</a></li>
-                                            <li><a id="menu-reporte" tabindex="-1" href="#">Colocaciones Diarias</a></li>
+                                            <li><a id="menu-liquidacion" tabindex="-1" href="#">Liquidación</a></li>
+                                            <li><a id="menu-colocacion" tabindex="-1" href="#">Colocaciones Diarias</a></li>
                                         </ul>
                                 </div>
                             </li>

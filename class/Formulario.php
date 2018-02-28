@@ -25,6 +25,10 @@ if(isset($_POST["action"])){
         $formulario= new formulario();
         $formulario->CargarGasto();
     }
+    if($_POST["action"]=="ModificarEstado"){
+        $formulario= new formulario();
+        $formulario->ModificarEstado();
+    }
 }
 
 class Formulario
@@ -39,14 +43,23 @@ class Formulario
             $suma = "SELECT comprobante FROM formulariopago ORDER BY comprobante DESC LIMIT 1";
             $ultimo_comprobante = DATA::Ejecutar($suma);
             $comprobante = $ultimo_comprobante[0][0]+1;
+
+            //CONTENEDOR DUPLICADO
+            $contenedorduplicado = "SELECT count(*) FROM formulariopago WHERE contenedor=:contenedor";
+            $param= array(':contenedor'=>$_POST["contenedor"]);
+            $result = DATA::Ejecutar($contenedorduplicado,$param);
+            if ($result[0][0]>0) {
+                echo json_encode($result);
+            }
+
             $valorkm = 1.9;
-            $sql="INSERT INTO `formulariopago` (`id`, `comprobante`, `idchofer`, `idcalculokm`, `fecha`, `contenedor`, `placa`,`kms`, 
-            `valorviaje`, `valorkm`, `porcentajeingreso`, `totalpago`, `estado`) VALUES (uuid(),:comprobante,:idchofer,:idcalculokm,:fecha,
-            :contenedor,:placa,:kms,:valorviaje,:valorkm,:porcentajeingreso,:totalpago,:estado);";
+            $sql="INSERT INTO `formulariopago` (`id`, `comprobante`, `idchofer`, `idcalculokm`, `fecha`, `fechacarga`, `contenedor`, `placa`,`kms`, 
+            `valorviaje`, `valorkm`, `porcentajeingreso`, `totalpago`, `estado`,booking) VALUES (uuid(),:comprobante,:idchofer,:idcalculokm,now(),:fechacarga,
+            :contenedor,:placa,:kms,:valorviaje,:valorkm,:porcentajeingreso,:totalpago,:estado,:booking);";
             $param= array(  ':comprobante'=>$comprobante,
                             ':idchofer'=>$_POST["idchofer"],
                             ':idcalculokm'=>$_POST["idcalculokm"],
-                            ':fecha'=>$_POST["fecha"],
+                            ':fechacarga'=>$_POST["fechacarga"],
                             ':contenedor'=>$_POST["contenedor"],
                             ':placa'=>$_POST["placa"],               
                             ':kms'=>$_POST["kms"],
@@ -54,7 +67,8 @@ class Formulario
                             ':valorkm'=>$valorkm,
                             ':porcentajeingreso'=>15,
                             ':totalpago'=>$_POST["totalpago"],
-                            ':estado'=>0);
+                            ':estado'=>0,
+                            ':booking'=>$_POST["booking"]);
             $result = DATA::Ejecutar($sql,$param);
 
             $contenedor = $_POST['contenedor'];
@@ -95,12 +109,12 @@ class Formulario
     function Modificar(){
         try {
             // $valorkm = '1,9';
-            $sql="UPDATE `formulariopago` SET `idchofer`=:idchofer,`idcalculokm`=:idcalculokm,`fecha`=:fecha,`contenedor`=:contenedor,`placa`=:placa,
+            $sql="UPDATE `formulariopago` SET `idchofer`=:idchofer,`idcalculokm`=:idcalculokm,`fechacarga`=:fechacarga,`contenedor`=:contenedor,`placa`=:placa,
             `kms`=:kms,`valorviaje`=:valorviaje,`valorkm`=:valorkm,`porcentajeingreso`=:porcentajeingreso,`totalpago`=:totalpago,`estado`=:estado WHERE id = :id;";
             $param= array(  ':id'=>$_POST["id"],
                             ':idchofer'=>$_POST["idchofer"],
                             ':idcalculokm'=>$_POST["idcalculokm"],
-                            ':fecha'=>$_POST["fecha"],
+                            ':fechacarga'=>$_POST["fechacarga"],
                             ':contenedor'=>$_POST["contenedor"],
                             ':placa'=>$_POST["placa"],               
                             ':kms'=>$_POST["kms"],
@@ -159,7 +173,7 @@ class Formulario
     //CARGAR
     function Cargar(){
         try {
-            $sql="SELECT f.id, f.comprobante, c.nombre as chofer,DATE_FORMAT(f.fecha, '%Y-%m-%dT%H:%i'), f.contenedor, f.placa, fin.nombre as finca, nav.nombre as naviera, kms, valorkm,valorviaje, totalpago,f.idchofer,f.idcalculokm
+            $sql="SELECT f.id, f.comprobante, c.nombre as chofer,DATE_FORMAT(f.fechacarga, '%Y-%m-%dT%H:%i'), f.contenedor, f.placa, fin.nombre as finca, nav.nombre as naviera, kms, valorkm,valorviaje, totalpago,f.idchofer,f.idcalculokm
                     FROM formulariopago f 
                     inner join calculokm cal on cal.id=f.idcalculokm
                     inner join finca fin on fin.id=cal.idfinca
@@ -206,62 +220,18 @@ class Formulario
             }
         }
 
-    //MODIFICA EL FORMULARIO
-    function ModificarAJAX(){
-        try {
-            $sql="UPDATE formulariopago SET idchofer=:idchofer,idcalculokm=:idcalculokm,fecha=:fechaingreso,contenedor=:contenedor,placa=:placa,kms=:kms,
-            valorviaje=:valorviaje,valorkm=:valorkm,porcentajeingreso=:porcentajeingreso,totalpago=:totalpago WHERE id=:id;";
-
-            $param= array(':idchofer'=>$_POST["idchofer"],
-                            ':idcalculokm'=>$_POST["idcalculokm"],
-                            ':fechaingreso'=>$_POST["fechaingreso"],
-                            ':contenedor'=>$_POST["contenedor"],
-                            ':placa'=>$_POST["placa"],
-                            ':kms'=>$_POST["kms"],
-                            ':valorviaje'=>$_POST["valorviaje"],
-                            ':valorkm'=>$_POST["valorkm"],
-                            ':porcentajeingreso'=>$_POST["porcentajeingreso"],
-                            ':totalpago'=>$_POST["totalpago"]);
-            $result = DATA::Ejecutar($sql, $param);
-
-            //Convierte el string en un arreglo
-            $visitantearray = explode(",", $_POST["visitante"]);
-
-            //Elimina los registros segun el arreglo de visitantes
-            $sql="DELETE FROM visitanteporformulario WHERE NOT FIND_IN_SET(:id,:EXCLUSION) AND idformulario=:id";
-            $param= array(':EXCLUSION'=>$_POST["visitante"],':id'=>$_POST["id"]);
-
-            $result = DATA::Ejecutar($sql, $param);
-            
-            $longitud = count($visitantearray);
-
-            // formulario temporal, vacia la variable para llenarla con los id de los visitantes.
-            if(isset( $_SESSION['TEMP']))
-                $_SESSION['TEMP']="";
-
-            //Recorre el arreglo e inserta cada item en la tabla intermedia
-            for ($i=0; $i<$longitud; $i++) {
-                // formulario temporal, agrega los idvisitante.
-                if(isset( $_SESSION['TEMP'])){
-                    $_SESSION['TEMP'] = $_SESSION['TEMP'] . $visitantearray[$i] . '-' . $this->estado . ',';
-                }
-                
-                //Si no existe Inserta
-                $existe="SELECT id FROM visitanteporformulario  WHERE idvisitante = :idvisitante AND idformulario = :id";
-                $parametro= array(':idvisitante'=>$visitantearray[$i],':id'=>$_POST["id"]);
-                $resultadoexiste= DATA::Ejecutar($existe, $parametro);
-
-                if(count($resultadoexiste)==0){
-                    $sql="INSERT INTO visitanteporformulario(idvisitante,idformulario) VALUES(:idvisitante,:id)";
-                    $param= array(':idvisitante'=>$visitantearray[$i],':id'=>$_POST["id"]);
-                    $result = DATA::Ejecutar($sql, $param);
-                }
-            }       
-            header('Location:../ListaFormulario.php');           
-            exit;
-        } catch (Exception $e) {
-            header('Location: ../Error.php?w=visitante-agregar&id='.$e->getMessage());
-            exit;
+        //MODIFICA ESTADO DEL EL FORMULARIO
+        function ModificarEstado(){
+            try {
+                $sql="UPDATE formulariopago SET estado=:estado WHERE id=:id;";
+    
+                $param= array(':estado'=>$_POST["estado"],':id'=>$_POST["id"]);
+                $result = DATA::Ejecutar($sql, $param);
+                return true;           
+                exit;
+            } catch (Exception $e) {
+                header('Location: ../Error.php?w=visitante-agregar&id='.$e->getMessage());
+                exit;
+            }
         }
-    }
 }
