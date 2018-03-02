@@ -14,7 +14,7 @@ if (!isset($_SESSION))
     <!-- <link rel="stylesheet" href="css/datatables.css" type="text/css"/> -->
     
     <script src="js/jquery.js" type="text/jscript"></script>
-    <!-- <script src="js/jquery.validate.min.js" languaje="javascript" type="text/javascript"></script> -->
+   
     <!-- <script src="js/jspdf.min.js" languaje="javascript" type="text/javascript"></script> -->
 
     <!-- DATATABLES BOOSTRAP -->
@@ -32,7 +32,6 @@ if (!isset($_SESSION))
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" type="text/css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" type="text/css"/>
     
-    <script type="text/javascript" src="js/localization/messages_es.js"></script>
     <script src="js/FuncionesPagoChofer.js" languaje="javascript" type="text/javascript"></script> 
     <script src="js/Chofer.js" languaje="javascript" type="text/javascript"></script> 
     <script src="js/Finca.js" languaje="javascript" type="text/javascript"></script> 
@@ -45,7 +44,8 @@ if (!isset($_SESSION))
     <script src="js/Liquidacion.js" languaje="javascript" type="text/javascript"></script>
     
     <script type="text/javascript" src="js/sweetalert.js"></script>
-    
+    <script src="js/jquery.validate.min.js" languaje="javascript" type="text/javascript"></script>
+    <script type="text/javascript" src="js/localization/messages_es.js"></script>
     <link rel="stylesheet" href="css/sweetalert.css" type="text/css"/>
     <!-- <link rel="stylesheet" href="css/dropdownmenu.css" type="text/css"/> -->
 

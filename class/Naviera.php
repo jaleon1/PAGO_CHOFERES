@@ -32,7 +32,7 @@ if(isset($_POST["action"])){
             break;
         case "Delete":
             $naviera->id= $_POST["id"];            
-            $naviera->Delete();
+            echo json_encode($naviera->Delete());
             break;   
     }
 }
@@ -112,35 +112,37 @@ class Naviera{
         }
     }   
 
-    // function CheckRelatedItems(){
-    //     try{
-    //         $sql="SELECT id
-    //             FROM /*  definir relacion */ R
-    //             WHERE R./*definir campo relacion*/= :id";                
-    //         $param= array(':id'=>$this->id);
-    //         $data= DATA::Ejecutar($sql, $param);
-    //         if(count($data))
-    //             return true;
-    //         else return false;
-    //     }
-    //     catch(Exception $e){
-    //         // log::AddD('FATAL', 'Ha ocurrido un error al realizar la Entrada del Visitante', $e->getMessage());
-    //         // var_dump(http_response_code(500)); // error ajax
-    //     }
-    // }
+    function CheckRelatedItems(){
+        try{
+            $sql="SELECT id
+                FROM CALCULOKM R  
+                WHERE R.idnaviera= :id";                
+            $param= array(':id'=>$this->id);
+            $data= DATA::Ejecutar($sql, $param);
+            if(count($data))
+                return true;
+            else return false;
+        }
+        catch(Exception $e){
+            // log::AddD('FATAL', 'Ha ocurrido un error al realizar la Entrada del Visitante', $e->getMessage());
+            // var_dump(http_response_code(500)); // error ajax
+        }
+    }
 
     function Delete(){
         try {
-            // if($this->CheckRelatedItems()){
-            //     echo "Registro en uso";
-            //     return false;
-            // }                
+            if($this->CheckRelatedItems()){
+               //$sessiondata array que devuelve si hay relaciones del objeto con otras tablas.
+               $sessiondata['status']=1; 
+               $sessiondata['msg']='Registro en uso'; 
+               return $sessiondata;           
+            }                
             $sql='DELETE FROM naviera  
             WHERE id= :id';
             $param= array(':id'=>$this->id);
             $data= DATA::Ejecutar($sql, $param, true);
             if($data)
-                return true;
+                return $sessiondata['status']=0; 
             else var_dump(http_response_code(500)); // error 
         }
         catch(Exception $e) {            

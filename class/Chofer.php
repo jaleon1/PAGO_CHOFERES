@@ -36,7 +36,7 @@ if(isset($_POST["action"])){
             break;
         case "Delete":
             $chofer->id= $_POST["id"];            
-            $chofer->Delete();
+            echo json_encode($chofer->Delete());
             break;   
     }
 }
@@ -69,7 +69,7 @@ class Chofer{
 
     function Load(){
         try {
-            $sql='SELECT id, nombre, cedula, telefono, cuenta 
+            $sql='SELECT id, nombre, cedula, telefono, cuenta , correo
                 FROM chofer  
                 where id=:id';
             $param= array(':id'=>$this->id);
@@ -85,10 +85,10 @@ class Chofer{
 
     function Insert(){
         try {
-            $sql="INSERT INTO chofer (id,nombre, cedula, telefono, cuenta /*,correo*/)
-                VALUES (uuid(),:nombre, :cedula, :telefono, :cuenta /*,:correo*/)";              
+            $sql="INSERT INTO chofer (id,nombre, cedula, telefono, cuenta , correo)
+                VALUES (uuid(),:nombre, :cedula, :telefono, :cuenta , :correo)";              
             //
-            $param= array(':nombre'=>$this->nombre,':cedula'=>$this->cedula,':telefono'=>$this->telefono, ':cuenta'=>$this->cuenta);
+            $param= array(':nombre'=>$this->nombre,':cedula'=>$this->cedula,':telefono'=>$this->telefono, ':cuenta'=>$this->cuenta, ':correo'=>$this->correo);
             $data = DATA::Ejecutar($sql,$param,true);
             if($data)
             {
@@ -103,9 +103,9 @@ class Chofer{
     function Update(){
         try {
             $sql="UPDATE chofer
-                SET nombre=:nombre, cedula=:cedula, telefono=:telefono, cuenta=:cuenta /*correo=:correo*/
+                SET nombre=:nombre, cedula=:cedula, telefono=:telefono, cuenta=:cuenta, correo=:correo
                 WHERE id=:id";
-            $param= array(':id'=>$this->id, ':nombre'=>$this->nombre,':cedula'=>$this->cedula,':telefono'=>$this->telefono, 'cuenta'=>$this->cuenta /*, 'correo'=>$this->correo*/ );
+            $param= array(':id'=>$this->id, ':nombre'=>$this->nombre,':cedula'=>$this->cedula,':telefono'=>$this->telefono, 'cuenta'=>$this->cuenta , 'correo'=>$this->correo );
             $data = DATA::Ejecutar($sql,$param,true);
             if($data)
                 return true;
@@ -138,15 +138,17 @@ class Chofer{
     function Delete(){
         try {
             if($this->CheckRelatedItems()){
-                echo "Registro en uso";
-                return false;
+                 //$sessiondata array que devuelve si hay relaciones del objeto con otras tablas.
+                 $sessiondata['status']=1; 
+                 $sessiondata['msg']='Registro en uso'; 
+                 return $sessiondata;           
             }                
             $sql='DELETE FROM chofer 
             WHERE id= :id';
             $param= array(':id'=>$this->id);
             $data= DATA::Ejecutar($sql, $param, true);
             if($data)
-                return true;
+                return $sessiondata['status']=0; 
             else var_dump(http_response_code(500)); // error 
         }
         catch(Exception $e) {            

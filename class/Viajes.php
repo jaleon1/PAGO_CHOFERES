@@ -36,7 +36,7 @@ if(isset($_POST["action"])){
             break;
         case "Delete":
             $viajes->id= $_POST["id"];            
-            $viajes->Delete();
+            echo json_encode($viajes->Delete());
             break;   
     }
 }
@@ -73,12 +73,12 @@ class Viajes{
             $sql='SELECT p.id, f.nombre as finca, n.nombre as naviera, kmstotal
             FROM pagochofer.calculokm p inner join finca f on f.id=p.idfinca
                 inner join naviera n on n.id= p.idnaviera
-                where id=:id';
+                where p.id=:id';
             $param= array(':id'=>$this->id);
             $data= DATA::Ejecutar($sql,$param);
             return $data;
         }     
-        catch(Exception $e) {            
+        catch(Exception $e) {
             header('HTTP/1.1 500 Internal Server XXX');
             header('Content-Type: application/json; charset=UTF-8');
             die(json_encode(array('message' => 'ERROR:' . $e, 'code' => 666)));
@@ -114,12 +114,14 @@ class Viajes{
     function Update(){
         try {
             $sql="UPDATE calculokm 
-                SET idfinca=:idfinca, idnaviera=:idnaviera, kmstotal=:kmstotal
+                SET idfinca= (select id from finca where nombre= :finca),
+                    idnaviera= (select id from naviera where nombre= :naviera),
+                    kmstotal=:kmstotal
                 WHERE id=:id";
             $param= array(
                 ':id'=>$this->id, 
-                ':idfinca'=>$this->idfinca,
-                ':idnaviera'=>$this->idnaviera,
+                ':finca'=>$this->finca,
+                ':naviera'=>$this->naviera,
                 'kmstotal'=>$this->kmstotal 
             );
             $data = DATA::Ejecutar($sql,$param,true);
@@ -153,16 +155,18 @@ class Viajes{
 
     function Delete(){
         try {
-            // if($this->CheckRelatedItems()){
-            //     echo "Registro en uso";
-            //     return false;
-            // }                
+            if($this->CheckRelatedItems()){
+                //$sessiondata array que devuelve si hay relaciones del objeto con otras tablas.
+                $sessiondata['status']=1; 
+                $sessiondata['msg']='Registro en uso'; 
+                return $sessiondata; 
+            }                
             $sql='DELETE FROM calculokm  
             WHERE id= :id';
             $param= array(':id'=>$this->id);
             $data= DATA::Ejecutar($sql, $param, true);
             if($data)
-                return true;
+                return $sessiondata['status']=0; 
             else var_dump(http_response_code(500)); // error 
         }
         catch(Exception $e) {            
