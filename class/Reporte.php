@@ -62,25 +62,25 @@ class Reporte
                 case 'Total':
                     $inidate = date("Y-m-d", strtotime("1900-01-01"));
                     $findate =  date('Y-m-d', strtotime("+1 days"));
-                    $where .=  ($where!='' ? ' and ': '') . " f.fecha between '". $inidate ."' and '". $findate ."' ";
+                    $where .=  ($where!='' ? ' and ': '') . " f.fechacarga between '". $inidate ."' and '". $findate ."' ";
                     break;
                 case 'Diario':
                     $inidate = date("Y-m-d");;
                     $findate = date('Y-m-d', strtotime("+1 days"));
-                    $where .=  ($where!='' ? ' and ': '') . " f.fecha between '". $inidate ."' and '". $findate ."' ";
+                    $where .=  ($where!='' ? ' and ': '') . " f.fechacarga between '". $inidate ."' and '". $findate ."' ";
                     break;
                 case 'Mensual':
-                    $where .=  ($where!='' ? ' and ': '') .' MONTH(f.fecha) = MONTH(curdate()) ';
+                    $where .=  ($where!='' ? ' and ': '') .' MONTH(f.fechacarga) = MONTH(curdate()) ';
                     break;
                 case 'Semanal':
-                    $where .= ($where!='' ? ' and ': '') .' YEARWEEK(f.fecha) = YEARWEEK(curdate()) ';
+                    $where .= ($where!='' ? ' and ': '') .' YEARWEEK(f.fechacarga) = YEARWEEK(curdate()) ';
                     break;
                 case 'Anual':
-                    $where .= ($where!='' ? ' and ': '') .' YEAR(f.fecha) = YEAR(curdate()) ';
+                    $where .= ($where!='' ? ' and ': '') .' YEAR(f.fechacarga) = YEAR(curdate()) ';
                     break;
             }
             //
-            $sql = "SELECT f.id, f.comprobante, c.nombre as chofer,f.fecha, f.contenedor, f.placa, fin.nombre as finca, nav.nombre as naviera, kms, valorkm, totalpago
+            $sql = "SELECT f.id, f.comprobante, c.nombre as chofer,f.fechacarga, f.contenedor, f.placa, fin.nombre as finca, nav.nombre as naviera, kms, valorkm, totalpago
                 FROM formulariopago f inner join calculokm cal on cal.id=f.idcalculokm
                     inner join finca fin on fin.id=cal.idfinca
                     inner join naviera nav on nav.id=cal.idnaviera

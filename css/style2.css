@@ -23,9 +23,12 @@
         font-size: 12px; 
     }
     /* Botones */
-    .btn{
+    /* .btn{
         width: 95%;
         height: 60%;
+    } */
+    #btnguardarchofer{
+        position: relative;
     }
     /* Inputs*/
         .input-format{
@@ -108,11 +111,17 @@
                     float: right;
                 }
                 #div-mant-inputs{
+                    /* position: relative; */
                     float: left;
                     height: 180px;
                     width: 100%;
                     
                 }
+                /* #input-ingresosgastos{
+                    position: absolute;
+                    bottom:0;
+                    left: 0;
+                } */
 
     /* Divs Formulario*/
         #div-form{
@@ -274,10 +283,6 @@
             float: left;
             margin-left: 0px;
         }
-        #btnguardarform{
-            float: right;
-            width: 50%;
-        }
         /*Imagenes*/
         .borrar{
             width: 17px;
@@ -288,12 +293,17 @@
         #input-chofer{
             width: 100%;
             height: 100%;
-            float: left;
+            /* position: absolute; */
+            bottom:0;
+            left: 0;
         }
         #input-finca{
-            width: 100%;
+            /* width: 100%;
             height: 100%;
-            float: left;            
+            float: left;   */
+            position: absolute;
+            bottom:0;
+            left: 0;          
         }
         .caja-media{
             width: 50%;
@@ -310,6 +320,11 @@
             width: 100%;
             height: 33.33%;
             float: left;
+        }
+        .contenido-input-medio{
+            bottom: 0px;
+            width: 100%;
+            height: 32px;
         }
         #btnguardarchofer{
             margin-right: 5%;
@@ -410,6 +425,16 @@
     #div-liq-gastos{
         width: 50%;
         float: left;
+    }
+    #div-totalpago-liq{
+        width: 100%;
+        float: left;
+        height: 40px;
+    }
+    .lbl-pagototal-liq{
+        font-size: 25px;
+        color: whitesmoke;
+        font-weight: bold;
     }
     /* FOOTER */
     footer{
