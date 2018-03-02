@@ -1,7 +1,7 @@
 
 $(document).on('click','#menu-colocacion', function(){        
     mantenimientocolocaciones();
-    listacolocaciones();
+    //listacolocaciones();
 });
 
 function mantenimientocolocaciones(){
@@ -72,14 +72,19 @@ function ConsultaFecha() {
     });    
 };
 
-jQuery(document).on( "onchange", "#date-fechacarga", function(){ 
-    listacolocaciones();
+$(document).on('onchange', '#date-fechacarga', function (event) {    
+    // listacolocaciones();
     ConsultaFecha();
 });
 
+// jQuery(document).on( "onchange", "#date-fechacarga", function(){ 
+    
+// });
+
 function ShowDataColocacion(e) {
-    $('#tableBody-colocacion').html("");
-    $('#contenido-form').append("<table id='tblcolocacion'class='display'>");
+    listacolocaciones();
+    //$('#tableBody-colocacion').html("");
+    //$('#contenido-form').append("<table id='tblcolocacion'class='display'>");
     // carga lista con datos.
     var data= JSON.parse(e);
 

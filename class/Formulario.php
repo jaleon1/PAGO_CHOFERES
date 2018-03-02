@@ -40,6 +40,8 @@ class Formulario
     //AGREGA EL FORMULARIO
     function Agregar(){
         try {
+            $duplicado='dup';
+            $ingresado='ing';
             $suma = "SELECT comprobante FROM formulariopago ORDER BY comprobante DESC LIMIT 1";
             $ultimo_comprobante = DATA::Ejecutar($suma);
             $comprobante = $ultimo_comprobante[0][0]+1;
@@ -49,7 +51,8 @@ class Formulario
             $param= array(':contenedor'=>$_POST["contenedor"]);
             $result = DATA::Ejecutar($contenedorduplicado,$param);
             if ($result[0][0]>0) {
-                echo json_encode($result);
+                echo json_encode($duplicado);
+                exit();
             }
 
             $valorkm = 1.9;
@@ -101,6 +104,7 @@ class Formulario
                 $param= array(':idformulario'=>$idformulario[0][0],':nombre'=>$gastoarray[$i]['nombregasto'],':monto'=>$gastoarray[$i]['montogasto']);
                 $result = DATA::Ejecutar($sql, $param);
             }
+            echo json_encode($ingresado);
         } catch (Exception $e) {
             exit;
         }
