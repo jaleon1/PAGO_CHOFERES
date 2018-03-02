@@ -124,13 +124,14 @@ function DeleteNaviera() {
         }            
     })
     .done(function( e ) {        
-        if(e=="Registro en uso")
+        var data = JSON.parse(e);   
+        if(data.status==1)
         {
             swal(
-            'Mensaje!',
-            'El registro se encuentra  en uso, no es posible eliminar.',
-            'error'
-        );
+                'Mensaje!',
+                'El registro se encuentra  en uso, no es posible eliminar.',
+                'error'
+            );
         }
         else swal(
             'Eliminado!',
@@ -162,9 +163,16 @@ function FormValidateNaviera(){
     $("#frmnaviera").validate({
         lang: 'es', 
         rules: {
-            'inp-nombre-naviera': "required"
+            'inp-nombre-naviera': "required",
+            'inp-ubicacion-naviera': "required"
+            /*'inp-tel-naviera': {
+                number: true
+            }*/
         },
-        submitHandler: SaveNaviera
+        submitHandler: function() {
+            $('#btnguardarnaviera').attr("disabled", "disabled");
+            SaveNaviera();   
+        }
     }); 
 };
 
@@ -185,5 +193,8 @@ function SaveNaviera(){
     })
     .done(showInfo)
     .fail(showError)
-    .always(LoadAllNaviera);
+    .always(function() {
+        setTimeout('$("#btnguardarnaviera").removeAttr("disabled")', 1500);
+        LoadAllNaviera();   
+    });
 }; 

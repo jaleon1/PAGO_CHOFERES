@@ -32,7 +32,7 @@ if(isset($_POST["action"])){
             break;
         case "Delete":
             $finca->id= $_POST["id"];            
-            $finca->Delete();
+            echo json_encode($finca->Delete());
             break;   
     }
 }
@@ -115,7 +115,7 @@ class Finca{
     function CheckRelatedItems(){
         try{
             $sql="SELECT id
-                FROM formulariopago R
+                FROM calculokm R
                 WHERE R.idfinca= :id";                
             $param= array(':id'=>$this->id);
             $data= DATA::Ejecutar($sql, $param);
@@ -131,16 +131,18 @@ class Finca{
 
     function Delete(){
         try {
-            // if($this->CheckRelatedItems()){
-            //     echo "Registro en uso";
-            //     return false;
-            // }                
+            if($this->CheckRelatedItems()){
+                //$sessiondata array que devuelve si hay relaciones del objeto con otras tablas.
+                $sessiondata['status']=1; 
+                $sessiondata['msg']='Registro en uso'; 
+                return $sessiondata;                
+            }                
             $sql='DELETE FROM finca  
             WHERE id= :id';
             $param= array(':id'=>$this->id);
             $data= DATA::Ejecutar($sql, $param, true);
             if($data)
-                return true;
+                return $sessiondata['status']=0; 
             else var_dump(http_response_code(500)); // error 
         }
         catch(Exception $e) {            

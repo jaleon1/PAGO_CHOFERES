@@ -148,14 +148,15 @@ function DeleteFinca() {
             id:  id
         }            
     })
-    .done(function( e ) {        
-        if(e=="Registro en uso")
+    .done(function( e ) {     
+        var data = JSON.parse(e);   
+        if(data.status==1)
         {
             swal(
-            'Mensaje!',
-            'El registro se encuentra  en uso, no es posible eliminar.',
-            'error'
-        );
+                'Mensaje!',
+                'El registro se encuentra  en uso, no es posible eliminar.',
+                'error'
+            );
         }
         else swal(
             'Eliminado!',
@@ -170,7 +171,7 @@ function DeleteFinca() {
 function CleanCtlsFinca() {
     $("#inp-nombre-finca").val('');
     $("#inp-ubicacion-finca").val('');    
-    $("#inp-telefono-finca").val('');
+    $("#inp-tel-finca").val('');
 };
 
 function ShowItemDataFinca(e) {
@@ -201,7 +202,10 @@ function FormValidateFinca(){
             //     number: true
             // }
         },
-        submitHandler: SaveFinca
+        submitHandler: function() {
+            $('#btnguardarfinca').attr("disabled", "disabled");
+            SaveFinca();   
+        }
     });  
 };
 
@@ -222,5 +226,8 @@ function SaveFinca(){
     })
     .done(showInfo)
     .fail(showError)
-    .always(LoadAllFinca);
+    .always(function() {
+        setTimeout('$("#btnguardarfinca").removeAttr("disabled")', 1500);
+        LoadAllFinca();   
+    });
 }; 
