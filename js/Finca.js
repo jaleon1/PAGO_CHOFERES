@@ -202,7 +202,10 @@ function FormValidateFinca(){
             //     number: true
             // }
         },
-        submitHandler: SaveFinca
+        submitHandler: function() {
+            $('#btnguardarfinca').attr("disabled", "disabled");
+            SaveFinca();   
+        }
     });  
 };
 
@@ -223,5 +226,8 @@ function SaveFinca(){
     })
     .done(showInfo)
     .fail(showError)
-    .always(LoadAllFinca);
+    .always(function() {
+        setTimeout('$("#btnguardarfinca").removeAttr("disabled")', 1500);
+        LoadAllFinca();   
+    });
 }; 

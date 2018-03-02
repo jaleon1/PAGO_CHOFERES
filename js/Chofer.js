@@ -213,7 +213,10 @@ function FormValidateChofer(){
         //     'inp-cuenta-chofer': "Ingrese el cuenta del Chofer.",
         //     'inp-cedula-chofer': "Ingrese el cedula del Chofer."            
         // },
-        submitHandler: SaveChofer
+        submitHandler: function() {
+            $('#btnguardarchofer').attr("disabled", "disabled");
+            SaveChofer();   
+        }
     });  
 };
 
@@ -236,5 +239,8 @@ function SaveChofer(){
     })
     .done(showInfo)
     .fail(showError)
-    .always(LoadAllChofer);
+    .always(function() {
+        setTimeout('$("#btnguardarchofer").removeAttr("disabled")', 1500);
+        LoadAllChofer();   
+    });
 }; 
