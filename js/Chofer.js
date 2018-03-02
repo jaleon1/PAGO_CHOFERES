@@ -150,13 +150,14 @@ function DeleteChofer() {
         }            
     })
     .done(function( e ) {        
-        if(e=="Registro en uso")
+        var data = JSON.parse(e);   
+        if(data.status==1)
         {
             swal(
-            'Mensaje!',
-            'El registro se encuentra  en uso, no es posible eliminar.',
-            'error'
-        );
+                'Mensaje!',
+                'El registro se encuentra  en uso, no es posible eliminar.',
+                'error'
+            );
         }
         else swal(
             'Eliminado!',
@@ -185,7 +186,7 @@ function ShowItemDataChofer(e) {
     $("#inp-cedula-chofer").val(data[0].cedula);
     $("#inp-tel-chofer").val(data[0].telefono);
     $("#inp-cuenta-chofer").val(data[0].cuenta);
-    //$("#inp-correo-chofer").val(data[0].correo);
+    $("#inp-correo-chofer").val(data[0].correo);
 };
 
 function FormValidateChofer(){
