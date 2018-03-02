@@ -463,17 +463,22 @@ function AbreFormulario(){
 }
 
 function mantenimientochofer(){
+    $('#div-mant-inputs').html("");
+    $('#input-ingresosgastos').html("");
     var inputs = '<form id="frmchofer">'+
         '<div id=input-chofer>'+ 
             '<div class=caja-media>'+  
                 '<div class=contenido-input>'+  
                     '<label for="lbl-nombre-chofer" class="lbl-style">Nombre</label>'+ 
-                    '<input type="text" id="inp-nombre-chofer" name="inp-nombre-chofer" class="input-format" value=""/>'+ 
-                '</div>'+ '</div>'+
+                    '<input type="text" id="inp-nombre-chofer" name="inp-nombre-chofer" class="input-format" value="" required/>'+ 
+                '</div>'+ 
+            '</div>'+
+            '<div class=caja-media>'+
                 '<div class=contenido-input>'+ 
                     '<label for="lbl-correo-chofer" class="lbl-style">Cuenta</label>'+    
                     '<input type="text" id="inp-cuenta-chofer" name="inp-cuenta-chofer" class="input-format" value="" required/>'+  
-                '</div>'+ '</div>'+
+                '</div>'+ 
+            '</div>'+
                 '<div class=contenido-input>'+
                 '</div>'+
             '</div>'+
@@ -482,11 +487,11 @@ function mantenimientochofer(){
                     '<label for="lbl-cedula-chofer" class="lbl-style">Cedula</label>'+
                     '<input type="text" id="inp-cedula-chofer" name="inp-cedula-chofer" class="input-format" value="" required/>'+
                 '</div>'+
-                '<div id=xxx class=contenido-input>'+
+            '</div>'+
+            '<div class=caja-cuarto>'+ 
+                '<div class=contenido-input>'+
                     '<label for="lbl-correo-chofer" class="lbl-style">Correo</label>'+
                     '<input type="text" id="inp-correo-chofer" name="inp-correo-chofer" class="input-format" value="" required/>'+
-                '</div>'+
-                '<div class=contenido-input>'+
                 '</div>'+
             '</div>'+
             '<div class=caja-cuarto>'+ 
@@ -494,11 +499,15 @@ function mantenimientochofer(){
                     '<label for="lbl-tel-chofer" class="lbl-style">Telefono</label>'+
                     '<input type="text" id="inp-tel-chofer" name="inp-tel-chofer" class="input-format" value="" required/>'+
                 '</div>'+
+            '</div>'+
+            '<div class=caja-cuarto>'+ 
                 '<div class=contenido-input>'+
-
-                '</div>'+
-                '<div id=boton class=contenido-input>'+
-                    '<input type="submit" id="btnguardarchofer" class="btn" value="Guardar">'+ 
+                    '<div class=contenido-input-medio>'+
+                    
+                    '</div>'+
+                    '<div class=contenido-input-medio>'+
+                        '<input type="submit" id="btnguardarchofer" class="input-format" value="Guardar">'+ 
+                    '</div>'+
                 '</div>'+
             '</div>'+
         '</div>'+
@@ -511,39 +520,43 @@ function mantenimientochofer(){
 
 function mantenimientofinca(){
     $('#div-mant-inputs').html(""); 
-    var inputs = '<form id="frmfinca">'+'<div id=input-finca>'+
-        '<div class=caja-media>'+
-            '<div class=contenido-input>'+
-                '<label for="lbl-nombre-finca" class="lbl-style">Nombre</label>'+
-                '<input type="text" id="inp-nombre-finca" name="inp-nombre-finca" class="input-format" value="" required/>'+
-            '</div>'+
-            '<div class=contenido-input>'+
-            '</div>'+
-            '<div class=contenido-input>'+
-            '</div>'+
-        '</div>'+
-        '<div class=caja-cuarto>'+
-            '<div class=contenido-input>'+
-                '<label for="lbl-ubicacion-finca" class="lbl-style">Ubicación</label>'+
-                '<input type="text" id="inp-ubicacion-finca" name="inp-ubicacion-finca" class="input-format" value="" required/>'+
-            '</div>'+
-            '<div class=contenido-input>'+
-            '</div>'+
-            '<div class=contenido-input>'+
-            '</div>'+
-        '</div>'+
-        '<div class=caja-cuarto>'+
-            '<div class=contenido-input>'+
-                '<label for="lbl-tel-finca" class="lbl-style">Telefono</label>'+
-                '<input type="text" id="inp-tel-finca" name="inp-tel-finca" class="input-format" value="" required/>'+                        
-            '</div>'+
-            '<div class=contenido-input>'+
-                '<input type="submit" id="btnguardarfinca" class="btn" value="Guardar">'+        
-            '</div>'+
-            '<div id=boton class=contenido-input>'+
-            '</div>'+
-        '</div>'+
-    '</div></div>';
+    var inputs = '<form id="frmfinca">'+
+                    '<div id=input-finca>'+
+                        '<div class=caja-media>'+
+                            '<div class=contenido-input>'+
+                                '<label for="lbl-nombre-finca" class="lbl-style">Nombre</label>'+
+                                '<input type="text" id="inp-nombre-finca" name="inp-nombre-finca" class="input-format" value="" required/>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class=caja-cuarto>'+
+                            '<div class=contenido-input>'+
+                                '<label for="lbl-ubicacion-finca" class="lbl-style">Ubicación</label>'+
+                                '<input type="text" id="inp-ubicacion-finca" name="inp-ubicacion-finca" class="input-format" value="" required/>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class=caja-cuarto>'+
+                            '<div class=contenido-input>'+
+                                '<label for="lbl-tel-finca" class="lbl-style">Telefono</label>'+
+                                '<input type="text" id="inp-tel-finca" name="inp-tel-finca" class="input-format" value="" required/>'+                        
+                            '</div>'+
+                        '</div>'+
+                        '<div class=caja-media>'+
+                            '<div class=contenido-input>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class=caja-cuarto>'+
+                            '<div class=contenido-input>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class=caja-cuarto>'+
+                            '<div class=contenido-input-medio>'+
+                            '</div>'+
+                            '<div class=contenido-input-medio>'+
+                                '<input type="submit" id="btnguardarfinca" class="input-format" value="Guardar">'+        
+                            '</div>'+
+                        '</div>'+
+                    '</div>'+
+                '</form>';
     $('#div-mant-inputs').append(inputs);
     // evento
     $('#btnguardarfinca').click(FormValidateFinca);
@@ -577,10 +590,17 @@ function mantenimientonaviera(){
                 '<label for="lbl-tel-naviera" class="lbl-style">Telefono</label>'+
                 '<input type="text" id="inp-tel-naviera" name="inp-tel-naviera" class="input-format" value="" />'+                        
             '</div>'+
-            '<div class=contenido-input>'+
-                '<input type="submit" id="btnguardarnaviera" class="btn" value="Guardar">'+        
-            '</div>'+
             '<div id=boton class=contenido-input>'+
+            '</div>'+
+            '<div class=contenido-input>'+
+                
+            '</div>'+
+        '</div>'+
+        '<div class=caja-cuarto>'+
+            '<div class=contenido-input-medio>'+
+            '</div>'+
+            '<div class=contenido-input-medio>'+
+                '<input type="submit" id="btnguardarnaviera" class="input-format" value="Guardar">'+        
             '</div>'+
         '</div>'+
     '</div></div>';
@@ -604,20 +624,35 @@ function mantenimientoviajes(){
             '<div id=tablenaviera class=contenido-table>'+
                 '<label for="lbl-nombre-finca" class="lbl-style">NAVIERA</label>'+
             '</div>'+
-            '<div class=contenido-extra>'+
-                '<div class=caja-media>'+ 
-                    '<label for="lbl-kms-viaje" class="lbl-style">Kms</label>'+
-                    '<input type="text" id="inp-kms-viaje" name="inp-kms-viaje" class="input-format" value="" />'+         
-                    '<label for="inp-finca-viaje" class="lbl-style">Finca</label>'+
-                    '<input type="text" id="inp-finca-viaje" name="inp-finca-viaje" class="input-format" value="" readonly />'+         
-                    '<label for="inp-naviera-viaje" class="lbl-style">Naviera</label>'+
-                    '<input type="text" id="inp-naviera-viaje" name="inp-naviera-viaje" class="input-format" value="" readonly />'+                          
-                '</div>'+
-                '<div class=caja-media>'+
-                    '<input type="submit" id="btnguardarviaje" class="btn" value="Guardar">'+  
-                '</div>'+    
+        '</div>'+
+        '<div class=caja-cuarto>'+
+            '<div class=contenido-input>'+
+                '<label for="inp-finca-viaje" class="lbl-style">Finca</label>'+
+                '<input type="text" id="inp-finca-viaje" name="inp-finca-viaje" class="input-format" value="" readonly />'+
             '</div>'+
         '</div>'+
+        '<div class=caja-cuarto>'+
+            '<div class=contenido-input>'+
+                '<label for="inp-naviera-viaje" class="lbl-style">Naviera</label>'+
+                '<input type="text" id="inp-naviera-viaje" name="inp-naviera-viaje" class="input-format" value="" readonly />'+ 
+            '</div>'+
+        '</div>'+
+        '<div class=caja-cuarto>'+
+            '<div class=contenido-input>'+
+                '<label for="lbl-kms-viaje" class="lbl-style">Kms</label>'+
+                '<input type="text" id="inp-kms-viaje" name="inp-kms-viaje" class="input-format" value="" />'+    
+            '</div>'+
+        '</div>'+
+        '<div class=caja-cuarto>'+
+            '<div class=contenido-input>'+
+                '<div class=contenido-input-medio>'+
+                '</div>'+
+                '<div class=contenido-input-medio>'+
+                    '<input type="submit" id="btnguardarviaje" class="input-format" value="Guardar">'+  
+                '</div>'+
+            '</div>'+
+        '</div>'+
+        
     '</div></div>';
 
     $('#div-mant-inputs').append(inputs);
@@ -655,7 +690,11 @@ function mantenimientoingresogasto(){
         '</div>'+
         '<div class=caja-cuarto>'+
             '<div class=contenido-input>'+
-                '<input type="submit" id="btnguardaringgas" class="btn" value="Guardar">'+
+                '<div class=contenido-input-medio>'+
+                '</div>'+
+                '<div class=contenido-input-medio>'+
+                    '<input type="submit" id="btnguardaringgas" class="input-format" value="Guardar">'+
+                '</div>'+
             '</div>'+
         '</div>'+    
     '</div>'+

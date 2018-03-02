@@ -1,8 +1,10 @@
-
+var totalpagoliquidacion=0;
 $(document).on('click','#menu-liquidacion', function(){        
+    $('#contenido-form').html(""); 
+    $('#div-liq-ingresos').html(""); 
+    $('#div-liq-gastos').html(""); 
     mantenimientoliquidaciones();
     seleccionlinea=2;
-    //listaliquidaciones();
 });
 
 function mantenimientoliquidaciones(){
@@ -16,11 +18,12 @@ function mantenimientoliquidaciones(){
         '</div>'+
         '<div id=div-inggas-liquidacion>'+
             '<div id=div-liq-ingresos>'+
-            
             '</div>'+
             '<div id=div-liq-gastos>'+
-            
             '</div>'+            
+        '</div>'+
+        '<div id=div-totalpago-liq>'+
+            '<label class=lbl-pagototal-liq>PAGO TOTAL : </label><label id=lbl-pagototal-liq class=lbl-pagototal-liq></label>'+      
         '</div>'+
         
         '<div class=div-opcion-report>'+
@@ -40,7 +43,7 @@ function mantenimientoliquidaciones(){
             '</div>'+
             '<div class=div-tercio>'+
                 '<div class=div-opciones>'+
-                    '<input type="button" id="btnliquidacion" class="inputformat" value="Liquidación Chofer">'+
+                    '<input type="button" id="btnliquidacion" class="input-format" value="Liquidación Chofer">'+
                 '</div>'+
                 '<div class=div-total-botones></div>'+
             '</div>'+
@@ -50,23 +53,30 @@ function mantenimientoliquidaciones(){
 };
 
 function DestruyeDataTable(iddatatable){
-    $("#div-lista-liquidacion").empty();
+    // $("#div-lista-liquidacion").empty();
     var table = $('#'+iddatatable).DataTable();
     table.destroy();
 }
 
+function SumaTotalPago(){
+
+}
+
 /* REPORTES*/
 function listaliquidaciones(){        
+    $("#div-lista-liquidacion").empty();
     $('#div-lista-liquidacion').append("<table id='tblliquidacion'class='tbl'>");
     var col="<thead> <tr><th>FECHA CARGA</th><th>CONTENEDOR</th><th>PUNTO CARGA</th><th>PUNTO DESCARGA</th> <th>PAGO TOTAL</th></tr ></thead> <tbody id='tableBody-liquidacion'></tbody>";
-    $('#tblliquidacion').append(col); 
+    $('#tblliquidacion').append(col);
+    var td= "<tr id='firsttr-liq' class=firsttr-liq><td></td><td></td><td></td><td></td><td></td></tr>";
+    $('#tblliquidacion').append(td); 
 
     $('#tblliquidacion').DataTable( {
         "order": [[ 0, "asc" ]],
-        "paging":   true,
-        "scrollY": "400px",
+        "paging":   false,
+        "scrollY": "350px",
         "scrollCollapse": true,
-        "bInfo" : true,
+        "bInfo" : false,
         dom: 'Bfrtip',
         buttons: [
             'copyHtml5',
@@ -77,18 +87,13 @@ function listaliquidaciones(){
 };
 
 /* INGRESOS Y GASTOS */
-function ingresosgastosliquidacion(){
+function ingresosliquidacion(){
+    $('#div-liq-ingresos').empty();
     $('#div-liq-ingresos').append("<table id='tblliqingresos'class='tbl'>");
     var col="<thead><tr class=tituloingreso><th>INGRESOS</th><th>MONTO</th></thead><tbody id='tblbodyingresos-liq'></tbody>";
     $('#tblliqingresos').append(col);
-    var td= "<tr id='firsttr' class=firsttr><td></td><td></td><td></td></tr>";
+    var td= "<tr id='firsttr' class=firsttr><td></td><td></td></tr>";
     $('#tblbodyingresos-liq').append(td);
-
-    $('#div-liq-gastos').append("<table id='tblliqgastos'class='tbl'>");
-    var col="<thead><tr class=titulogasto><th>GASTOS</th><th>MONTO</th></thead><tbody id='tblbodygastos-liq'></tbody>";
-    $('#tblliqgastos').append(col);
-    var td2= "<tr id='firsttr2' class=firsttr><td></td><td></td><td></td></tr>";
-    $('#tblbodygastos-liq').append(td2);
 
     $('#tblliqingresos').DataTable({
         "order": [[ 1, "asc" ]],
@@ -101,9 +106,17 @@ function ingresosgastosliquidacion(){
         "bPaginate": false,
         "columns": [
             { "width": "55%" },
-            null,
             null]
     });
+}
+
+function gastosliquidacion(){
+    $('#div-liq-gastos').empty();
+    $('#div-liq-gastos').append("<table id='tblliqgastos'class='tbl'>");
+    var col="<thead><tr class=titulogasto><th>GASTOS</th><th>MONTO</th></thead><tbody id='tblbodygastos-liq'></tbody>";
+    $('#tblliqgastos').append(col);
+    var td2= "<tr id='firsttr2' class=firsttr><td></td><td></td></tr>";
+    $('#tblbodygastos-liq').append(td2);
 
     $('#tblliqgastos').DataTable({
         "order": [[ 1, "asc" ]],
@@ -116,15 +129,16 @@ function ingresosgastosliquidacion(){
         "bPaginate": false,
         "columns": [
             { "width": "55%" },
-            null,
             null]
     });  
 }
 
+
 $(document).on('click', '#btnliquidacion', function (event) {    
-    DestruyeDataTable('tblliquidacion');
+    // DestruyeDataTable('tblliquidacion');
+    // DestruyeDataTable('tblliqingresos');
+    // DestruyeDataTable('tblliqgastos');
     ConsultaLiquidacion();
-    ingresosgastosliquidacion();
 });
 
 // Carga lista
@@ -143,6 +157,7 @@ function ConsultaLiquidacion() {
     .done(function( e ) {
         ShowDataLiquidacion(e);
         ConsultaLiquidacionIngresos();
+        ConsultaLiquidacionGastos();
     })    
     .fail(function(msg){
         alert("Error al Cargar Reportes");
@@ -170,10 +185,33 @@ function ConsultaLiquidacionIngresos() {
     });    
 };
 
+// Carga lista
+function ConsultaLiquidacionGastos() {
+    $.ajax({
+        type: "POST",
+        url: "class/Liquidacion.php",
+        data: { 
+            action: "CargarGasto",
+            estado:  '1',
+            fechainicial: $("#date-fechainicial").val(),
+            fechafinal: $("#date-fechafinal").val(),
+            idchofer:idchofer
+        }
+    })
+    .done(function( e ) {
+        ShowDataLiquidacionGasto(e);
+    })    
+    .fail(function(msg){
+        alert("Error al Cargar Reportes");
+    });    
+};
+
 function ShowDataLiquidacion(e) {
+    totalpagoliquidacion=0;
+    DestruyeDataTable('tblliquidacion');
     listaliquidaciones();
     var data= JSON.parse(e);
-
+    $("#firsttr-liq").remove();
     // Recorre arreglo.
     $.each(data, function(i, item) {
         
@@ -188,11 +226,15 @@ function ShowDataLiquidacion(e) {
             // '<td><img id=btndeletecolocación'+ item.id +' src=img/file_delete.png class=borrar></td>'+
         "</tr>";
         $('#tableBody-liquidacion').append(row);  
-        $('.id-form').hide();       
+        $('.id-form').hide();   
+        totalpagoliquidacion += parseInt(item.totalpago);
     })
+    $("#lbl-pagototal-liq").text(totalpagoliquidacion);
 };
 
 function ShowDataLiquidacionIngreso(e) {
+    DestruyeDataTable('tblliqingresos');
+    ingresosliquidacion();
     var data= JSON.parse(e);
     // Recorre arreglo.
     $.each(data, function(i, item) {
@@ -203,6 +245,21 @@ function ShowDataLiquidacionIngreso(e) {
         "</tr>";
         $('#tblbodyingresos-liq').append(row);  
         $('.id-form').hide();  
-    
+    })
+};
+
+function ShowDataLiquidacionGasto(e) {
+    DestruyeDataTable('tblliqgastos');
+    gastosliquidacion();
+    var data= JSON.parse(e);
+    // Recorre arreglo.
+    $.each(data, function(i, item) {
+        var row="<tr class='fila'>"+
+            "<td class='id-form' style='display:none;'>"+ item.id+"</td>" +
+            "<td>"+ item.nombre +"</td>" +
+            "<td>"+ item.monto +"</td>" +
+        "</tr>";
+        $('#tblbodygastos-liq').append(row);  
+        $('.id-form').hide();  
     })
 };

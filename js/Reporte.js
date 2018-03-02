@@ -159,15 +159,15 @@ function ShowDataReporte(e) {
         $('.id-form').hide();       
     })
     // Summary
-    var foot= '<label for="inp-sumtotal" class="lbl-style">TOTAL</label>'+ 
-        '<input type="text" id="inp-sumtotal" name="inp-sumtotal" class="input-format" value="0" readonly />';
-    //'<tfoot> <tr> <th>Total:</th> <th></th> <th></th> <th></th> <th></th> <th id="sumtotal"> </th> </tr> </tfoot>';
-    $('#tableBody-reportes').append(foot);
-    var sumtotal=0;
-    $('.totalpago').each(function() {
-        sumtotal += parseFloat( $(this).text() );
-        $('#inp-sumtotal').val(sumtotal);
-    });
+    // var foot= '<label for="inp-sumtotal" class="lbl-style">TOTAL</label>'+ 
+    //     '<input type="text" id="inp-sumtotal" name="inp-sumtotal" class="input-format" value="0" readonly />';
+    // //'<tfoot> <tr> <th>Total:</th> <th></th> <th></th> <th></th> <th></th> <th id="sumtotal"> </th> </tr> </tfoot>';
+    // $('#tableBody-reportes').append(foot);
+    // var sumtotal=0;
+    // $('.totalpago').each(function() {
+    //     sumtotal += parseFloat( $(this).text() );
+    //     $('#inp-sumtotal').val(sumtotal);
+    // });
 };
 
 function UpdateEventHandlerFormulario() {
