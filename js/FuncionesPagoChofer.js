@@ -410,11 +410,12 @@ function ArrayGastos(){
 /* CHOFER */
 
 $(document).on('click','#tblchofer tr', function(){        
-    if(seleccionlinea==0){
-    //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
-    document.getElementById('inp-chofer').value = $(this).find('td:nth-child(2)').html();
     idchofer = $(this).find('td:nth-child(1)').html();
-    }
+    if(seleccionlinea==0)
+        document.getElementById('inp-chofer').value = $(this).find('td:nth-child(2)').html();
+    if(seleccionlinea==2)
+        document.getElementById('lbl-chofer-liquidacion').innerHTML = $(this).find('td:nth-child(2)').html();
+        // $("#lbl-chofer-liquidacion").text()= $(this).find('td:nth-child(2)').html();
 });
 
 
@@ -869,11 +870,12 @@ function InsertarFormulario(){
               }
     })
     .done(function( e ) {
-        if (e==false) {
-            alert('CONTENEDOR DUPLICADO, INSERTE OTRO!');    
-        }
-        else{
+        var data= JSON.parse(e);
+        if (data=="ing") {
             alert('FORMULARIO GUARDADO!');    
+        }
+        if (data=="dup"){
+            alert('CONTENEDOR DUPLICADO, INSERTE OTRO!');    
         }
         
     })    

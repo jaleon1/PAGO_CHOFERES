@@ -42,6 +42,7 @@ if (!isset($_SESSION))
     <script src="js/Ingreso.js" languaje="javascript" type="text/javascript"></script>
     <script src="js/Gasto.js" languaje="javascript" type="text/javascript"></script>
     <script src="js/Colocacion.js" languaje="javascript" type="text/javascript"></script>
+    <script src="js/Liquidacion.js" languaje="javascript" type="text/javascript"></script>
     
     <script type="text/javascript" src="js/sweetalert.js"></script>
     
