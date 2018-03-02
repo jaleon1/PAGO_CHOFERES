@@ -876,8 +876,7 @@ $(document).on('click', '#btncolocarform', function (event) {
               }
     })
     .done(function( e ) {
-        if (e==true) 
-            alert('AGREGADO A COLOCACIONES DIARIAS!');    
+        alert('AGREGADO A COLOCACIONES DIARIAS!');    
     })    
     .fail(function(msg){
         

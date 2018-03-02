@@ -42,8 +42,17 @@ function listacolocaciones(){
     $('#tblcolocacion').append(col); 
 
     $('#tblcolocacion').DataTable( {
+        "order": [[ 0, "asc" ]],
+        "paging":   false,
+        "scrollY": "350px",
+        "scrollCollapse": true,
+        "bInfo" : false,
         dom: 'Bfrtip',
-        buttons: ['copy', 'csv', 'excel', 'pdf']
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5']
     });
 };
 

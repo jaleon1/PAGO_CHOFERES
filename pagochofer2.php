@@ -11,14 +11,14 @@ if (!isset($_SESSION))
     
     <!-- <link rel="stylesheet" href="css/jquery.dataTables.min.css" type="text/css"/> -->
     <!-- <link rel="stylesheet" href="css/buttons.dataTables.min.css" type="text/css"/> -->
-    <!-- <link rel="stylesheet" href="css/datatables.css" type="text/css"/> -->
+    <link rel="stylesheet" href="css/datatables.css" type="text/css"/>
     
     <script src="js/jquery.js" type="text/jscript"></script>
-   
+
     <!-- <script src="js/jspdf.min.js" languaje="javascript" type="text/javascript"></script> -->
 
     <!-- DATATABLES BOOSTRAP -->
-    <!-- <script src="js/datatables.js" type="text/javascript" charset="utf8"></script> -->
+    <script src="js/datatables.js" type="text/javascript" charset="utf8"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>																													   
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
@@ -32,6 +32,7 @@ if (!isset($_SESSION))
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" type="text/css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" type="text/css"/>
     
+
     <script src="js/FuncionesPagoChofer.js" languaje="javascript" type="text/javascript"></script> 
     <script src="js/Chofer.js" languaje="javascript" type="text/javascript"></script> 
     <script src="js/Finca.js" languaje="javascript" type="text/javascript"></script> 

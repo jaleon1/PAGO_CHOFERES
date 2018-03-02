@@ -227,12 +227,11 @@ class Formulario
         //MODIFICA ESTADO DEL EL FORMULARIO
         function ModificarEstado(){
             try {
+                $ok = 'ok';
                 $sql="UPDATE formulariopago SET estado=:estado WHERE id=:id;";
-    
                 $param= array(':estado'=>$_POST["estado"],':id'=>$_POST["id"]);
-                $result = DATA::Ejecutar($sql, $param);
-                return true;           
-                exit;
+                DATA::Ejecutar($sql, $param);
+                return $ok;
             } catch (Exception $e) {
                 header('Location: ../Error.php?w=visitante-agregar&id='.$e->getMessage());
                 exit;
