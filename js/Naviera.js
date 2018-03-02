@@ -169,7 +169,10 @@ function FormValidateNaviera(){
                 number: true
             }*/
         },
-        submitHandler: SaveNaviera
+        submitHandler: function() {
+            $('#btnguardarnaviera').attr("disabled", "disabled");
+            SaveNaviera();   
+        }
     }); 
 };
 
@@ -190,5 +193,8 @@ function SaveNaviera(){
     })
     .done(showInfo)
     .fail(showError)
-    .always(LoadAllNaviera);
+    .always(function() {
+        setTimeout('$("#btnguardarnaviera").removeAttr("disabled")', 1500);
+        LoadAllNaviera();   
+    });
 }; 

@@ -196,7 +196,10 @@ function FormValidateViajes(){
             //     number: true
             // }
         },
-        submitHandler: SaveViajes
+        submitHandler: function() {
+            $('#btnguardarviaje').attr("disabled", "disabled");
+            SaveViajes();   
+        }
     });  
 };
 
@@ -219,5 +222,8 @@ function SaveViajes(){
     })
     .done(showInfo)
     .fail(showError)
-    .always(LoadAllViajes);
+    .always(function() {
+        setTimeout('$("#btnguardarviaje").removeAttr("disabled")', 1500);
+        LoadAllViajes();   
+    });
 }; 
