@@ -45,7 +45,9 @@ function mantenimientoliquidaciones(){
                             '<div class=div-opciones>'+
                                 '<input type="button" id="btnliquidacion" class="input-format" value="Liquidación Chofer">'+
                             '</div>'+
-                            '<div class=div-total-botones></div>'+
+                            '<div class=div-total-botones>'+
+                                '<input type="button" id="btnliquidacionexcel" class="input-format" value="Generar Reporte">'+
+                            '</div>'+
                         '</div>'+
                     '</div>'+    
                 '</div>';
@@ -260,3 +262,15 @@ function ShowDataLiquidacionGasto(e) {
         $('.id-form').hide();  
     })
 };
+
+$("#btnliquidacionexcel").click(function() { 
+    html2canvas($("#div-liquidacion"), {
+        onrendered: function(canvas) {
+            theCanvas = canvas;
+            document.body.appendChild(canvas);
+            canvas.toBlob(function(blob) {
+              saveAs(blob, "Dashboard.png"); 
+            });
+        }
+    });
+});

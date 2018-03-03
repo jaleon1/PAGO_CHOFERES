@@ -13,7 +13,7 @@ function LoadAllGasto() {
         CleanCtlsGasto();
         ShowDataGasto(e);
     })
-    .fail(showError);
+    .fail();
 };
 
 //Listo
@@ -53,7 +53,7 @@ function UpdateEventHandlerGasto() {
     .done(function (e) {
         ShowItemDataGasto(e);
     })
-    .fail(showError);
+    .fail();
 };
 
 function DeleteEventHandlerGasto() {
@@ -101,7 +101,7 @@ function DeleteGasto() {
         );
         LoadAllGasto();
     })    
-    .fail(showError);
+    .fail();
 };
 
 //Listo
@@ -120,13 +120,14 @@ function ShowItemDataGasto(e) {
 };
 
 function FormValidateGasto(){
-    $("#frmingresogasto").validate({
-        lang: 'es', 
-        rules: {
-            'inp-nombre-gas': "required"
-        },
-        submitHandler: SaveGasto
-    }); 
+    // $("#frmingresogasto").validate({
+    //     lang: 'es', 
+    //     rules: {
+    //         'inp-nombre-gas': "required"
+    //     },
+    //     submitHandler: SaveGasto
+    // }); 
+    SaveGasto();
 };
 
 // Save
@@ -143,7 +144,34 @@ function SaveGasto(){
             monto: $("#inp-monto-gas").val()
         }
     })
-    .done(showInfo)
-    .fail(showError)
+    .done(showInfoGasto)
+    .fail()
     .always(LoadAllGasto);
 }; 
+
+function showInfoGasto() {
+    // alert('show info');
+    swal({
+        title: "Gasto Insertado!",
+        text: "Correctamente!",
+        icon: "success",
+      });
+    // $(".modal").css({ display: "none" });  
+    // $("#textomensaje").text("Gasto almacenado correctamente!!");
+    // $("#mensajetop").css("background-color", "#016DC4");
+    // $("#mensajetop").css("color", "#FFFFFF");    
+    // $("#mensajetop").css("visibility", "visible");
+    // $("#mensajetop").slideDown("slow");
+    // $("#mensajetop").slideDown("slow").delay(3000).slideUp("slow");
+};
+
+function showErrorGasto() {
+    alert('Error Gasto');
+    /*$(".modal").css({ display: "none" });  
+    $("#textomensaje").text("Error al procesar la información");
+    $("#mensajetop").css("background-color", "firebrick");
+    $("#mensajetop").css("color", "white");    
+    $("#mensajetop").css("visibility", "visible");
+    $("#mensajetop").slideDown("slow");
+    $("#mensajetop").slideDown("slow").delay(3000).slideUp("slow");*/
+};

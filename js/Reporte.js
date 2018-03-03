@@ -237,6 +237,8 @@ function ShowItemDataFormulario(e) {
     kmsviaje = data[0][8];
     $("#inp-valor-viaje").val(data[0][10]);
     $("#inp-total-pago").val(data[0][11]);
+    $("#inp-booking").val(data[0][14]);
+    $("#inp-marchamo").val(data[0][15]);
     idchofer = data[0][12];
     idcalculokm = data[0][13];
 };

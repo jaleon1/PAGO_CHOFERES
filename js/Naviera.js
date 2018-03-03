@@ -21,9 +21,9 @@ $(document).ready(function () {
 
 function naviera(){
     LimpiaTitulo();
-    $('#div-mant-titulo').append("<h3 id='titulo-naviera'>NAVIERA</h3>");
+    $('#div-mant-titulo').append("<h3 id='titulo-naviera'>PUNTO DE DESCARGA</h3>");
     $('#div-mants').append("<table id='tblnaviera'class='tbl'>");
-    var col="<thead><tr><th>NOMBRE</th><th>UBICACION</th><th>TELEFONO</th></thead><tbody id='tableBody-naviera'></tbody>";
+    var col="<thead><tr><th>NOMBRE</th><th>UBICACION</th><th>TELEFONO</th><th></th><th></th></thead><tbody id='tableBody-naviera'></tbody>";
     $('#tblnaviera').append(col);
    
     //$('#tableBody').append(row1+row2+row3+row4);  
@@ -67,7 +67,7 @@ function ShowDataNaviera(e) {
             '<td style="display:none;">' + item.id + '</td>' +
             '<td style="width: 80px">' + item.nombre + '</td>' +
             '<td style="width: 160px">' + item.ubicacion + '</td>' +
-            //'<td>' + item.telefono + '</td>' +
+            '<td>' + item.telefono + '</td>' +
             '<td><img id=btnmodingreso'+ item.id + ' class=borrar src=img/file_mod.png></td>'+
             '<td><img id=btnborraingreso'+ item.id + ' class=borrar src=img/file_delete.png></td>'+
             '</tr>';

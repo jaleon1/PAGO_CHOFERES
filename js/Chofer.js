@@ -32,7 +32,7 @@ function chofer(){
     $('#tblchofer').DataTable( {
         "order": [[ 1, "asc" ]],
         "paging":   false,
-        "scrollY": "180px",
+        "scrollY": "200px",
         "scrollCollapse": true,
         "bInfo" : false
     } );
@@ -42,7 +42,12 @@ function chofer(){
 
 // Muestra información en ventana
  function showInfo() {
-    alert('show info');
+    //alert('show info');
+    swal({
+        title: "Chofer Insertado!",
+        text: "Correctamente!",
+        icon: "success",
+      });
 //     /*$(".modal").css({ display: "none" });  
 //     $("#textomensaje").text("Información almacenada correctamente!!");
 //     $("#mensajetop").css("background-color", "#016DC4");

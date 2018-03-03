@@ -13,7 +13,7 @@ function LoadAllIngreso() {
         CleanCtlsIngreso();
         ShowDataIngreso(e);
     })
-    .fail(showError);
+    .fail();
 };
 
 //Listo
@@ -54,7 +54,7 @@ function UpdateEventHandlerIngreso() {
     .done(function (e) {
         ShowItemDataIngreso(e);
     })
-    .fail(showError);
+    .fail();
 };
 
 function DeleteEventHandlerIngreso() {
@@ -102,7 +102,7 @@ function DeleteIngreso() {
         );
         LoadAllIngreso();
     })    
-    .fail(showError);
+    .fail();
 };
 
 //Listo
@@ -123,13 +123,14 @@ function ShowItemDataIngreso(e) {
 };
 
 function FormValidateIngreso(){
-    $("#frmingresogasto").validate({
-        lang: 'es', 
-        rules: {
-            'inp-nombre-ing': "required"
-        },
-        submitHandler: SaveIngreso
-    }); 
+    // $("#frmingresogasto").validate({
+    //     lang: 'es', 
+    //     rules: {
+    //         'inp-nombre-ing': "required"
+    //     },
+    //     submitHandler: SaveIngreso
+    // }); 
+    SaveIngreso();
 };
 
 // Save
@@ -147,7 +148,34 @@ function SaveIngreso(){
             porcentaje: $("#inp-porc-ing").val()
         }
     })
-    .done(showInfo)
-    .fail(showError)
+    .done(showInfoIngreso)
+    .fail()
     .always(LoadAllIngreso);
 }; 
+
+function showInfoIngreso() {
+    //alert('show info');
+    swal({
+        title: "Ingreso Insertado!",
+        text: "Correctamente!",
+        icon: "success",
+      });
+    // $(".modal").css({ display: "none" });  
+    // $("#textomensaje").text("Ingreso almacenado correctamente!!");
+    // $("#mensajetop").css("background-color", "#016DC4");
+    // $("#mensajetop").css("color", "#FFFFFF");    
+    // $("#mensajetop").css("visibility", "visible");
+    // $("#mensajetop").slideDown("slow");
+    // $("#mensajetop").slideDown("slow").delay(3000).slideUp("slow");
+};
+
+function showErrorIngreso() {
+    alert('Error Ingreso');
+    /*$(".modal").css({ display: "none" });  
+    $("#textomensaje").text("Error al procesar la información");
+    $("#mensajetop").css("background-color", "firebrick");
+    $("#mensajetop").css("color", "white");    
+    $("#mensajetop").css("visibility", "visible");
+    $("#mensajetop").slideDown("slow");
+    $("#mensajetop").slideDown("slow").delay(3000).slideUp("slow");*/
+};

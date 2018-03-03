@@ -57,8 +57,8 @@ class Formulario
 
             $valorkm = 1.9;
             $sql="INSERT INTO `formulariopago` (`id`, `comprobante`, `idchofer`, `idcalculokm`, `fecha`, `fechacarga`, `contenedor`, `placa`,`kms`, 
-            `valorviaje`, `valorkm`, `porcentajeingreso`, `totalpago`, `estado`,booking) VALUES (uuid(),:comprobante,:idchofer,:idcalculokm,now(),:fechacarga,
-            :contenedor,:placa,:kms,:valorviaje,:valorkm,:porcentajeingreso,:totalpago,:estado,:booking);";
+            `valorviaje`, `valorkm`, `porcentajeingreso`, `totalpago`, `estado`, booking, marchamo) VALUES (uuid(),:comprobante,:idchofer,:idcalculokm,now(),:fechacarga,
+            :contenedor,:placa,:kms,:valorviaje,:valorkm,:porcentajeingreso,:totalpago,:estado,:booking,:marchamo);";
             $param= array(  ':comprobante'=>$comprobante,
                             ':idchofer'=>$_POST["idchofer"],
                             ':idcalculokm'=>$_POST["idcalculokm"],
@@ -71,7 +71,8 @@ class Formulario
                             ':porcentajeingreso'=>15,
                             ':totalpago'=>$_POST["totalpago"],
                             ':estado'=>0,
-                            ':booking'=>$_POST["booking"]);
+                            ':booking'=>$_POST["booking"],
+                            ':marchamo'=>$_POST["marchamo"]);
             $result = DATA::Ejecutar($sql,$param);
 
             $contenedor = $_POST['contenedor'];
@@ -114,7 +115,7 @@ class Formulario
         try {
             // $valorkm = '1,9';
             $sql="UPDATE `formulariopago` SET `idchofer`=:idchofer,`idcalculokm`=:idcalculokm,`fechacarga`=:fechacarga,`contenedor`=:contenedor,`placa`=:placa,
-            `kms`=:kms,`valorviaje`=:valorviaje,`valorkm`=:valorkm,`porcentajeingreso`=:porcentajeingreso,`totalpago`=:totalpago,`estado`=:estado WHERE id = :id;";
+            `kms`=:kms,`valorviaje`=:valorviaje,`valorkm`=:valorkm,`porcentajeingreso`=:porcentajeingreso,`totalpago`=:totalpago,`estado`=:estado,`booking`=:booking, `marchamo`=:marchamo WHERE id = :id;";
             $param= array(  ':id'=>$_POST["id"],
                             ':idchofer'=>$_POST["idchofer"],
                             ':idcalculokm'=>$_POST["idcalculokm"],
@@ -126,7 +127,9 @@ class Formulario
                             ':valorkm'=>'1,9',
                             ':porcentajeingreso'=>'15',
                             ':totalpago'=>$_POST["totalpago"],
-        ':estado'=>'0');
+                            ':estado'=>'0',
+                            ':booking'=>$_POST["booking"],
+                            ':marchamo'=>$_POST["marchamo"]);
             DATA::Ejecutar($sql,$param);
 
             //Contenedores Almacenados
@@ -177,7 +180,7 @@ class Formulario
     //CARGAR
     function Cargar(){
         try {
-            $sql="SELECT f.id, f.comprobante, c.nombre as chofer,DATE_FORMAT(f.fechacarga, '%Y-%m-%dT%H:%i'), f.contenedor, f.placa, fin.nombre as finca, nav.nombre as naviera, kms, valorkm,valorviaje, totalpago,f.idchofer,f.idcalculokm
+            $sql="SELECT f.id, f.comprobante, c.nombre as chofer,DATE_FORMAT(f.fechacarga, '%Y-%m-%dT%H:%i'), f.contenedor, f.placa, fin.nombre as finca, nav.nombre as naviera, kms, valorkm,valorviaje, totalpago,f.idchofer,f.idcalculokm, booking, marchamo
                     FROM formulariopago f 
                     inner join calculokm cal on cal.id=f.idcalculokm
                     inner join finca fin on fin.id=cal.idfinca
