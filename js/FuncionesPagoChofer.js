@@ -64,7 +64,7 @@ $(document).on('click', '#inp-naviera', function (event) {
 function muestrafincanaviera(){
     
     $('#tablefinca').append("<table id='tblfincamant'class='tbl'>");
-    var col="<thead><tr><th>NOMBRE</th><th>UB</th><th>TEL</th></tr></thead><tbody id='tableBody-finca'></tbody>";
+    var col="<thead><tr><th>NOMBRE</th><th>UB</th></tr></thead><tbody id='tableBody-finca'></tbody>";
     $('#tblfincamant').append(col);
 
     $('#tblfincamant').DataTable({
@@ -77,7 +77,7 @@ function muestrafincanaviera(){
     });
 
     $('#tablenaviera').append("<table id='tblnavieramant'class='tbl'>");
-    var col="<thead><tr><th>NOMBRE</th><th>UB</th><th>TEL</th></tr></thead><tbody id='tableBody-naviera'></tbody>";
+    var col="<thead><tr><th>NOMBRE</th><th>UB</th></tr></thead><tbody id='tableBody-naviera'></tbody>";
     $('#tblnavieramant').append(col);
 
     $('#tblnavieramant').DataTable({

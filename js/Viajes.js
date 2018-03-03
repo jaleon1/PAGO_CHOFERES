@@ -30,7 +30,7 @@ function calculokm(){
     LimpiaTitulo();
     $('#div-mant-titulo').append("<h3 id='titulo-calculokm'>VIAJES</h3>");
     $('#div-mants').append("<table id='tblcalculokm'class='tbl'>");
-    var col="<thead><tr><th>Finca</th><th>Naviera</th><th>Kilometros</th></thead><tbody id='tableBody-calculokm'></tbody>";
+    var col="<thead><tr><th>Punto de Carga</th><th>Punto de Descarga</th><th>Kilometros</th></thead><tbody id='tableBody-calculokm'></tbody>";
     $('#tblcalculokm').append(col);
     //$('#tableBody').append(row1+row2+row3+row4);  
 

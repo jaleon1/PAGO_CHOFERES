@@ -10,6 +10,12 @@ if(isset($_POST["action"])){
         case "ConsultaGeneral":                 
             echo json_encode($reporte->ConsultaGeneral());
             break;
+        case "ConsultaActivos":                 
+            echo json_encode($reporte->ConsultaActivos());
+            break;
+        case "ConsultaPendientes":                 
+            echo json_encode($reporte->ConsultaPendientes());
+            break;
         case "ConsultaFiltro":
         echo json_encode($reporte->ConsultaFiltro($_POST["idfiltro"], $_POST["tipo"], $_POST["filtrofecha"] ));
             break;
@@ -31,6 +37,42 @@ class Reporte
                     inner join finca fin on fin.id=cal.idfinca
                     inner join naviera nav on nav.id=cal.idnaviera
                     inner join chofer c on c.id=f.idchofer
+                ORDER BY comprobante DESC";
+            //
+            $data= DATA::Ejecutar($sql);
+            return $data;
+        } catch (Exception $e) {
+            //header('Location: ../Error.php?w=visitante-bitacora&id='.$e->getMessage());
+            //exit;
+        }
+    }
+
+    function ConsultaActivos(){
+        try {
+            $sql = "SELECT f.id, f.comprobante, c.nombre as chofer,f.fechacarga, f.contenedor, f.placa, fin.nombre as finca, nav.nombre as naviera, kms, valorkm, totalpago, estado, booking
+                    FROM formulariopago f 
+                    inner join calculokm cal on cal.id=f.idcalculokm
+                    inner join finca fin on fin.id=cal.idfinca
+                    inner join naviera nav on nav.id=cal.idnaviera
+                    inner join chofer c on c.id=f.idchofer WHERE f.estado='1'
+                ORDER BY comprobante DESC";
+            //
+            $data= DATA::Ejecutar($sql);
+            return $data;
+        } catch (Exception $e) {
+            //header('Location: ../Error.php?w=visitante-bitacora&id='.$e->getMessage());
+            //exit;
+        }
+    }
+
+    function ConsultaPendientes(){
+        try {
+            $sql = "SELECT f.id, f.comprobante, c.nombre as chofer,f.fechacarga, f.contenedor, f.placa, fin.nombre as finca, nav.nombre as naviera, kms, valorkm, totalpago, estado, booking
+                    FROM formulariopago f 
+                    inner join calculokm cal on cal.id=f.idcalculokm
+                    inner join finca fin on fin.id=cal.idfinca
+                    inner join naviera nav on nav.id=cal.idnaviera
+                    inner join chofer c on c.id=f.idchofer WHERE f.estado='0'
                 ORDER BY comprobante DESC";
             //
             $data= DATA::Ejecutar($sql);

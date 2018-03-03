@@ -103,7 +103,7 @@ function ingresosliquidacion(){
         "bLengthChange": false,
         searching: false,
         "bInfo": false,
-        "scrollY": "105px",
+        "scrollY": "130px",
         "scrollCollapse": true,
         "bPaginate": false,
         "columns": [
@@ -126,7 +126,7 @@ function gastosliquidacion(){
         "bLengthChange": false,
         searching: false,
         "bInfo": false,
-        "scrollY": "105px",
+        "scrollY": "130px",
         "scrollCollapse": true,
         "bPaginate": false,
         "columns": [
