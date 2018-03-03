@@ -106,9 +106,8 @@ function DeleteGasto() {
 
 //Listo
 function CleanCtlsGasto() {
-    $("#inp-nombre-inggas").val('');
-    $("#inp-monto-inggas").val('');    
-    $("#inp-porc-inggas").val('');
+    $("#inp-nombre-gas").val('');
+    $("#inp-monto-gas").val('');    
 };
 
 function ShowItemDataGasto(e) {
@@ -116,15 +115,15 @@ function ShowItemDataGasto(e) {
     CleanCtlsGasto();
     // carga lista con datos.
     var data = JSON.parse(e);
-    $("#inp-nombre-inggas").val(data[0].nombre);
-    $("#inp-monto-inggas").val(data[0].monto);
+    $("#inp-nombre-gas").val(data[0].nombre);
+    $("#inp-monto-gas").val(data[0].monto);
 };
 
 function FormValidateGasto(){
     $("#frmingresogasto").validate({
         lang: 'es', 
         rules: {
-            'inp-nombre-inggas': "required"
+            'inp-nombre-gas': "required"
         },
         submitHandler: SaveGasto
     }); 
@@ -140,8 +139,8 @@ function SaveGasto(){
         data: { 
             action: miAccion,  
             id: id,              
-            nombre:  $("#inp-nombre-inggas").val(),
-            monto: $("#inp-monto-inggas").val()
+            nombre:  $("#inp-nombre-gas").val(),
+            monto: $("#inp-monto-gas").val()
         }
     })
     .done(showInfo)

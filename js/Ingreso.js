@@ -107,9 +107,9 @@ function DeleteIngreso() {
 
 //Listo
 function CleanCtlsIngreso() {
-    $("#inp-nombre-inggas").val('');
-    $("#inp-monto-inggas").val('');    
-    $("#inp-porc-inggas").val('');
+    $("#inp-nombre-ing").val('');
+    $("#inp-monto-ing").val('');    
+    $("#inp-porc-ing").val('');
 };
 
 function ShowItemDataIngreso(e) {
@@ -117,16 +117,16 @@ function ShowItemDataIngreso(e) {
     CleanCtlsIngreso();
     // carga lista con datos.
     var data = JSON.parse(e);
-    $("#inp-nombre-inggas").val(data[0].nombre);
-    $("#inp-monto-inggas").val(data[0].monto);
-    $("#inp-porc-inggas").val(data[0].porcentaje);
+    $("#inp-nombre-ing").val(data[0].nombre);
+    $("#inp-monto-ing").val(data[0].monto);
+    $("#inp-porc-ing").val(data[0].porcentaje);
 };
 
 function FormValidateIngreso(){
     $("#frmingresogasto").validate({
         lang: 'es', 
         rules: {
-            'inp-nombre-inggas': "required"
+            'inp-nombre-ing': "required"
         },
         submitHandler: SaveIngreso
     }); 
@@ -142,9 +142,9 @@ function SaveIngreso(){
         data: { 
             action: miAccion,  
             id: id,              
-            nombre:  $("#inp-nombre-inggas").val(),
-            monto: $("#inp-monto-inggas").val(),           
-            porcentaje: $("#inp-porc-inggas").val()
+            nombre:  $("#inp-nombre-ing").val(),
+            monto: $("#inp-monto-ing").val(),           
+            porcentaje: $("#inp-porc-ing").val()
         }
     })
     .done(showInfo)

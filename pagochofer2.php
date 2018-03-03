@@ -60,7 +60,7 @@ if (!isset($_SESSION))
     <!-- Bootstrap CSS -->
     <!-- Main CSS -->
     <link rel="stylesheet" href="css\style2.css" type="text/css">
-    
+    <script type="text/javascript" src="js/TableToExcel.js"></script>
 
   </head>
   <body>

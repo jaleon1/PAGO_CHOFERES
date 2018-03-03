@@ -22,7 +22,7 @@ function mantenimientocolocaciones(){
             '</div>'+
             '<div class=div-tercio>'+
                 '<div class=div-opciones>'+
-                    '<input type="button" id="btnpdfcolocacion" class="inputformat" value="Generar Reporte">'+
+                    '<input type="button" id="btnpdfcolocacion" class="inputformat" value="Generar Reporte" >'+
                 '</div>'+
                 '<div class=div-total-botones></div>'+
             '</div>'+
@@ -40,6 +40,8 @@ function listacolocaciones(){
     $('#div-lista-colocacion').append("<table id='tblcolocacion'class='tbl'>");
     var col="<thead> <tr> <th>CHOFER</th> <th>FECHA CARGA</th>  <th>CONTENEDOR</th> <th>PUNTO CARGA</th> <th>PUNTO DESCARGA</th> <th></th></tr ></thead> <tbody id='tableBody-colocacion'></tbody>";
     $('#tblcolocacion').append(col); 
+    var td= "<tr id='firsttr-col' class=firsttr-col><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
+    $('#tableBody-colocacion').append(td); 
 
     $('#tblcolocacion').DataTable( {
         "order": [[ 0, "asc" ]],
@@ -47,18 +49,41 @@ function listacolocaciones(){
         "scrollY": "350px",
         "scrollCollapse": true,
         "bInfo" : false,
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5']
+        "columns": [
+            { "width": "34%" },
+            { "width": "34%" },
+            { "width": "9%" },
+            { "width": "10%" },
+            { "width": "9%" },{ "width": "3%" }]
     });
 };
 
-$(document).on('click', '#btnpdfcolocacion', function (event) {    
+// $('#btnpdfcolocacion').on( 'click', function () {
+    
+// });
 
+$(document).on('click', '#btnpdfcolocacion', function (event) {    
+    // tableToExcel('tblcolocacion','Colocacion Diaria','ColocacionDiaria.xls');
+    descargarExcel();
 });
+
+function descargarExcel(){
+    $(".borrar").remove();
+    $(".id-form").remove();
+    //Creamos un Elemento Temporal en forma de enlace
+    var tmpElemento = document.createElement('a');
+    // obtenemos la información desde el div que lo contiene en el html
+    // Obtenemos la información de la tabla
+    var data_type = 'data:application/vnd.ms-excel';
+    var tabla_div = document.getElementById('tblcolocacion');
+    var tabla_html = tabla_div.outerHTML.replace(/ /g, '%20');
+    tmpElemento.href = data_type + ', ' + tabla_html;
+    //Asignamos el nombre a nuestro EXCEL
+    tmpElemento.download = 'ColocaciónDiaria.xls';
+    // Simulamos el click al elemento creado para descargarlo
+    tmpElemento.click();
+    ConsultaFecha();
+}
 
 // Carga lista
 function ConsultaFecha() {
@@ -72,8 +97,6 @@ function ConsultaFecha() {
         }
     })
     .done(function( e ) {
-        // var data = JSON.parse(e);
-        // alert(data.length);
         ShowDataColocacion(e);
     })    
     .fail(function(msg){
@@ -86,17 +109,15 @@ $(document).on('onchange', '#date-fechacarga', function (event) {
     ConsultaFecha();
 });
 
-// jQuery(document).on( "onchange", "#date-fechacarga", function(){ 
-    
-// });
-
 function ShowDataColocacion(e) {
+    $('#div-lista-colocacion').empty();
+    DestruyeDataTable('tblcolocacion');
     listacolocaciones();
     //$('#tableBody-colocacion').html("");
     //$('#contenido-form').append("<table id='tblcolocacion'class='display'>");
     // carga lista con datos.
     var data= JSON.parse(e);
-
+    $("#firsttr-col").remove();
     // Recorre arreglo.
     $.each(data, function(i, item) {
         

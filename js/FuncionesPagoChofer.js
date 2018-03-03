@@ -95,7 +95,6 @@ function muestrafincanaviera(){
 $(document).on('click', '#menu-ingresos-gastos', function (event) {    
     ingresosgastos();
     mantenimientoingresogasto();
-    document.getElementById("radio-ingreso").checked = true;
 });
 
 $(document).on('click','#tblcalculokm tr', function(){        
@@ -664,56 +663,77 @@ function mantenimientoingresogasto(){
     $('#div-mant-inputs').html(""); 
     var inputs= '<form id=frmingresogasto>'+
         '<div id=input-ingresosgastos>'+                                           
-        '<div class=caja-cuarto>'+
-            '<div class=contenido-input>'+
-                '<label for="lbl-nombre-inggas" class="lbl-style">Nombre</label>'+
-                '<input type="text" id="inp-nombre-inggas" name="inp-nombre-inggas" class="input-format" value="" required/>'+
+            '<div class=caja-cuarto>'+
+                '<div class=contenido-input>'+
+                    '<label for="lbl-nombre-ing" class="lbl-style">Nombre Ingreso</label>'+
+                    '<input type="text" id="inp-nombre-ing" name="inp-nombre-ing" class="input-format" value=""/>'+
+                '</div>'+
             '</div>'+
-            '<div class=contenido-input>'+
-                '<input type="radio" id=radio-ingreso name="radio-ingreso-gasto" value="ingreso" checked="checked"> Ingreso'+
+            
+            '<div class=caja-cuarto>'+
+                '<div class=contenido-input>'+
+                    '<label for="lbl-monto-ing" class="lbl-style">Monto Ingreso</label>'+
+                    '<input type="text" id="inp-monto-ing" name="inp-monto-ing" class="input-format" value=""/>'+
+                '</div>'+
             '</div>'+
-        '</div>'+
-        '<div class=caja-cuarto>'+
-            '<div class=contenido-input>'+
-                '<label for="lbl-monto-inggas" class="lbl-style">Monto</label>'+
-                '<input type="text" id="inp-monto-inggas" name="inp-monto-inggas" class="input-format" value=""/>'+
+            
+            '<div class=caja-cuarto>'+
+                '<div class=contenido-input>'+
+                    '<label for="lbl-porc-ing" class="lbl-style">Porcentaje</label>'+
+                    '<input type="text" id="inp-porc-ing" name="inp-porc-ing" class="input-format" value=""/>'+
+                '</div>'+
             '</div>'+
-            '<div class=contenido-input>'+
-                '<input type="radio" id=radio-gasto name="radio-ingreso-gasto" value="gasto"> Gasto'+
+            
+            '<div class=caja-cuarto>'+
+                '<div class=contenido-input>'+
+                    '<div class=contenido-input-medio>'+
+                    '</div>'+
+                    '<div class=contenido-input-medio>'+
+                        '<input type="submit" id="btnguardaring" class="input-format" value="Guardar">'+
+                    '</div>'+
+                '</div>'+
             '</div>'+
-        '</div>'+
-        '<div class=caja-cuarto>'+
-            '<div class=contenido-input>'+
-                '<label for="lbl-porc-inggas" class="lbl-style">Porcentaje</label>'+
-                '<input type="text" id="inp-porc-inggas" name="inp-porc-inggas" class="input-format" value=""/>'+
+
+            '<div class=caja-cuarto>'+
+                '<div class=contenido-input>'+
+                    '<label for="lbl-nombre-gas" class="lbl-style">Nombre Gasto</label>'+
+                    '<input type="text" id="inp-nombre-gas" name="inp-nombre-gas" class="input-format" value=""/>'+
+                '</div>'+
             '</div>'+
-        '</div>'+
-        '<div class=caja-cuarto>'+
+            
+            '<div class=caja-cuarto>'+
+                '<div class=contenido-input>'+
+                    '<label for="lbl-monto-gas" class="lbl-style">Monto Gasto</label>'+
+                    '<input type="text" id="inp-monto-gas" name="inp-monto-gas" class="input-format" value=""/>'+
+                '</div>'+
+            '</div>'+
+
+            '<div class=caja-cuarto style=background-color:blue>'+
+            '<div class=contenido-input>'+
+            '</div>'+
+            '</div>'+
+
+            '<div class=caja-cuarto>'+
             '<div class=contenido-input>'+
                 '<div class=contenido-input-medio>'+
                 '</div>'+
                 '<div class=contenido-input-medio>'+
-                    '<input type="submit" id="btnguardaringgas" class="input-format" value="Guardar">'+
+                    '<input type="submit" id="btnguardargas" class="input-format" value="Guardar">'+
                 '</div>'+
             '</div>'+
-        '</div>'+    
-    '</div>'+
+            '</div>'+
+
+        '</div>'+
     '</form>';
     $('#div-mant-inputs').append(inputs);
-    document.getElementById("radio-ingreso").checked = true;
-        // evento
-    /*if(document.getElementById("radio-ingreso").checked == true)
-        $('#btnguardaringgas').click(FormValidateIngreso);
-    if(document.getElementById("radio-gasto").checked == true)
-        $('#btnguardaringgas').click(FormValidateGasto);*/
 }
 
-$(document).on('click', '#btnguardaringgas', function (event) {
-    if(document.getElementById("radio-ingreso").checked == true)
-        FormValidateIngreso();
-    
-    if(document.getElementById("radio-gasto").checked == true)
-        FormValidateGasto();
+$(document).on('click', '#btnguardaring', function (event) {
+    FormValidateIngreso();
+}); 
+
+$(document).on('click', '#btnguardargas', function (event) {  
+    FormValidateGasto();
 }); 
 
 function mantenimientoformpago(){
