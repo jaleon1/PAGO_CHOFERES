@@ -12,7 +12,7 @@ function mantenimientocolocaciones(){
         '</div>'+
         '<div id=div-lista-colocacion>'+
         '</div>'+
-        '<div class=div-opcion-report>'+
+        '<div class=div-opcion-colocacion>'+
             '<div class=div-tercio>'+
                 '<div class=div-opciones>'+
                     '<label id="lbl-fecha" for="form-date-crtl" class="lbl-style">Fecha de Carga</label>'+
@@ -21,10 +21,12 @@ function mantenimientocolocaciones(){
                 '<div class=div-total-botones></div>'+
             '</div>'+
             '<div class=div-tercio>'+
-                '<div class=div-opciones>'+
+                '<div class=div-opciones-medio>'+
+            
+                '</div>'+
+                '<div class=div-opciones-medio>'+
                     '<input type="button" id="btnpdfcolocacion" class="inputformat" value="Generar Reporte" >'+
                 '</div>'+
-                '<div class=div-total-botones></div>'+
             '</div>'+
             '<div class=div-tercio>'+
                 '<div class=div-opciones></div>'+

@@ -8,16 +8,19 @@
         padding-top: 25px;
     }
 /* CONTENT */
-    h1{
+    /* h1{
+        color: #B8B8B8;
+    } */
+    #tituloempresa{
         color: #B8B8B8;
     }
     #main{
         background-color: #2C2C2C;
-        color: #B8B8B8;
+        /* color: #B8B8B8; */
     }
     #principal{
         background-color: #2C2C2C;
-        color: #B8B8B8;
+        /* color: #B8B8B8; */
     }
     th { 
         font-size: 12px; 
@@ -38,9 +41,10 @@
             width: 95%;
             height: 25px;
             font-family: 'Lato', Calibri, Arial, sans-serif;
-            font-size: 15px;
+            font-size: 16px;
             background: white;
             border: 2px solid #fff;
+            color:black;
         }
     /* Labels*/
         .lbl-style{
@@ -362,9 +366,14 @@
         height: 100px;
         float: left;
     }
+    .div-opcion-colocacion{
+        width: 100%;
+        height: 60px;
+        float: left;
+    }
     .div-opcion-liq{
         width: 100%;
-        height: 100px;
+        height: 65px;
         float: left;
     }
     .div-tercio{
@@ -375,9 +384,14 @@
     .div-opciones{
         width: 100%;
         height: 80%;
-        float: left;
-        
+        float: left;   
     }
+    .div-opciones-medio{
+        width: 100%;
+        height: 50%;
+        float: left;   
+    }
+
     .div-total-botones{
         width: 100%;
         height: 20%;

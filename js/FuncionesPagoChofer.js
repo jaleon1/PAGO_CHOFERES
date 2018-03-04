@@ -879,6 +879,8 @@ function CleanFormulario() {
     $("#inp-marchamo").val("");
     idchofer = null;
     idcalculokm = null;
+    $('#tblbodyingresos-form').empty();
+    $('#tblbodygastos-form').empty();
 };
 
 
@@ -887,7 +889,6 @@ $(document).on('click', '#btnguardarform', function (event) {
         InsertarFormulario();
     else
         ModificarFormulario();
-    CleanFormulario();
 });
 
 $(document).on('click', '#btncolocarform', function (event) {
@@ -939,10 +940,21 @@ function InsertarFormulario(){
     .done(function( e ) {
         var data= JSON.parse(e);
         if (data=="ing") {
-            alert('FORMULARIO GUARDADO!');    
+            swal({
+                title: "FORMULARIO GUARDADO!",
+                text: "Correctamente!",
+                icon: "success",
+              });
+            // alert('FORMULARIO GUARDADO!');
+            CleanFormulario();    
         }
         if (data=="dup"){
-            alert('CONTENEDOR DUPLICADO, INSERTE OTRO!');    
+            swal({
+                title: "CONTENEDOR DUPLICADO, INSERTE OTRO!",
+                text: "Error!",
+                icon: "error",
+              });
+            // alert('CONTENEDOR DUPLICADO, INSERTE OTRO!');    
         }
         
     })    

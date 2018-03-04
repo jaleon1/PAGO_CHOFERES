@@ -8,21 +8,15 @@ if (!isset($_SESSION))
 <html lang="en">
   <head>
     <title>Pago Choferes</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
 
-    <link rel="stylesheet" href="css/jquery.dataTables.min.css" type="text/css"/>
     <link rel="stylesheet" href="css/datatables.css" type="text/css"/>
-    <link rel="stylesheet" href="css/sweetalert.css" type="text/css"/>
-    <link rel="stylesheet" href="css\style2.css" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-
     <script type="text/jscript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/datatables.js" charset="utf8"></script>
-    <script type="text/javascript" src="js/TableToExcel.js"></script>
+    <link rel="stylesheet" href="css/sweetalert.css" type="text/css"/>
     <script type="text/javascript" src="js/sweetalert.js"></script>
+    <link rel="stylesheet" href="css\style2.css" type="text/css">
     <script type="text/javascript" src="js/jquery.validate.min.js" languaje="javascript"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
     <script src="js/FuncionesPagoChofer.js" languaje="javascript" type="text/javascript"></script> 
     <script src="js/Chofer.js" languaje="javascript" type="text/javascript"></script> 
@@ -35,16 +29,25 @@ if (!isset($_SESSION))
     <script src="js/Colocacion.js" languaje="javascript" type="text/javascript"></script>
     <script src="js/Liquidacion.js" languaje="javascript" type="text/javascript"></script>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- <link rel="stylesheet" href="css/jquery.dataTables.min.css" type="text/css"/> -->
     
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/filesaver.js" type="text/javascript"></script>
-    <script src="js/html2canvas.js" type="text/javascript"></script> 
-
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"> -->
+
+    <!-- <script type="text/javascript" src="js/TableToExcel.js"></script> -->
+    <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="css/bootstrap-theme.min.css"> -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- <script src="js/filesaver.js" type="text/javascript"></script>
+    <script src="js/html2canvas.js" type="text/javascript"></script>  -->
+
+    
 
   </head>
   <body>
@@ -59,7 +62,7 @@ if (!isset($_SESSION))
                     <i class="fa fa-tree fa-5x whiteiconcolor" aria-hidden="true"></i>-->
                 </div>
                 <div class="col-lg-6">
-                <h1>TRANSPACIFIC CR BELEN S.A</h1>
+                <h1 id=tituloempresa>TRANSPACIFIC CR BELEN S.A</h1>
                 </div>
             </div>
         </div>
