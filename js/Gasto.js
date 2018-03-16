@@ -13,7 +13,7 @@ function LoadAllGasto() {
         CleanCtlsGasto();
         ShowDataGasto(e);
     })
-    .fail(showError);
+    .fail();
 };
 
 //Listo
@@ -53,7 +53,7 @@ function UpdateEventHandlerGasto() {
     .done(function (e) {
         ShowItemDataGasto(e);
     })
-    .fail(showError);
+    .fail();
 };
 
 function DeleteEventHandlerGasto() {
@@ -101,14 +101,13 @@ function DeleteGasto() {
         );
         LoadAllGasto();
     })    
-    .fail(showError);
+    .fail();
 };
 
 //Listo
 function CleanCtlsGasto() {
-    $("#inp-nombre-inggas").val('');
-    $("#inp-monto-inggas").val('');    
-    $("#inp-porc-inggas").val('');
+    $("#inp-nombre-gas").val('');
+    $("#inp-monto-gas").val('');    
 };
 
 function ShowItemDataGasto(e) {
@@ -116,18 +115,19 @@ function ShowItemDataGasto(e) {
     CleanCtlsGasto();
     // carga lista con datos.
     var data = JSON.parse(e);
-    $("#inp-nombre-inggas").val(data[0].nombre);
-    $("#inp-monto-inggas").val(data[0].monto);
+    $("#inp-nombre-gas").val(data[0].nombre);
+    $("#inp-monto-gas").val(data[0].monto);
 };
 
 function FormValidateGasto(){
-    $("#frmingresogasto").validate({
-        lang: 'es', 
-        rules: {
-            'inp-nombre-inggas': "required"
-        },
-        submitHandler: SaveGasto
-    }); 
+    // $("#frmingresogasto").validate({
+    //     lang: 'es', 
+    //     rules: {
+    //         'inp-nombre-gas': "required"
+    //     },
+    //     submitHandler: SaveGasto
+    // }); 
+    SaveGasto();
 };
 
 // Save
@@ -140,11 +140,38 @@ function SaveGasto(){
         data: { 
             action: miAccion,  
             id: id,              
-            nombre:  $("#inp-nombre-inggas").val(),
-            monto: $("#inp-monto-inggas").val()
+            nombre:  $("#inp-nombre-gas").val(),
+            monto: $("#inp-monto-gas").val()
         }
     })
-    .done(showInfo)
-    .fail(showError)
+    .done(showInfoGasto)
+    .fail()
     .always(LoadAllGasto);
 }; 
+
+function showInfoGasto() {
+    // alert('show info');
+    swal({
+        title: "Gasto Insertado!",
+        text: "Correctamente!",
+        icon: "success",
+      });
+    // $(".modal").css({ display: "none" });  
+    // $("#textomensaje").text("Gasto almacenado correctamente!!");
+    // $("#mensajetop").css("background-color", "#016DC4");
+    // $("#mensajetop").css("color", "#FFFFFF");    
+    // $("#mensajetop").css("visibility", "visible");
+    // $("#mensajetop").slideDown("slow");
+    // $("#mensajetop").slideDown("slow").delay(3000).slideUp("slow");
+};
+
+function showErrorGasto() {
+    alert('Error Gasto');
+    /*$(".modal").css({ display: "none" });  
+    $("#textomensaje").text("Error al procesar la información");
+    $("#mensajetop").css("background-color", "firebrick");
+    $("#mensajetop").css("color", "white");    
+    $("#mensajetop").css("visibility", "visible");
+    $("#mensajetop").slideDown("slow");
+    $("#mensajetop").slideDown("slow").delay(3000).slideUp("slow");*/
+};

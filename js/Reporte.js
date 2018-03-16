@@ -47,30 +47,33 @@ $(document).ready(function () {
 
 function mantenimientoreportes(){
     $('#contenido-form').html(""); 
-    var inputs = '<div id="div-repo">'+
-        '<div id=div-report-titulo>'+
-            '<h3>HISTORIAL</h3>'+
-        '</div>'+
-        '<div id=div-lista-reporte>'+
-        
-        '</div>'+
-        '<div class=div-opcion-report>'+
-            '<div class=div-tercio>'+
-                '<div class=div-opciones></div>'+
-                '<div class=div-total-botones></div>'+
-            '</div>'+
-            '<div class=div-tercio>'+
-                '<div class=div-opciones>'+
-                
-                '</div>'+
-                '<div class=div-total-botones></div>'+
-            '</div>'+
-            '<div class=div-tercio>'+
-                '<div class=div-opciones></div>'+
-                '<div class=div-total-botones></div>'+
-            '</div>'+
-        '</div>'+    
-    '</div>';
+    var inputs ='<div id="div-repo">'+
+                    '<div id=div-report-titulo>'+
+                        '<h3>HISTORIAL</h3>'+
+                    '</div>'+
+                    '<div id=div-lista-reporte>'+
+                    '</div>'+
+
+                    '<div class=div-opcion-report>'+
+                        '<div class=div-tercio>'+
+                            '<select id=select-repor onchange="TipoReporte()">'+
+                                '<option value="TODOS">TODOS</option>'+
+                                '<option value="ACTIVOS">ACTIVOS</option>'+
+                                '<option value="PENDIENTES">PENDIENTES</option>'+
+                            '</select>'+
+                        '</div>'+
+                        '<div class=div-tercio>'+
+                            '<div class=div-opciones>'+
+                            
+                            '</div>'+
+                            '<div class=div-total-botones></div>'+
+                        '</div>'+
+                        '<div class=div-tercio>'+
+                            '<div class=div-opciones></div>'+
+                            '<div class=div-total-botones></div>'+
+                        '</div>'+
+                    '</div>'+    
+                '</div>';
     $('#contenido-form').append(inputs);
 };
 
@@ -83,7 +86,7 @@ function listareportes(){
     $('#tblreportes').DataTable( {
         "order": [[ 0, "asc" ]],
         "paging":   false,
-        "scrollY": "400px",
+        "scrollY": "340px",
         "scrollCollapse": true,
         "bInfo" : false
     });
@@ -103,6 +106,44 @@ function ConsultaGeneral(){
         alert("Error al Cargar Reportes");
     });    
 };
+
+function ConsultaFormActivo(){
+    $.ajax({
+        type: "POST",
+        url: "class/Reporte.php",
+        data: { action: "ConsultaActivos"}
+    })
+    .done(function( e ) {
+        ShowDataReporteActivos(e);
+    })    
+    .fail(function(msg){
+        alert("Error al Cargar Reportes");
+    });    
+};
+
+function ConsultaFormPendiente(){
+    $.ajax({
+        type: "POST",
+        url: "class/Reporte.php",
+        data: { action: "ConsultaPendientes"}
+    })
+    .done(function( e ) {
+        ShowDataReportePendientes(e);
+    })    
+    .fail(function(msg){
+        alert("Error al Cargar Reportes");
+    });    
+};
+
+function TipoReporte() {    
+    var x = document.getElementById("select-repor").value;
+    if (x=='TODOS') 
+        ConsultaGeneral();
+    if (x=='ACTIVOS')
+        ConsultaFormActivo();    
+    if (x=='PENDIENTES')
+        ConsultaFormPendiente();
+}
 
 // Carga lista
 function ConsultaFiltro() {
@@ -125,7 +166,6 @@ function ConsultaFiltro() {
 };
 
 function ShowDataReporte(e) {
-    // $('#contenido-form').html(""); 
     $('#tableBody-reportes').html("");
     $('#contenido-form').append("<table id='tblreportes'class='display'>");
     // carga lista con datos.
@@ -135,7 +175,7 @@ function ShowDataReporte(e) {
     $.each(data, function(i, item) {
         var estado_form;
         if (item.estado=="0") 
-            estado_form="EN ESPERA";
+            estado_form="PENDIENTE";
         else
             estado_form="ACTIVO";
         
@@ -158,16 +198,76 @@ function ShowDataReporte(e) {
         $('#btnmodform' + item.id).click(UpdateEventHandlerFormulario);
         $('.id-form').hide();       
     })
-    // Summary
-    // var foot= '<label for="inp-sumtotal" class="lbl-style">TOTAL</label>'+ 
-    //     '<input type="text" id="inp-sumtotal" name="inp-sumtotal" class="input-format" value="0" readonly />';
-    // //'<tfoot> <tr> <th>Total:</th> <th></th> <th></th> <th></th> <th></th> <th id="sumtotal"> </th> </tr> </tfoot>';
-    // $('#tableBody-reportes').append(foot);
-    // var sumtotal=0;
-    // $('.totalpago').each(function() {
-    //     sumtotal += parseFloat( $(this).text() );
-    //     $('#inp-sumtotal').val(sumtotal);
-    // });
+};
+
+function ShowDataReporteActivos(e) {
+    $('#tableBody-reportes').html("");
+    $('#contenido-form').append("<table id='tblreportes'class='display'>");
+    // carga lista con datos.
+    var data= JSON.parse(e);
+    visitantes = data;
+    // Recorre arreglo.
+    $.each(data, function(i, item) {
+        var estado_form;
+        if (item.estado=="0") 
+            estado_form="PENDIENTE";
+        else
+            estado_form="ACTIVO";
+        
+        var row="<tr class='fila'>"+
+            "<td class='id-form' style='display:none;'>"+ item.id+"</td>" +
+            "<td>"+ item.comprobante +"</td>" +
+            "<td>"+ item.chofer +"</td>" +
+            "<td>"+ item.fechacarga +"</td>" +
+            "<td>"+ item.contenedor +"</td>" +
+            // "<td>"+ item.placa +"</td>" +
+            // "<td>"+ item.finca +"</td>" +
+            // "<td>"+ item.naviera +"</td>" +
+            // "<td>"+ item.kms +"</td>" +
+            "<td>"+ estado_form +"</td>" +
+            // "<td class='totalpago'>"+ item.totalpago +"</td>" +
+            '<td><img id=btnmodform'+ item.id +' src=img/file_mod.png class=borrar></td>'+
+            '<td><img id=btndeleteform'+ item.id +' src=img/file_delete.png class=borrar></td>'+
+        "</tr>";
+        $('#tableBody-reportes').append(row);  
+        $('#btnmodform' + item.id).click(UpdateEventHandlerFormulario);
+        $('.id-form').hide();       
+    })
+};
+
+function ShowDataReportePendientes(e) {
+    $('#tableBody-reportes').html("");
+    $('#contenido-form').append("<table id='tblreportes'class='display'>");
+    // carga lista con datos.
+    var data= JSON.parse(e);
+    visitantes = data;
+    // Recorre arreglo.
+    $.each(data, function(i, item) {
+        var estado_form;
+        if (item.estado=="0") 
+            estado_form="PENDIENTE";
+        else
+            estado_form="ACTIVO";
+        
+        var row="<tr class='fila'>"+
+            "<td class='id-form' style='display:none;'>"+ item.id+"</td>" +
+            "<td>"+ item.comprobante +"</td>" +
+            "<td>"+ item.chofer +"</td>" +
+            "<td>"+ item.fechacarga +"</td>" +
+            "<td>"+ item.contenedor +"</td>" +
+            // "<td>"+ item.placa +"</td>" +
+            // "<td>"+ item.finca +"</td>" +
+            // "<td>"+ item.naviera +"</td>" +
+            // "<td>"+ item.kms +"</td>" +
+            "<td>"+ estado_form +"</td>" +
+            // "<td class='totalpago'>"+ item.totalpago +"</td>" +
+            '<td><img id=btnmodform'+ item.id +' src=img/file_mod.png class=borrar></td>'+
+            '<td><img id=btndeleteform'+ item.id +' src=img/file_delete.png class=borrar></td>'+
+        "</tr>";
+        $('#tableBody-reportes').append(row);  
+        $('#btnmodform' + item.id).click(UpdateEventHandlerFormulario);
+        $('.id-form').hide();       
+    })
 };
 
 function UpdateEventHandlerFormulario() {
@@ -237,6 +337,8 @@ function ShowItemDataFormulario(e) {
     kmsviaje = data[0][8];
     $("#inp-valor-viaje").val(data[0][10]);
     $("#inp-total-pago").val(data[0][11]);
+    $("#inp-booking").val(data[0][14]);
+    $("#inp-marchamo").val(data[0][15]);
     idchofer = data[0][12];
     idcalculokm = data[0][13];
 };

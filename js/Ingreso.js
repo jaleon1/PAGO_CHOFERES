@@ -13,7 +13,7 @@ function LoadAllIngreso() {
         CleanCtlsIngreso();
         ShowDataIngreso(e);
     })
-    .fail(showError);
+    .fail();
 };
 
 //Listo
@@ -54,7 +54,7 @@ function UpdateEventHandlerIngreso() {
     .done(function (e) {
         ShowItemDataIngreso(e);
     })
-    .fail(showError);
+    .fail();
 };
 
 function DeleteEventHandlerIngreso() {
@@ -102,14 +102,14 @@ function DeleteIngreso() {
         );
         LoadAllIngreso();
     })    
-    .fail(showError);
+    .fail();
 };
 
 //Listo
 function CleanCtlsIngreso() {
-    $("#inp-nombre-inggas").val('');
-    $("#inp-monto-inggas").val('');    
-    $("#inp-porc-inggas").val('');
+    $("#inp-nombre-ing").val('');
+    $("#inp-monto-ing").val('');    
+    $("#inp-porc-ing").val('');
 };
 
 function ShowItemDataIngreso(e) {
@@ -117,19 +117,20 @@ function ShowItemDataIngreso(e) {
     CleanCtlsIngreso();
     // carga lista con datos.
     var data = JSON.parse(e);
-    $("#inp-nombre-inggas").val(data[0].nombre);
-    $("#inp-monto-inggas").val(data[0].monto);
-    $("#inp-porc-inggas").val(data[0].porcentaje);
+    $("#inp-nombre-ing").val(data[0].nombre);
+    $("#inp-monto-ing").val(data[0].monto);
+    $("#inp-porc-ing").val(data[0].porcentaje);
 };
 
 function FormValidateIngreso(){
-    $("#frmingresogasto").validate({
-        lang: 'es', 
-        rules: {
-            'inp-nombre-inggas': "required"
-        },
-        submitHandler: SaveIngreso
-    }); 
+    // $("#frmingresogasto").validate({
+    //     lang: 'es', 
+    //     rules: {
+    //         'inp-nombre-ing': "required"
+    //     },
+    //     submitHandler: SaveIngreso
+    // }); 
+    SaveIngreso();
 };
 
 // Save
@@ -142,12 +143,39 @@ function SaveIngreso(){
         data: { 
             action: miAccion,  
             id: id,              
-            nombre:  $("#inp-nombre-inggas").val(),
-            monto: $("#inp-monto-inggas").val(),           
-            porcentaje: $("#inp-porc-inggas").val()
+            nombre:  $("#inp-nombre-ing").val(),
+            monto: $("#inp-monto-ing").val(),           
+            porcentaje: $("#inp-porc-ing").val()
         }
     })
-    .done(showInfo)
-    .fail(showError)
+    .done(showInfoIngreso)
+    .fail()
     .always(LoadAllIngreso);
 }; 
+
+function showInfoIngreso() {
+    //alert('show info');
+    swal({
+        title: "Ingreso Insertado!",
+        text: "Correctamente!",
+        icon: "success",
+      });
+    // $(".modal").css({ display: "none" });  
+    // $("#textomensaje").text("Ingreso almacenado correctamente!!");
+    // $("#mensajetop").css("background-color", "#016DC4");
+    // $("#mensajetop").css("color", "#FFFFFF");    
+    // $("#mensajetop").css("visibility", "visible");
+    // $("#mensajetop").slideDown("slow");
+    // $("#mensajetop").slideDown("slow").delay(3000).slideUp("slow");
+};
+
+function showErrorIngreso() {
+    alert('Error Ingreso');
+    /*$(".modal").css({ display: "none" });  
+    $("#textomensaje").text("Error al procesar la información");
+    $("#mensajetop").css("background-color", "firebrick");
+    $("#mensajetop").css("color", "white");    
+    $("#mensajetop").css("visibility", "visible");
+    $("#mensajetop").slideDown("slow");
+    $("#mensajetop").slideDown("slow").delay(3000).slideUp("slow");*/
+};

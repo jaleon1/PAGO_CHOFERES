@@ -13,17 +13,19 @@ var GastoArray=[];
 var seleccionlinea=0;
 var kmsviaje;
 var idchofer;
+var idnaviera;
 var idcalculokm;
 var idformulario=null;
 
 $(document).ready( function () {  
-    ingresosgastosformulario();
     seleccionfila();
     chofer();
     mantenimientochofer();
-    mantenimientoformpago();
-    ingresosgastosformulario();
-    Fecha();
+    contenedor();
+    mantenimientocontenedor();
+    // mantenimientoformpago();
+    // ingresosgastosformulario();
+    // Fecha();
     $("#filtrofecha").hide();
 });
 
@@ -64,10 +66,8 @@ $(document).on('click', '#inp-naviera', function (event) {
 function muestrafincanaviera(){
     
     $('#tablefinca').append("<table id='tblfincamant'class='tbl'>");
-    var col="<thead><tr><th>NOMBRE</th></tr></thead><tbody id='tableBody-finca'></tbody>";
+    var col="<thead><tr><th>NOMBRE</th><th>UB</th></tr></thead><tbody id='tableBody-finca'></tbody>";
     $('#tblfincamant').append(col);
-  
-    //$('#tableBody-finca').append(row1+row2+row3+row4+row5);  
 
     $('#tblfincamant').DataTable({
         "order": [[ 0, "asc" ]],
@@ -79,7 +79,7 @@ function muestrafincanaviera(){
     });
 
     $('#tablenaviera').append("<table id='tblnavieramant'class='tbl'>");
-    var col="<thead><tr><th>NOMBRE</th></tr></thead><tbody id='tableBody-naviera'></tbody>";
+    var col="<thead><tr><th>NOMBRE</th><th>UB</th></tr></thead><tbody id='tableBody-naviera'></tbody>";
     $('#tblnavieramant').append(col);
 
     $('#tblnavieramant').DataTable({
@@ -95,7 +95,6 @@ function muestrafincanaviera(){
 $(document).on('click', '#menu-ingresos-gastos', function (event) {    
     ingresosgastos();
     mantenimientoingresogasto();
-    document.getElementById("radio-ingreso").checked = true;
 });
 
 $(document).on('click','#tblcalculokm tr', function(){        
@@ -203,14 +202,6 @@ function ingresosgastosformulario(){
             null]
     });    
 }
-
-/*$(document).on('click', '#textarea-ingresos', function (event) {    
-    ingresosgastos();
-});
-
-$(document).on('click', '#textarea-gastos', function (event) {    
-    ingresosgastos();
-});*/
 
 $(document).on('click','#tblgastos tr', function(){        
     if(document.getElementById('inp-valor-viaje').value==""){
@@ -415,7 +406,8 @@ $(document).on('click','#tblchofer tr', function(){
         document.getElementById('inp-chofer').value = $(this).find('td:nth-child(2)').html();
     if(seleccionlinea==2)
         document.getElementById('lbl-chofer-liquidacion').innerHTML = $(this).find('td:nth-child(2)').html();
-        // $("#lbl-chofer-liquidacion").text()= $(this).find('td:nth-child(2)').html();
+    if(seleccionlinea==5)
+        document.getElementById('inp-cont-chofer').value = $(this).find('td:nth-child(2)').html();
 });
 
 
@@ -433,21 +425,21 @@ $(document).on('click', '#menu-chofer', function (event) {
     mantenimientochofer();
 });
 
-function chofer(){
-    LimpiaTitulo();
-    $('#div-mant-titulo').append("<h3 id='titulo-Chofer'>CHOFER</h3>");
-    $('#div-mants').append("<table id='tblchofer'class='tbl'>");
-    var col="<thead><tr><th>NOMBRE</th><th>CEDULA</th><th>TELEFONO</th><th>CORREO</th><th></th><th></th><th></th></tr></thead><tbody id='tableBody-chofer'></tbody>";
-    $('#tblchofer').append(col);
+// function chofer(){
+//     LimpiaTitulo();
+//     $('#div-mant-titulo').append("<h3 id='titulo-Chofer'>CHOFER</h3>");
+//     $('#div-mants').append("<table id='tblchofer'class='tbl'>");
+//     var col="<thead><tr><th>NOMBRE</th><th>CEDULA</th><th>TELEFONO</th><th>CORREO</th><th></th><th></th><th></th></tr></thead><tbody id='tableBody-chofer'></tbody>";
+//     $('#tblchofer').append(col);
 
-    $('#tblchofer').DataTable( {
-        "order": [[ 1, "asc" ]],
-        "paging":   false,
-        "scrollY": "180px",
-        "scrollCollapse": true,
-        "bInfo" : false
-    } );
-}
+//     $('#tblchofer').DataTable( {
+//         "order": [[ 1, "asc" ]],
+//         "paging":   false,
+//         "scrollY": "200px",
+//         "scrollCollapse": true,
+//         "bInfo" : false
+//     } );
+// }
 
 /*FORMULARIO PAGO*/
 $(document).on('click', '#menu-formulario-pago', function (event) {    
@@ -498,6 +490,12 @@ function mantenimientochofer(){
                 '<div class=contenido-input>'+
                     '<label for="lbl-tel-chofer" class="lbl-style">Telefono</label>'+
                     '<input type="text" id="inp-tel-chofer" name="inp-tel-chofer" class="input-format" value="" required/>'+
+                '</div>'+
+            '</div>'+
+            '<div class=caja-cuarto>'+ 
+                '<div class=contenido-input>'+
+                    '<label for="lbl-placa-chofer" class="lbl-style">Placa</label>'+
+                    '<input type="text" id="placa-tel-chofer" name="inp-placa-chofer" class="input-format" value="" required/>'+
                 '</div>'+
             '</div>'+
             '<div class=caja-cuarto>'+ 
@@ -615,14 +613,14 @@ function mantenimientoviajes(){
     var inputs = '<form id="frmviajes">'+'<div id=input-viajes>'+
         '<div class=caja-media>'+
             '<div id=tablefinca class=contenido-table>'+
-                '<label for="lbl-nombre-finca" class="lbl-style">FINCA</label>'+
+                '<label for="lbl-nombre-finca" class="lbl-style">PUNTO DE CARGA</label>'+
             '</div>'+
             '<div class=contenido-extra>'+
             '</div>'+
         '</div>'+
         '<div class=caja-media>'+
             '<div id=tablenaviera class=contenido-table>'+
-                '<label for="lbl-nombre-finca" class="lbl-style">NAVIERA</label>'+
+                '<label for="lbl-nombre-finca" class="lbl-style">PUNTO DE DESCARGA</label>'+
             '</div>'+
         '</div>'+
         '<div class=caja-cuarto>'+
@@ -664,56 +662,77 @@ function mantenimientoingresogasto(){
     $('#div-mant-inputs').html(""); 
     var inputs= '<form id=frmingresogasto>'+
         '<div id=input-ingresosgastos>'+                                           
-        '<div class=caja-cuarto>'+
-            '<div class=contenido-input>'+
-                '<label for="lbl-nombre-inggas" class="lbl-style">Nombre</label>'+
-                '<input type="text" id="inp-nombre-inggas" name="inp-nombre-inggas" class="input-format" value="" required/>'+
+            '<div class=caja-cuarto>'+
+                '<div class=contenido-input>'+
+                    '<label for="lbl-nombre-ing" class="lbl-style">Nombre Ingreso</label>'+
+                    '<input type="text" id="inp-nombre-ing" name="inp-nombre-ing" class="input-format" value=""/>'+
+                '</div>'+
             '</div>'+
-            '<div class=contenido-input>'+
-                '<input type="radio" id=radio-ingreso name="radio-ingreso-gasto" value="ingreso" checked="checked"> Ingreso'+
+            
+            '<div class=caja-cuarto>'+
+                '<div class=contenido-input>'+
+                    '<label for="lbl-monto-ing" class="lbl-style">Monto Ingreso</label>'+
+                    '<input type="text" id="inp-monto-ing" name="inp-monto-ing" class="input-format" value=""/>'+
+                '</div>'+
             '</div>'+
-        '</div>'+
-        '<div class=caja-cuarto>'+
-            '<div class=contenido-input>'+
-                '<label for="lbl-monto-inggas" class="lbl-style">Monto</label>'+
-                '<input type="text" id="inp-monto-inggas" name="inp-monto-inggas" class="input-format" value=""/>'+
+            
+            '<div class=caja-cuarto>'+
+                '<div class=contenido-input>'+
+                    '<label for="lbl-porc-ing" class="lbl-style">Porcentaje</label>'+
+                    '<input type="text" id="inp-porc-ing" name="inp-porc-ing" class="input-format" value=""/>'+
+                '</div>'+
             '</div>'+
-            '<div class=contenido-input>'+
-                '<input type="radio" id=radio-gasto name="radio-ingreso-gasto" value="gasto"> Gasto'+
+            
+            '<div class=caja-cuarto>'+
+                '<div class=contenido-input>'+
+                    '<div class=contenido-input-medio>'+
+                    '</div>'+
+                    '<div class=contenido-input-medio>'+
+                        '<input type="submit" id="btnguardaring" class="input-format" value="Guardar">'+
+                    '</div>'+
+                '</div>'+
             '</div>'+
-        '</div>'+
-        '<div class=caja-cuarto>'+
-            '<div class=contenido-input>'+
-                '<label for="lbl-porc-inggas" class="lbl-style">Porcentaje</label>'+
-                '<input type="text" id="inp-porc-inggas" name="inp-porc-inggas" class="input-format" value=""/>'+
+
+            '<div class=caja-cuarto>'+
+                '<div class=contenido-input>'+
+                    '<label for="lbl-nombre-gas" class="lbl-style">Nombre Gasto</label>'+
+                    '<input type="text" id="inp-nombre-gas" name="inp-nombre-gas" class="input-format" value=""/>'+
+                '</div>'+
             '</div>'+
-        '</div>'+
-        '<div class=caja-cuarto>'+
+            
+            '<div class=caja-cuarto>'+
+                '<div class=contenido-input>'+
+                    '<label for="lbl-monto-gas" class="lbl-style">Monto Gasto</label>'+
+                    '<input type="text" id="inp-monto-gas" name="inp-monto-gas" class="input-format" value=""/>'+
+                '</div>'+
+            '</div>'+
+
+            '<div class=caja-cuarto style=background-color:blue>'+
+            '<div class=contenido-input>'+
+            '</div>'+
+            '</div>'+
+
+            '<div class=caja-cuarto>'+
             '<div class=contenido-input>'+
                 '<div class=contenido-input-medio>'+
                 '</div>'+
                 '<div class=contenido-input-medio>'+
-                    '<input type="submit" id="btnguardaringgas" class="input-format" value="Guardar">'+
+                    '<input type="submit" id="btnguardargas" class="input-format" value="Guardar">'+
                 '</div>'+
             '</div>'+
-        '</div>'+    
-    '</div>'+
+            '</div>'+
+
+        '</div>'+
     '</form>';
     $('#div-mant-inputs').append(inputs);
-    document.getElementById("radio-ingreso").checked = true;
-        // evento
-    /*if(document.getElementById("radio-ingreso").checked == true)
-        $('#btnguardaringgas').click(FormValidateIngreso);
-    if(document.getElementById("radio-gasto").checked == true)
-        $('#btnguardaringgas').click(FormValidateGasto);*/
 }
 
-$(document).on('click', '#btnguardaringgas', function (event) {
-    if(document.getElementById("radio-ingreso").checked == true)
-        FormValidateIngreso();
-    
-    if(document.getElementById("radio-gasto").checked == true)
-        FormValidateGasto();
+$(document).on('click', '#btnguardaring', function (event) {
+    FormValidateIngreso();
+}); 
+
+$(document).on('click', '#btnguardargas', function (event) {  
+    FormValidateGasto();
 }); 
 
 function mantenimientoformpago(){
@@ -722,15 +741,16 @@ function mantenimientoformpago(){
     //'<form action="" method="">'+
     '<div id="div-form" class="">'+
         '<div id="div-form-titulo">'+
-            '<h3>FORMULARIO DE PAGO</h3>'+
+            '<h3>FORMULARIO DE PAGO <label class="lbl-style">COMPROBANTE #</label> <label id="lbl-comprobante"></label></h3>'+
         '</div>'+
+        
         '<div id="div-form-fecha" class="div-form-input">'+
             '<label id="lbl-fecha" for="form-date-crtl" class="lbl-style">Fecha de Carga</label>'+
             '<input type="datetime-local" id="form-date-crtl" name="form-date-crtl" class="input-format" required/>'+
         '</div>'+
         '<div id="div-form-fecha" class="div-form-input">'+
-            '<label class="lbl-style">COMPROBANTE   #</label></br>'+
-            '<label id="lbl-comprobante"></label>'+
+            '<label for="lbl-chofer" class="lbl-style">Marchamo</label>'+
+            '<input type="text" id="inp-marchamo" name="inp-marchamo" class="input-format" value="" required/>'+ 
         '</div>'+
         '<div id="div-form-chofer" class="div-form-input">'+
             '<label for="lbl-chofer" class="lbl-style">Chofer</label>'+
@@ -795,7 +815,8 @@ function LimpiaTitulo(){
     $('#div-mants').html("");  
     $('#div-mant-inputs').html("");    
     $('h3:contains(CHOFER)').remove();
-    $('h3:contains(FINCA)').remove();
+    // $('h3:contains(CONTENEDOR)').remove();
+    $('h3:contains(PUNTO DE CARGA)').remove();
     $('h3:contains(NAVIERA)').remove();
     $('h3:contains(VIAJE)').remove();
     $('h3:contains(INGRESOS Y GASTOS)').remove();
@@ -853,7 +874,24 @@ $(document).on('click', '#btnaddgastos', function (event) {
     }
 }); 
 
-
+function CleanFormulario() {
+    
+    $("#lbl-comprobante").text("");
+    $("#inp-chofer").val("");
+    $("#inp-contenedor").val("");
+    $("#inp-placa").val("");
+    $("#inp-finca").val("");
+    $("#inp-naviera").val("");
+    kmsviaje = null;
+    $("#inp-valor-viaje").val("");
+    $("#inp-total-pago").val("");
+    $("#inp-booking").val("");
+    $("#inp-marchamo").val("");
+    idchofer = null;
+    idcalculokm = null;
+    $('#tblbodyingresos-form').empty();
+    $('#tblbodygastos-form').empty();
+};
 
 
 $(document).on('click', '#btnguardarform', function (event) {
@@ -877,6 +915,7 @@ $(document).on('click', '#btncolocarform', function (event) {
     })
     .done(function( e ) {
         alert('AGREGADO A COLOCACIONES DIARIAS!');    
+        CleanFormulario();
     })    
     .fail(function(msg){
         
@@ -903,6 +942,7 @@ function InsertarFormulario(){
                 totalpago: parseFloat(document.getElementById('inp-total-pago').value),
                 kms:parseInt(kmsviaje),
                 booking:document.getElementById('inp-booking').value,
+                marchamo:document.getElementById('inp-marchamo').value,
                 ingresos: IngresoArray,
                 gastos: GastoArray
               }
@@ -910,10 +950,21 @@ function InsertarFormulario(){
     .done(function( e ) {
         var data= JSON.parse(e);
         if (data=="ing") {
-            alert('FORMULARIO GUARDADO!');    
+            swal({
+                title: "FORMULARIO GUARDADO!",
+                text: "Correctamente!",
+                icon: "success",
+              });
+            // alert('FORMULARIO GUARDADO!');
+            CleanFormulario();    
         }
         if (data=="dup"){
-            alert('CONTENEDOR DUPLICADO, INSERTE OTRO!');    
+            swal({
+                title: "CONTENEDOR DUPLICADO, INSERTE OTRO!",
+                text: "Error!",
+                icon: "error",
+              });
+            // alert('CONTENEDOR DUPLICADO, INSERTE OTRO!');    
         }
         
     })    
@@ -941,6 +992,8 @@ function ModificarFormulario(){
                 valorviaje: parseFloat(document.getElementById('inp-valor-viaje').value),
                 totalpago: parseFloat(document.getElementById('inp-total-pago').value),
                 kms:parseInt(kmsviaje),
+                booking:document.getElementById('inp-booking').value,
+                marchamo:document.getElementById('inp-marchamo').value,
                 ingresos: IngresoArray,
                 gastos: GastoArray
               }

@@ -14,17 +14,11 @@ $(document).ready(function () {
     });
 });
 
-// $(document).on('click','#tblfinca tr', function(){        
-//     //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
-//     document.getElementById('inp-finca').value = $(this).find('td:first').html();
-// });
-
-
 function finca(){
     LimpiaTitulo(); 
-    $('#div-mant-titulo').append("<h3 id='titulo-finca'>FINCA</h3>");
+    $('#div-mant-titulo').append("<h3 id='titulo-finca'>PUNTO DE CARGA</h3>");
     $('#div-mants').append("<table id='tblfinca'class='tbl'>");
-    var col="<thead><tr><th>NOMBRE</th><th>UBICACION</th><th>TELEFONO</th></thead><tbody id='tableBody-finca'></tbody>";
+    var col="<thead><tr><th>NOMBRE</th><th>UBICACION</th><th>TELEFONO</th><th></th><th></th></thead><tbody id='tableBody-finca'></tbody>";
     $('#tblfinca').append(col);
     //$('#tableBody').append(row1+row2+row3+row4+row5);  
 
@@ -37,30 +31,6 @@ function finca(){
     });
     LoadAllFinca();
 }
-
-// Muestra información en ventana
-// function showInfo() {
-//     //alert('show info');
-//     /*$(".modal").css({ display: "none" });  
-//     $("#textomensaje").text("Información almacenada correctamente!!");
-//     $("#mensajetop").css("background-color", "#016DC4");
-//     $("#mensajetop").css("color", "#FFFFFF");    
-//     $("#mensajetop").css("visibility", "visible");
-//     $("#mensajetop").slideDown("slow");
-//     $("#mensajetop").slideDown("slow").delay(3000).slideUp("slow");*/
-// };
-
-// Muestra errores en ventana
-// function showError() {
-//     alert('show error');
-//     /*$(".modal").css({ display: "none" });  
-//     $("#textomensaje").text("Error al procesar la información");
-//     $("#mensajetop").css("background-color", "firebrick");
-//     $("#mensajetop").css("color", "white");    
-//     $("#mensajetop").css("visibility", "visible");
-//     $("#mensajetop").slideDown("slow");
-//     $("#mensajetop").slideDown("slow").delay(3000).slideUp("slow");*/
-// };
 
 // Carga lista
 function LoadAllFinca() {
@@ -91,7 +61,7 @@ function ShowDataFinca(e) {
             '<td style="display:none;">' + item.id + '</td>' +
             '<td>' + item.nombre + '</td>' +
             '<td>' + item.ubicacion + '</td>' +
-            //'<td>' + item.telefono + '</td>' +
+            '<td>' + item.telefono + '</td>' +
             
             '<td><img id=btnmodingreso'+ item.id + ' class=borrar src=img/file_mod.png></td>'+
             '<td><img id=btnborraingreso'+ item.id + ' class=borrar src=img/file_delete.png></td>'+

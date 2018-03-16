@@ -9,29 +9,14 @@ if (!isset($_SESSION))
   <head>
     <title>Pago Choferes</title>
     
-    <!-- <link rel="stylesheet" href="css/jquery.dataTables.min.css" type="text/css"/> -->
-    <!-- <link rel="stylesheet" href="css/buttons.dataTables.min.css" type="text/css"/> -->
+
     <link rel="stylesheet" href="css/datatables.css" type="text/css"/>
-    
-    <script src="js/jquery.js" type="text/jscript"></script>
-
-    <!-- <script src="js/jspdf.min.js" languaje="javascript" type="text/javascript"></script> -->
-
-    <!-- DATATABLES BOOSTRAP -->
-    <script src="js/datatables.js" type="text/javascript" charset="utf8"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>																													   
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
-    <!-- <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script> -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
-    <!-- <script type="text/javascript" src="https://cdn.datatables.net/buttons/15.1/js/buttons.print.min.js"></script> -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" type="text/css"/>
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" type="text/css"/>
-    
+    <script type="text/jscript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/datatables.js" charset="utf8"></script>
+    <link rel="stylesheet" href="css/sweetalert.css" type="text/css"/>
+    <script type="text/javascript" src="js/sweetalert.js"></script>
+    <link rel="stylesheet" href="css\style2.css" type="text/css">
+    <script type="text/javascript" src="js/jquery.validate.min.js" languaje="javascript"></script>
 
     <script src="js/FuncionesPagoChofer.js" languaje="javascript" type="text/javascript"></script> 
     <script src="js/Chofer.js" languaje="javascript" type="text/javascript"></script> 
@@ -43,23 +28,26 @@ if (!isset($_SESSION))
     <script src="js/Gasto.js" languaje="javascript" type="text/javascript"></script>
     <script src="js/Colocacion.js" languaje="javascript" type="text/javascript"></script>
     <script src="js/Liquidacion.js" languaje="javascript" type="text/javascript"></script>
-    
-    <script type="text/javascript" src="js/sweetalert.js"></script>
-    <script src="js/jquery.validate.min.js" languaje="javascript" type="text/javascript"></script>
-    <script type="text/javascript" src="js/localization/messages_es.js"></script>
-    <link rel="stylesheet" href="css/sweetalert.css" type="text/css"/>
-    <!-- <link rel="stylesheet" href="css/dropdownmenu.css" type="text/css"/> -->
+    <script src="js/contenedor.js" languaje="javascript" type="text/javascript"></script>
 
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <!-- <link rel="stylesheet" href="css/jquery.dataTables.min.css" type="text/css"/> -->
+    
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap CSS -->
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="css\style2.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"> -->
+
+    <!-- <script type="text/javascript" src="js/TableToExcel.js"></script> -->
+    <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="css/bootstrap-theme.min.css"> -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- <script src="js/filesaver.js" type="text/javascript"></script>
+    <script src="js/html2canvas.js" type="text/javascript"></script>  -->
+
     
 
   </head>
@@ -75,7 +63,7 @@ if (!isset($_SESSION))
                     <i class="fa fa-tree fa-5x whiteiconcolor" aria-hidden="true"></i>-->
                 </div>
                 <div class="col-lg-6">
-                <h1>TRANSPACIFIC CR BELEN S.A</h1>
+                <h1 id=tituloempresa>TRANSPACIFIC CR BELEN S.A</h1>
                 </div>
             </div>
         </div>
@@ -92,9 +80,8 @@ if (!isset($_SESSION))
                                         </a>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                                             <li><a id="menu-chofer" tabindex="-1" href="#">Chofer</a></li>
-                                            <li><a id="menu-finca" tabindex="-1" href="#">Finca</a></li>
+                                            <li><a id="menu-finca" tabindex="-1" href="#">Punto de Carga</a></li>
                                             <li><a id="menu-naviera" tabindex="-1" href="#">Naviera</a></li>
-                                            <li><a id="menu-calculokm" tabindex="-1" href="#">Viajes</a></li>
                                             <li><a id="menu-ingresos-gastos" tabindex="-1" href="#">Ingresos y Gastos</a></li>
                                         </ul>
                                 </div>
@@ -110,6 +97,7 @@ if (!isset($_SESSION))
                                             <li><a id="menu-reporte" tabindex="-1" href="#">Historial</a></li>
                                             <li><a id="menu-liquidacion" tabindex="-1" href="#">Liquidación</a></li>
                                             <li><a id="menu-colocacion" tabindex="-1" href="#">Colocaciones Diarias</a></li>
+                                            <li><a id="menu-contenedor" tabindex="-1" href="#">Contenedores</a></li>
                                         </ul>
                                 </div>
                             </li>
@@ -137,13 +125,6 @@ if (!isset($_SESSION))
                 <div class=prin-margen-center></div>
             </div>
             <div class=prin-formulario>
-                <!-- <select name="filtrofecha" id="filtrofecha">
-                    <option value="Total">Total</option>
-                    <option value="Anual">Anual</option>
-                    <option value="Semanal">Semanal</option>
-                    <option value="Mensual">Mensual</option>
-                    <option value="Diario">Diario</option>
-                </select> -->
                 <div class=prin-margen-center></div>
                 <div id=contenido-form class=contenido-form>                
                 </div>   

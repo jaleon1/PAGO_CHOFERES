@@ -9,46 +9,48 @@ $(document).on('click','#menu-liquidacion', function(){
 
 function mantenimientoliquidaciones(){
     $('#contenido-form').html(""); 
-    var inputs = '<div id="div-liquidacion">'+
-        '<div id=div-liquidacion-titulo>'+
-            '<h3>LIQUIDACIÓN</h3>'+
-            '<label id=lbl-chofer-liquidacion class="lbl-style"></label></br>'+
-        '</div>'+
-        '<div id=div-lista-liquidacion>'+
-        '</div>'+
-        '<div id=div-inggas-liquidacion>'+
-            '<div id=div-liq-ingresos>'+
-            '</div>'+
-            '<div id=div-liq-gastos>'+
-            '</div>'+            
-        '</div>'+
-        '<div id=div-totalpago-liq>'+
-            '<label class=lbl-pagototal-liq>PAGO TOTAL : </label><label id=lbl-pagototal-liq class=lbl-pagototal-liq></label>'+      
-        '</div>'+
-        
-        '<div class=div-opcion-report>'+
-            '<div class=div-tercio>'+
-                '<div class=div-opciones>'+
-                    '<label id="lbl-fecha" for="form-date-crtl" class="lbl-style">Fecha Inicial</label>'+
-                    '<input type="date" id="date-fechainicial" name="date-fechainicial" class="input-format" required/>'+
-                '</div>'+
-                '<div class=div-total-botones></div>'+
-            '</div>'+
-            '<div class=div-tercio>'+
-                '<div class=div-opciones>'+
-                    '<label id="lbl-fecha" for="form-date-crtl" class="lbl-style">Fecha Inicial</label>'+
-                    '<input type="date" id="date-fechafinal" name="date-fechafinal" class="input-format" required/>'+
-                '</div>'+
-                '<div class=div-total-botones></div>'+
-            '</div>'+
-            '<div class=div-tercio>'+
-                '<div class=div-opciones>'+
-                    '<input type="button" id="btnliquidacion" class="input-format" value="Liquidación Chofer">'+
-                '</div>'+
-                '<div class=div-total-botones></div>'+
-            '</div>'+
-        '</div>'+    
-    '</div>';
+    var inputs ='<div id="div-liquidacion">'+
+                    '<div id=div-liquidacion-titulo>'+
+                        '<h3>LIQUIDACIÓN</h3>'+
+                        '<label id=lbl-chofer-liquidacion class="lbl-style"></label></br>'+
+                    '</div>'+
+                    '<div id=div-lista-liquidacion>'+
+                    '</div>'+
+                    '<div id=div-inggas-liquidacion>'+
+                        '<div id=div-liq-ingresos>'+
+                        '</div>'+
+                        '<div id=div-liq-gastos>'+
+                        '</div>'+            
+                    '</div>'+
+                    '<div id=div-totalpago-liq>'+
+                        '<label class=lbl-pagototal-liq>PAGO TOTAL : </label><label id=lbl-pagototal-liq class=lbl-pagototal-liq></label>'+      
+                    '</div>'+
+                    
+                    '<div class=div-opcion-liq>'+
+                        '<div class=div-tercio>'+
+                            '<div class=div-opciones>'+
+                                '<label id="lbl-fecha" for="form-date-crtl" class="lbl-style">Fecha Inicial</label>'+
+                                '<input type="date" id="date-fechainicial" name="date-fechainicial" class="input-format" required/>'+
+                            '</div>'+
+                            '<div class=div-total-botones></div>'+
+                        '</div>'+
+                        '<div class=div-tercio>'+
+                            '<div class=div-opciones>'+
+                                '<label id="lbl-fecha" for="form-date-crtl" class="lbl-style">Fecha Inicial</label>'+
+                                '<input type="date" id="date-fechafinal" name="date-fechafinal" class="input-format" required/>'+
+                            '</div>'+
+                            '<div class=div-total-botones></div>'+
+                        '</div>'+
+                        '<div class=div-tercio>'+
+                            '<div class=div-opciones-medio>'+
+                                
+                            '</div>'+
+                            '<div class=div-opciones-medio>'+
+                                '<input type="button" id="btnliquidacion" class="input-format" value="Liquidación Chofer">'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'+    
+                '</div>';
     $('#contenido-form').append(inputs);
 };
 
@@ -74,15 +76,15 @@ function listaliquidaciones(){
     $('#tblliquidacion').DataTable( {
         "order": [[ 0, "asc" ]],
         "paging":   false,
-        "scrollY": "350px",
+        "scrollY": "200px",
         "scrollCollapse": true,
         "bInfo" : false,
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5']
+        "columns": [
+            { "width": "35%" },
+            { "width": "18%" },
+            { "width": "18%" },
+            { "width": "18%" },
+            { "width": "11%" }]
     });
 };
 
@@ -101,7 +103,7 @@ function ingresosliquidacion(){
         "bLengthChange": false,
         searching: false,
         "bInfo": false,
-        "scrollY": "105px",
+        "scrollY": "130px",
         "scrollCollapse": true,
         "bPaginate": false,
         "columns": [
@@ -124,7 +126,7 @@ function gastosliquidacion(){
         "bLengthChange": false,
         searching: false,
         "bInfo": false,
-        "scrollY": "105px",
+        "scrollY": "130px",
         "scrollCollapse": true,
         "bPaginate": false,
         "columns": [
@@ -135,9 +137,6 @@ function gastosliquidacion(){
 
 
 $(document).on('click', '#btnliquidacion', function (event) {    
-    // DestruyeDataTable('tblliquidacion');
-    // DestruyeDataTable('tblliqingresos');
-    // DestruyeDataTable('tblliqgastos');
     ConsultaLiquidacion();
 });
 
@@ -263,3 +262,15 @@ function ShowDataLiquidacionGasto(e) {
         $('.id-form').hide();  
     })
 };
+
+// $("#btnliquidacionexcel").click(function() { 
+//     html2canvas($("#div-liquidacion"), {
+//         onrendered: function(canvas) {
+//             theCanvas = canvas;
+//             document.body.appendChild(canvas);
+//             canvas.toBlob(function(blob) {
+//               saveAs(blob, "Dashboard.png"); 
+//             });
+//         }
+//     });
+// });
