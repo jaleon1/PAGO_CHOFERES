@@ -23,6 +23,7 @@ if(isset($_POST["action"])){
             $chofer->telefono= $_POST["telefono"];
             $chofer->cuenta= $_POST["cuenta"];
             $chofer->correo= $_POST["correo"];
+            $chofer->correo= $_POST["placa"];
             $chofer->Insert();
             break;
         case "Update":
@@ -32,6 +33,7 @@ if(isset($_POST["action"])){
             $chofer->telefono= $_POST["telefono"];
             $chofer->cuenta= $_POST["cuenta"];
             $chofer->correo= $_POST["correo"];
+            $chofer->correo= $_POST["placa"];
             $chofer->Update();
             break;
         case "Delete":
@@ -48,6 +50,7 @@ class Chofer{
     public $telefono='';
     public $cuenta='';
     public $correo='';
+    public $placa='';
 
     function __construct(){
         require_once('Globals.php');
@@ -57,8 +60,8 @@ class Chofer{
 
     function LoadAll(){
         try {
-            $sql='SELECT id, nombre, cedula, telefono, cuenta 
-                FROM pagochofer.chofer                
+            $sql='SELECT id, nombre, cedula, telefono, cuenta
+                FROM pagochofer2.chofer                
                 ORDER BY nombre asc';
             $data= DATA::Ejecutar($sql);
             return $data;
@@ -69,7 +72,7 @@ class Chofer{
 
     function Load(){
         try {
-            $sql='SELECT id, nombre, cedula, telefono, cuenta , correo
+            $sql='SELECT id, nombre, cedula, telefono, cuenta , correo, placa
                 FROM chofer  
                 where id=:id';
             $param= array(':id'=>$this->id);
@@ -85,10 +88,10 @@ class Chofer{
 
     function Insert(){
         try {
-            $sql="INSERT INTO chofer (id,nombre, cedula, telefono, cuenta , correo)
-                VALUES (uuid(),:nombre, :cedula, :telefono, :cuenta , :correo)";              
+            $sql="INSERT INTO chofer (id,nombre, cedula, telefono, cuenta , correo, placa)
+                VALUES (uuid(),:nombre, :cedula, :telefono, :cuenta , :correo, :placa)";              
             //
-            $param= array(':nombre'=>$this->nombre,':cedula'=>$this->cedula,':telefono'=>$this->telefono, ':cuenta'=>$this->cuenta, ':correo'=>$this->correo);
+            $param= array(':nombre'=>$this->nombre,':cedula'=>$this->cedula,':telefono'=>$this->telefono, ':cuenta'=>$this->cuenta, ':correo'=>$this->correo, ':placa'=>$this->placa);
             $data = DATA::Ejecutar($sql,$param,true);
             if($data)
             {
@@ -103,9 +106,9 @@ class Chofer{
     function Update(){
         try {
             $sql="UPDATE chofer
-                SET nombre=:nombre, cedula=:cedula, telefono=:telefono, cuenta=:cuenta, correo=:correo
+                SET nombre=:nombre, cedula=:cedula, telefono=:telefono, cuenta=:cuenta, correo=:correo, placa=:placa
                 WHERE id=:id";
-            $param= array(':id'=>$this->id, ':nombre'=>$this->nombre,':cedula'=>$this->cedula,':telefono'=>$this->telefono, 'cuenta'=>$this->cuenta , 'correo'=>$this->correo );
+            $param= array(':id'=>$this->id, ':nombre'=>$this->nombre,':cedula'=>$this->cedula,':telefono'=>$this->telefono, 'cuenta'=>$this->cuenta , 'correo'=>$this->correo, ':placa'=>$this->placa );
             $data = DATA::Ejecutar($sql,$param,true);
             if($data)
                 return true;

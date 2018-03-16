@@ -76,7 +76,7 @@ function listaliquidaciones(){
     $('#tblliquidacion').DataTable( {
         "order": [[ 0, "asc" ]],
         "paging":   false,
-        "scrollY": "300px",
+        "scrollY": "200px",
         "scrollCollapse": true,
         "bInfo" : false,
         "columns": [

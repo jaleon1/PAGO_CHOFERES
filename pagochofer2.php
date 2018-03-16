@@ -28,6 +28,7 @@ if (!isset($_SESSION))
     <script src="js/Gasto.js" languaje="javascript" type="text/javascript"></script>
     <script src="js/Colocacion.js" languaje="javascript" type="text/javascript"></script>
     <script src="js/Liquidacion.js" languaje="javascript" type="text/javascript"></script>
+    <script src="js/contenedor.js" languaje="javascript" type="text/javascript"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -80,8 +81,7 @@ if (!isset($_SESSION))
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                                             <li><a id="menu-chofer" tabindex="-1" href="#">Chofer</a></li>
                                             <li><a id="menu-finca" tabindex="-1" href="#">Punto de Carga</a></li>
-                                            <li><a id="menu-naviera" tabindex="-1" href="#">Punto de Descarga</a></li>
-                                            <li><a id="menu-calculokm" tabindex="-1" href="#">Viajes</a></li>
+                                            <li><a id="menu-naviera" tabindex="-1" href="#">Naviera</a></li>
                                             <li><a id="menu-ingresos-gastos" tabindex="-1" href="#">Ingresos y Gastos</a></li>
                                         </ul>
                                 </div>
@@ -97,6 +97,7 @@ if (!isset($_SESSION))
                                             <li><a id="menu-reporte" tabindex="-1" href="#">Historial</a></li>
                                             <li><a id="menu-liquidacion" tabindex="-1" href="#">Liquidación</a></li>
                                             <li><a id="menu-colocacion" tabindex="-1" href="#">Colocaciones Diarias</a></li>
+                                            <li><a id="menu-contenedor" tabindex="-1" href="#">Contenedores</a></li>
                                         </ul>
                                 </div>
                             </li>
@@ -124,13 +125,6 @@ if (!isset($_SESSION))
                 <div class=prin-margen-center></div>
             </div>
             <div class=prin-formulario>
-                <!-- <select name="filtrofecha" id="filtrofecha">
-                    <option value="Total">Total</option>
-                    <option value="Anual">Anual</option>
-                    <option value="Semanal">Semanal</option>
-                    <option value="Mensual">Mensual</option>
-                    <option value="Diario">Diario</option>
-                </select> -->
                 <div class=prin-margen-center></div>
                 <div id=contenido-form class=contenido-form>                
                 </div>   

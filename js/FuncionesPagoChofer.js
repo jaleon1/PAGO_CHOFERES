@@ -13,17 +13,19 @@ var GastoArray=[];
 var seleccionlinea=0;
 var kmsviaje;
 var idchofer;
+var idnaviera;
 var idcalculokm;
 var idformulario=null;
 
 $(document).ready( function () {  
-    ingresosgastosformulario();
     seleccionfila();
     chofer();
     mantenimientochofer();
-    mantenimientoformpago();
-    ingresosgastosformulario();
-    Fecha();
+    contenedor();
+    mantenimientocontenedor();
+    // mantenimientoformpago();
+    // ingresosgastosformulario();
+    // Fecha();
     $("#filtrofecha").hide();
 });
 
@@ -404,7 +406,8 @@ $(document).on('click','#tblchofer tr', function(){
         document.getElementById('inp-chofer').value = $(this).find('td:nth-child(2)').html();
     if(seleccionlinea==2)
         document.getElementById('lbl-chofer-liquidacion').innerHTML = $(this).find('td:nth-child(2)').html();
-        // $("#lbl-chofer-liquidacion").text()= $(this).find('td:nth-child(2)').html();
+    if(seleccionlinea==5)
+        document.getElementById('inp-cont-chofer').value = $(this).find('td:nth-child(2)').html();
 });
 
 
@@ -487,6 +490,12 @@ function mantenimientochofer(){
                 '<div class=contenido-input>'+
                     '<label for="lbl-tel-chofer" class="lbl-style">Telefono</label>'+
                     '<input type="text" id="inp-tel-chofer" name="inp-tel-chofer" class="input-format" value="" required/>'+
+                '</div>'+
+            '</div>'+
+            '<div class=caja-cuarto>'+ 
+                '<div class=contenido-input>'+
+                    '<label for="lbl-placa-chofer" class="lbl-style">Placa</label>'+
+                    '<input type="text" id="placa-tel-chofer" name="inp-placa-chofer" class="input-format" value="" required/>'+
                 '</div>'+
             '</div>'+
             '<div class=caja-cuarto>'+ 
@@ -806,8 +815,9 @@ function LimpiaTitulo(){
     $('#div-mants').html("");  
     $('#div-mant-inputs').html("");    
     $('h3:contains(CHOFER)').remove();
+    // $('h3:contains(CONTENEDOR)').remove();
     $('h3:contains(PUNTO DE CARGA)').remove();
-    $('h3:contains(PUNTO DE DESCARGA)').remove();
+    $('h3:contains(NAVIERA)').remove();
     $('h3:contains(VIAJE)').remove();
     $('h3:contains(INGRESOS Y GASTOS)').remove();
     $('h3:contains(COLOCACIONES DIARIAS)').remove();

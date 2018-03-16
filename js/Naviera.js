@@ -13,15 +13,19 @@ $(document).ready(function () {
     });
 });
 
-// $(document).on('click','#tblnaviera tr', function(){        
-//     //SELECCIONA LA FILA Y LA INSERTA EN EL INPUT DC
-//     document.getElementById('inp-naviera').value = $(this).find('td:first').html();
-//     document.getElementById('inp-valor-viaje').value = '$710';
-// });
+$(document).on('click','#tblnaviera tr', function(){        
+    idnaviera = $(this).find('td:nth-child(1)').html();
+    document.getElementById('inp-cont-naviera').value = $(this).find('td:nth-child(2)').html();
+});
+
+$(document).on('click', '#inp-cont-naviera', function (event) {    
+    naviera();
+    mantenimientonaviera();
+});
 
 function naviera(){
     LimpiaTitulo();
-    $('#div-mant-titulo').append("<h3 id='titulo-naviera'>PUNTO DE DESCARGA</h3>");
+    $('#div-mant-titulo').append("<h3 id='titulo-naviera'>NAVIERA</h3>");
     $('#div-mants').append("<table id='tblnaviera'class='tbl'>");
     var col="<thead><tr><th>NOMBRE</th><th>UBICACION</th><th>TELEFONO</th><th></th><th></th></thead><tbody id='tableBody-naviera'></tbody>";
     $('#tblnaviera').append(col);

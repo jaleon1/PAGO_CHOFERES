@@ -48,25 +48,11 @@ function chofer(){
         text: "Correctamente!",
         icon: "success",
       });
-//     /*$(".modal").css({ display: "none" });  
-//     $("#textomensaje").text("Información almacenada correctamente!!");
-//     $("#mensajetop").css("background-color", "#016DC4");
-//     $("#mensajetop").css("color", "#FFFFFF");    
-//     $("#mensajetop").css("visibility", "visible");
-//     $("#mensajetop").slideDown("slow");
-//     $("#mensajetop").slideDown("slow").delay(3000).slideUp("slow");*/
 };
 
 // Muestra errores en ventana
 function showError() {
     alert('show error');
-    /*$(".modal").css({ display: "none" });  
-    $("#textomensaje").text("Error al procesar la información");
-    $("#mensajetop").css("background-color", "firebrick");
-    $("#mensajetop").css("color", "white");    
-    $("#mensajetop").css("visibility", "visible");
-    $("#mensajetop").slideDown("slow");
-    $("#mensajetop").slideDown("slow").delay(3000).slideUp("slow");*/
 };
 
 // Carga lista
@@ -180,6 +166,7 @@ function CleanCtlsChofer() {
     $("#inp-tel-chofer").val('');
     $("#inp-cuenta-chofer").val('');
     $("#inp-correo-chofer").val('');
+    $("#inp-placa-chofer").val('');
 };
 
 function ShowItemDataChofer(e) {
@@ -192,6 +179,7 @@ function ShowItemDataChofer(e) {
     $("#inp-tel-chofer").val(data[0].telefono);
     $("#inp-cuenta-chofer").val(data[0].cuenta);
     $("#inp-correo-chofer").val(data[0].correo);
+    $("#inp-placa-chofer").val(data[0].placa);
 };
 
 function FormValidateChofer(){
@@ -200,6 +188,7 @@ function FormValidateChofer(){
         rules: {
             'inp-nombre-chofer': "required",
             'inp-cuenta-chofer': "required",
+            'inp-placa-chofer': "required",
             'inp-cedula-chofer': {
                 required: true,
                 number:true
@@ -213,11 +202,6 @@ function FormValidateChofer(){
                 number: true
             }
         },
-        // messages: {
-        //     'inp-nombre-chofer': "Ingrese el nombre del Chofer.",
-        //     'inp-cuenta-chofer': "Ingrese el cuenta del Chofer.",
-        //     'inp-cedula-chofer': "Ingrese el cedula del Chofer."            
-        // },
         submitHandler: function() {
             $('#btnguardarchofer').attr("disabled", "disabled");
             SaveChofer();   
@@ -239,7 +223,8 @@ function SaveChofer(){
             cedula: $("#inp-cedula-chofer").val(),
             telefono: $("#inp-tel-chofer").val(),
             cuenta: $("#inp-cuenta-chofer").val(),
-            correo: $("#inp-correo-chofer").val()
+            correo: $("#inp-correo-chofer").val(),
+            placa: $("#inp-placa-chofer").val()
         }
     })
     .done(showInfo)
