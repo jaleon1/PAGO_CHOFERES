@@ -23,7 +23,7 @@ if(isset($_POST["action"])){
             $chofer->telefono= $_POST["telefono"];
             $chofer->cuenta= $_POST["cuenta"];
             $chofer->correo= $_POST["correo"];
-            $chofer->correo= $_POST["placa"];
+            $chofer->placa= $_POST["placa"];
             $chofer->Insert();
             break;
         case "Update":
@@ -33,7 +33,7 @@ if(isset($_POST["action"])){
             $chofer->telefono= $_POST["telefono"];
             $chofer->cuenta= $_POST["cuenta"];
             $chofer->correo= $_POST["correo"];
-            $chofer->correo= $_POST["placa"];
+            $chofer->placa= $_POST["placa"];
             $chofer->Update();
             break;
         case "Delete":
@@ -124,8 +124,9 @@ class Chofer{
     function CheckRelatedItems(){
         try{
             $sql="SELECT id
-                FROM formulariopago F  
-                WHERE F.idchofer= :id";                
+                FROM contenedor c
+                JOIN colocaciondiaria cd ON c.idchofer=cd.idchofer  
+                WHERE c.idchofer= :id";                
             $param= array(':id'=>$this->id);
             $data= DATA::Ejecutar($sql, $param);
             if(count($data))

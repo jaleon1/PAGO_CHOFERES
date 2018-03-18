@@ -1,4 +1,4 @@
-var id= null;
+// var id= null;
 $(document).ready(function () {
     $(document).on('click', '#menu-contenedor', function (event) {    
         // $("#div-mants").css("height", "340px");
@@ -30,7 +30,7 @@ function contenedor(){
 
     $('#contenido-form').append("<div id=div-form-titulo><h3 id='titulo-Contenedor'>CONTENEDOR</h3></div>");
     $('#contenido-form').append("<table id='tblcontenedor'class='tbl'>");
-    var col="<thead><tr><th style='display:none;'>ID</th><th>CONTENEDOR</th><th>MARCHAMO</th><th>NAVIERA</th><th></th><th></th></tr></thead><tbody id='tableBody-contenedor'></tbody>";
+    var col="<thead><tr><th style='display:none;'>ID</th><th>CONTENEDOR</th><th>MARCHAMO</th><th>NAVIERA</th><th>ESTADO</th><th></th><th></th><th></th></tr></thead><tbody id='tableBody-contenedor'></tbody>";
     $('#tblcontenedor').append(col);
     //
     $('#tblcontenedor').DataTable( {
@@ -83,21 +83,46 @@ function ShowDataContenedor(e) {
     var data = JSON.parse(e);
     // Recorre arreglo.
     $.each(data, function (i, item) {
+        var estado_cont;
+        if (item.estado==true) 
+            estado_cont='ACTIVO';
+        else
+            estado_cont='INACTIVO';
+        
         var row =
             '<tr>' +
             '<td style="display:none;">' + item.id + '</td>' +
             '<td>' + item.contenedor + '</td>' +
             '<td>' + item.marchamo + '</td>' +
             '<td>' + item.naviera + '</td>' +
+            '<td>' + estado_cont + '</td>' +
+            '<td><img id=btncolocar'+ item.id + ' class=borrar src=img/file_check.png></td>'+
             '<td><img id=btnmodingreso'+ item.id + ' class=borrar src=img/file_mod.png></td>'+
             '<td><img id=btnborraingreso'+ item.id + ' class=borrar src=img/file_delete.png></td>'+
             '</tr>';
         $('#tableBody-contenedor').append(row);
         // evento click del boton modificar-eliminar
+        $('#btncolocar' + item.id).click(ColocarEventHandlerContenedor);
         $('#btnmodingreso' + item.id).click(UpdateEventHandlerContenedor);
         $('#btnborraingreso' + item.id).click(DeleteEventHandlerContenedor);
     })
 };
+
+function ColocarEventHandlerContenedor(){
+    id = $(this).parents("tr").find("td").eq(0).text();  //Columna 0 de la fila seleccionda= ID.
+    $.ajax({
+        type: "POST",
+        url: "class/Contenedor.php",
+        data: {
+            action: 'Load',
+            id: id
+        }
+    })
+    .done(function (e) {
+        ShowItemDataColocacion(e);
+    })
+    .fail(showError);
+}
 
 function UpdateEventHandlerContenedor() {
     id = $(this).parents("tr").find("td").eq(0).text();  //Columna 0 de la fila seleccionda= ID.
@@ -175,11 +200,23 @@ function CleanCtlsContenedor() {
     $("#inp-cont-curena").val('');
 };
 
+function ShowItemDataColocacion(e) {
+    $('#contenido-form').html("");
+    listacolocaciones();
+    mantenimientocolocaciones();
+    // carga lista con datos.
+    var data = JSON.parse(e);
+    $("#inp-col-contenedor").val(FormatFecha(data[0].contenedor));
+    $("#inp-col-marchamo").val(data[0].marchamo);
+    idcontenedor=data[0].id;
+};
+
 function ShowItemDataContenedor(e) {
     // Limpia el controles
     CleanCtlsContenedor();
     // carga lista con datos.
     var data = JSON.parse(e);
+    $("#inp-cont-fechaingreso").val(FormatFecha(data[0].fechaingreso));
     $("#inp-cont-naviera").val(data[0].naviera);
     $("#inp-cont-chofer").val(data[0].chofer);
     $("#inp-cont-contenedor").val(data[0].contenedor);
@@ -188,6 +225,9 @@ function ShowItemDataContenedor(e) {
     $("#inp-cont-capacidad").val(data[0].capacidad);
     $("#inp-cont-predio").val(data[0].predio);
     $("#inp-cont-curena").val(data[0].curena);
+    idcontenedor=data[0].id;
+    idchofer=data[0].idchofer;
+    idnaviera=data[0].idnaviera;
 };
 
 function FormValidateContenedor(){
@@ -225,13 +265,13 @@ function FormValidateContenedor(){
 // Save
 function SaveContenedor(){   
     // Ajax: insert / Update.
-    var miAccion= id==null ? 'Insert' : 'Update';
+    var miAccion= idcontenedor==null ? 'Insert' : 'Update';
     $.ajax({
         type: "POST",
         url: "class/Contenedor.php",
         data: { 
             action: miAccion,  
-            id: id,              
+            id: idcontenedor,              
             fechaingreso: $("#inp-cont-fechaingreso").val(),
             idnaviera:  idnaviera,
             idchofer: idchofer,
@@ -243,7 +283,7 @@ function SaveContenedor(){
             curena: $("#inp-cont-curena").val()
         }
     })
-    .done(showInfo)
+    .done(showInfoContenedor)
     .fail(showError)
     .always(function() {
         setTimeout('$("#btnguardarcontenedor").removeAttr("disabled")', 1500);
@@ -332,6 +372,14 @@ function mantenimientocontenedor(){
     '</form>';
     //
     $('#contenido-form').append(inputs);
+    $("#inp-cont-fechaingreso").val(Fecha());
     // evento
     $('#btnguardarcontenedor').click(FormValidateContenedor);
+}
+
+function FormatFecha(fecha){
+    patron = " ",
+    nuevoValor    = "T",
+    result = fecha.replace(patron, nuevoValor);
+    return result;
 }

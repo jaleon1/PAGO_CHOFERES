@@ -20,7 +20,8 @@ if (!isset($_SESSION))
 
     <script src="js/FuncionesPagoChofer.js" languaje="javascript" type="text/javascript"></script> 
     <script src="js/Chofer.js" languaje="javascript" type="text/javascript"></script> 
-    <script src="js/Finca.js" languaje="javascript" type="text/javascript"></script> 
+    <script src="js/PuntoCarga.js" languaje="javascript" type="text/javascript"></script> 
+    <script src="js/PuntoDescarga.js" languaje="javascript" type="text/javascript"></script> 
     <script src="js/Naviera.js" languaje="javascript" type="text/javascript"></script> 
     <script src="js/Viajes.js" languaje="javascript" type="text/javascript"></script>
     <script src="js/Reporte.js" languaje="javascript" type="text/javascript"></script>
@@ -80,7 +81,8 @@ if (!isset($_SESSION))
                                         </a>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                                             <li><a id="menu-chofer" tabindex="-1" href="#">Chofer</a></li>
-                                            <li><a id="menu-finca" tabindex="-1" href="#">Punto de Carga</a></li>
+                                            <li><a id="menu-puntocarga" tabindex="-1" href="#">Punto de Carga</a></li>
+                                            <li><a id="menu-puntodescarga" tabindex="-1" href="#">Punto de Descarga</a></li>
                                             <li><a id="menu-naviera" tabindex="-1" href="#">Naviera</a></li>
                                             <li><a id="menu-ingresos-gastos" tabindex="-1" href="#">Ingresos y Gastos</a></li>
                                         </ul>
@@ -93,11 +95,11 @@ if (!isset($_SESSION))
                                         <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                                            <li><a id="menu-formulario-pago" tabindex="-1" href="#">Formulario Pago</a></li>
-                                            <li><a id="menu-reporte" tabindex="-1" href="#">Historial</a></li>
-                                            <li><a id="menu-liquidacion" tabindex="-1" href="#">Liquidación</a></li>
-                                            <li><a id="menu-colocacion" tabindex="-1" href="#">Colocaciones Diarias</a></li>
                                             <li><a id="menu-contenedor" tabindex="-1" href="#">Contenedores</a></li>
+                                            <li><a id="menu-colocacion" tabindex="-1" href="#">Colocaciones Diarias</a></li>
+                                            <li><a id="menu-formulario-pago" tabindex="-1" href="#">Liquidaciones</a></li>
+                                            <li><a id="menu-liquidacion" tabindex="-1" href="#">Historial Liquidación</a></li>
+                                            <li><a id="menu-reporte" tabindex="-1" href="#">Historial</a></li>
                                         </ul>
                                 </div>
                             </li>
