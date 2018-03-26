@@ -16,6 +16,10 @@ var idchofer;
 var idnaviera;
 var idcalculokm;
 var idformulario=null;
+var idcontenedor;
+var idpuntocarga;
+var idpuntodescarga;
+var idcolocacion;
 
 $(document).ready( function () {  
     seleccionfila();
@@ -406,6 +410,8 @@ $(document).on('click','#tblchofer tr', function(){
         document.getElementById('inp-chofer').value = $(this).find('td:nth-child(2)').html();
     if(seleccionlinea==2)
         document.getElementById('lbl-chofer-liquidacion').innerHTML = $(this).find('td:nth-child(2)').html();
+    if(seleccionlinea==4)
+        document.getElementById('inp-col-chofer').value = $(this).find('td:nth-child(2)').html();
     if(seleccionlinea==5)
         document.getElementById('inp-cont-chofer').value = $(this).find('td:nth-child(2)').html();
 });
@@ -444,7 +450,7 @@ $(document).on('click', '#menu-chofer', function (event) {
 /*FORMULARIO PAGO*/
 $(document).on('click', '#menu-formulario-pago', function (event) {    
     AbreFormulario();
-    Fecha();
+    document.getElementById("form-date-crtl").value = Fecha();
 });
 
 function AbreFormulario(){
@@ -495,7 +501,7 @@ function mantenimientochofer(){
             '<div class=caja-cuarto>'+ 
                 '<div class=contenido-input>'+
                     '<label for="lbl-placa-chofer" class="lbl-style">Placa</label>'+
-                    '<input type="text" id="placa-tel-chofer" name="inp-placa-chofer" class="input-format" value="" required/>'+
+                    '<input type="text" id="inp-placa-chofer" name="inp-placa-chofer" class="input-format" value="" required/>'+
                 '</div>'+
             '</div>'+
             '<div class=caja-cuarto>'+ 
@@ -514,50 +520,6 @@ function mantenimientochofer(){
     $('#div-mant-inputs').append(inputs);
     // evento
     $('#btnguardarchofer').click(FormValidateChofer);
-}
-
-function mantenimientofinca(){
-    $('#div-mant-inputs').html(""); 
-    var inputs = '<form id="frmfinca">'+
-                    '<div id=input-finca>'+
-                        '<div class=caja-media>'+
-                            '<div class=contenido-input>'+
-                                '<label for="lbl-nombre-finca" class="lbl-style">Nombre</label>'+
-                                '<input type="text" id="inp-nombre-finca" name="inp-nombre-finca" class="input-format" value="" required/>'+
-                            '</div>'+
-                        '</div>'+
-                        '<div class=caja-cuarto>'+
-                            '<div class=contenido-input>'+
-                                '<label for="lbl-ubicacion-finca" class="lbl-style">Ubicación</label>'+
-                                '<input type="text" id="inp-ubicacion-finca" name="inp-ubicacion-finca" class="input-format" value="" required/>'+
-                            '</div>'+
-                        '</div>'+
-                        '<div class=caja-cuarto>'+
-                            '<div class=contenido-input>'+
-                                '<label for="lbl-tel-finca" class="lbl-style">Telefono</label>'+
-                                '<input type="text" id="inp-tel-finca" name="inp-tel-finca" class="input-format" value="" required/>'+                        
-                            '</div>'+
-                        '</div>'+
-                        '<div class=caja-media>'+
-                            '<div class=contenido-input>'+
-                            '</div>'+
-                        '</div>'+
-                        '<div class=caja-cuarto>'+
-                            '<div class=contenido-input>'+
-                            '</div>'+
-                        '</div>'+
-                        '<div class=caja-cuarto>'+
-                            '<div class=contenido-input-medio>'+
-                            '</div>'+
-                            '<div class=contenido-input-medio>'+
-                                '<input type="submit" id="btnguardarfinca" class="input-format" value="Guardar">'+        
-                            '</div>'+
-                        '</div>'+
-                    '</div>'+
-                '</form>';
-    $('#div-mant-inputs').append(inputs);
-    // evento
-    $('#btnguardarfinca').click(FormValidateFinca);
 }
 
 function mantenimientonaviera(){
@@ -741,40 +703,24 @@ function mantenimientoformpago(){
     //'<form action="" method="">'+
     '<div id="div-form" class="">'+
         '<div id="div-form-titulo">'+
-            '<h3>FORMULARIO DE PAGO <label class="lbl-style">COMPROBANTE #</label> <label id="lbl-comprobante"></label></h3>'+
+            '<h3>LIQUIDACIONES <label class="lbl-style">COMPROBANTE #</label> <label id="lbl-comprobante"></label></h3>'+
         '</div>'+
         
         '<div id="div-form-fecha" class="div-form-input">'+
             '<label id="lbl-fecha" for="form-date-crtl" class="lbl-style">Fecha de Carga</label>'+
             '<input type="datetime-local" id="form-date-crtl" name="form-date-crtl" class="input-format" required/>'+
         '</div>'+
-        '<div id="div-form-fecha" class="div-form-input">'+
-            '<label for="lbl-chofer" class="lbl-style">Marchamo</label>'+
-            '<input type="text" id="inp-marchamo" name="inp-marchamo" class="input-format" value="" required/>'+ 
-        '</div>'+
         '<div id="div-form-chofer" class="div-form-input">'+
             '<label for="lbl-chofer" class="lbl-style">Chofer</label>'+
             '<input type="text" id="inp-chofer" name="inp-chofer" class="input-format" readonly="readonly" value="" required/>'+ 
-        '</div>'+
-        '<div id="div-form-placa" class="div-form-input">'+
-            '<label for="lbl-placa" class="lbl-style">Placa</label>'+
-            '<input type="text" id="inp-placa" name="inp-placa" class="input-format" value="" required/>'+ 
-        '</div>'+
-        '<div class="div-form-input">'+
-            '<label for="lbl-valor-viaje" class="lbl-style">Booking</label>'+
-            '<input type="text" id="inp-booking" name="inp-booking" class="input-format" value="" required/>'+ 
         '</div>'+
         '<div id="div-form-contenedor" class="div-form-input">'+
             '<label for="lbl-contenedor" class="lbl-style">Contenedor</label>'+
             '<input type="text" id="inp-contenedor" name="inp-contenedor" class="input-format" value="" required/>'+ 
         '</div>'+
         '<div id="div-form-finca" class="div-form-input">'+
-            '<label for="lbl-finca" class="lbl-style">Punto de Carga</label>'+
-            '<input type="text" id="inp-finca" name="inp-finca" class="input-format" readonly="readonly" value="" required/>'+ 
-        '</div>'+
-        '<div id="div-form-naviera" class="div-form-input">'+
-            '<label for="lbl-naviera" class="lbl-style">Punto de Descarga</label>'+
-            '<input type="text" id="inp-naviera" name="inp-naviera" class="input-format" readonly="readonly" value="" required/>'+ 
+            '<label for="lbl-puntocarga" class="lbl-style">Punto de Carga</label>'+
+            '<input type="text" id="inp-puntocarga" name="inp-puntocarga" class="input-format" readonly="readonly" value="" required/>'+ 
         '</div>'+
         '<div class="div-form-medio">'+         
             '<div id="div-form-ingresos">'+         
@@ -799,7 +745,6 @@ function mantenimientoformpago(){
             '<input type="text" id="inp-total-pago" name="inp-total-pago" class="input-format" readonly="readonly" value="" required/>'+
         '</div>'+
         '<div class="div-form-input">'+
-            '<input type="button" id="btncolocarform" class="input-format" value="Colocar">'+
 
         '</div>'+
         '<div class="div-form-input">'+
@@ -815,7 +760,7 @@ function LimpiaTitulo(){
     $('#div-mants').html("");  
     $('#div-mant-inputs').html("");    
     $('h3:contains(CHOFER)').remove();
-    // $('h3:contains(CONTENEDOR)').remove();
+    $('h3:contains(PUNTO DE DESCARGA)').remove();
     $('h3:contains(PUNTO DE CARGA)').remove();
     $('h3:contains(NAVIERA)').remove();
     $('h3:contains(VIAJE)').remove();
@@ -845,7 +790,7 @@ function Fecha(){
     }
 
     today = yyyy+'-'+mm+'-'+dd+'T'+hh+':'+min;    
-    document.getElementById("form-date-crtl").value = today;
+    return today;
 }
 
 

@@ -8,36 +8,36 @@ require_once("Log.php");
 //Globals::ConfiguracionIni();
 
 if(isset($_POST["action"])){
-    $finca= new Finca();
+    $puntodescarga= new PuntoDescarga();
     switch($_POST["action"]){       
         case "LoadAll":
-            echo json_encode($finca->LoadAll());
+            echo json_encode($puntodescarga->LoadAll());
             break;
         case "Load":
-            $finca->id=$_POST["id"];
-            echo json_encode($finca->Load());
+            $puntodescarga->id=$_POST["id"];
+            echo json_encode($puntodescarga->Load());
             break;
         case "Insert":
-            $finca->nombre= $_POST["nombre"];
-            $finca->ubicacion= $_POST["ubicacion"];
-            $finca->telefono= $_POST["telefono"];
-            $finca->Insert();
+            $puntodescarga->nombre= $_POST["nombre"];
+            $puntodescarga->ubicacion= $_POST["ubicacion"];
+            $puntodescarga->telefono= $_POST["telefono"];
+            $puntodescarga->Insert();
             break;
         case "Update":
-            $finca->id= $_POST["id"];
-            $finca->nombre= $_POST["nombre"];
-            $finca->ubicacion= $_POST["ubicacion"];            
-            $finca->telefono= $_POST["telefono"];
-            $finca->Update();
+            $puntodescarga->id= $_POST["id"];
+            $puntodescarga->nombre= $_POST["nombre"];
+            $puntodescarga->ubicacion= $_POST["ubicacion"];            
+            $puntodescarga->telefono= $_POST["telefono"];
+            $puntodescarga->Update();
             break;
         case "Delete":
-            $finca->id= $_POST["id"];            
-            echo json_encode($finca->Delete());
+            $puntodescarga->id= $_POST["id"];            
+            echo json_encode($puntodescarga->Delete());
             break;   
     }
 }
 
-class Finca{
+class PuntoDescarga{
     public $id='';
     public $nombre='';
     public $ubicacion='';
@@ -52,7 +52,7 @@ class Finca{
     function LoadAll(){
         try {
             $sql='SELECT id, nombre, ubicacion, telefono
-                FROM     finca       
+                FROM     puntodescarga       
                 ORDER BY nombre asc';
             $data= DATA::Ejecutar($sql);
             return $data;
@@ -64,7 +64,7 @@ class Finca{
     function Load(){
         try {
             $sql='SELECT id, nombre, ubicacion, telefono
-                FROM finca  
+                FROM puntodescarga  
                 where id=:id';
             $param= array(':id'=>$this->id);
             $data= DATA::Ejecutar($sql, $param);
@@ -79,7 +79,7 @@ class Finca{
 
     function Insert(){
         try {
-            $sql="INSERT INTO finca   (id,nombre, ubicacion, telefono)
+            $sql="INSERT INTO puntodescarga   (id,nombre, ubicacion, telefono)
                 VALUES (uuid(),:nombre, :ubicacion, :telefono )";              
             //
             $param= array(':nombre'=>$this->nombre,':ubicacion'=>$this->ubicacion,':telefono'=>$this->telefono );
@@ -96,7 +96,7 @@ class Finca{
 
     function Update(){
         try {
-            $sql="UPDATE finca 
+            $sql="UPDATE puntodescarga 
                 SET nombre=:nombre, ubicacion=:ubicacion, telefono=:telefono 
                 WHERE id=:id";
             $param= array(':id'=>$this->id, ':nombre'=>$this->nombre,':ubicacion'=>$this->ubicacion,':telefono'=>$this->telefono);
@@ -115,8 +115,8 @@ class Finca{
     function CheckRelatedItems(){
         try{
             $sql="SELECT id
-                FROM calculokm R
-                WHERE R.idfinca= :id";                
+                FROM colocaciondiaria c
+                WHERE c.idpuntodescarga= :id";                
             $param= array(':id'=>$this->id);
             $data= DATA::Ejecutar($sql, $param);
             if(count($data))
@@ -137,7 +137,7 @@ class Finca{
                 $sessiondata['msg']='Registro en uso'; 
                 return $sessiondata;                
             }                
-            $sql='DELETE FROM finca  
+            $sql='DELETE FROM puntodescarga  
             WHERE id= :id';
             $param= array(':id'=>$this->id);
             $data= DATA::Ejecutar($sql, $param, true);

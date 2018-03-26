@@ -96,7 +96,7 @@ class Contenedor{
     function Insert(){
         try {
             $sql="INSERT INTO `contenedor`(`id`, `fechaingreso`, `idnaviera`, `idchofer`, `contenedor`, `marchamo`, `booking`, `capacidad`, `predio`, `curena`, `estado`)
-                VALUES (uuid(), :fechaingreso, :idnaviera, :idchofer, :contenedor, :marchamo, :booking, :capacidad, :predio, :curena, true)";              
+                VALUES (uuid(), :fechaingreso, :idnaviera, :idchofer, :contenedor, :marchamo, :booking, :capacidad, :predio, :curena, false)";              
             //
             $param= array(':fechaingreso'=>$this->fechaingreso,':idnaviera'=>$this->idnaviera,':idchofer'=>$this->idchofer, ':contenedor'=>$this->contenedor, 
             ':marchamo'=>$this->marchamo, ':booking'=>$this->booking, ':capacidad'=>$this->capacidad,':predio'=>$this->predio,':curena'=>$this->curena);
